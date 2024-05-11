@@ -1,4 +1,4 @@
-import { CreateAccount } from "@/components/auth/createAccount";
+import { CreateAccount, Title } from "@/components/auth/createAccount";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="">
+    <main className="flex items-center justify-center flex-col space-y-3 min-h-[calc(100vh-116px)]">
+      <Title>Create an Account</Title>
       <CreateAccount />
     </main>
   );

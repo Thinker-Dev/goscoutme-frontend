@@ -1,8 +1,6 @@
 export type SignUpTypes = {
-  name: {
-    first: string;
-    last: string;
-  };
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 };
