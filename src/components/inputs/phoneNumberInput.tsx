@@ -22,7 +22,7 @@ export const PhoneNumberInput: FC<Props> = ({
       </span>
       <PhoneInput
         className={cn(
-          "bg-input rounded-b-md h-[35px] outline-none px-4 text-sm font-normal",
+          "bg-input rounded-b-md h-[39px] outline-none px-4 text-sm font-normal",
           className
         )}
         country="US"

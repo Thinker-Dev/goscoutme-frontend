@@ -2,8 +2,8 @@
 
 import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { SubmitButton } from "../buttons/submit";
-import { TextInput } from "../inputs/textInput";
+import { SubmitButton } from "../../buttons/submit";
+import { TextInput } from "../../inputs/textInput";
 import { usePathname } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,24 +14,24 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { RegistrationSchema } from "./schema/registration";
 import { genderData } from "@/data/genderData";
-import { RadioGroupInput } from "../inputs/radioGroupInput";
-import { TextAreaInput } from "../inputs/textAreaInput";
-import { CheckboxInput } from "../inputs/checkBoxInput";
-import { PhoneNumberInput } from "../inputs/phoneNumberInput";
-import { SelectInput } from "../inputs/selectInput";
+import { RadioGroupInput } from "../../inputs/radioGroupInput";
+import { TextAreaInput } from "../../inputs/textAreaInput";
+import { CheckboxInput } from "../../inputs/checkBoxInput";
+import { PhoneNumberInput } from "../../inputs/phoneNumberInput";
+import { SelectInput } from "../../inputs/selectInput";
+import { ScoutRegistrationSchema } from "../schema/registration/scout";
 
-export const RegistrationForm: FC = () => {
+export const ScoutRegistrationForm: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const [fileChosen, setFileChosen] = useState<boolean>(false);
 
-  const form = useForm<z.infer<typeof RegistrationSchema>>({
-    resolver: zodResolver(RegistrationSchema),
+  const form = useForm<z.infer<typeof ScoutRegistrationSchema>>({
+    resolver: zodResolver(ScoutRegistrationSchema),
   });
 
-  function onSubmit(values: z.infer<typeof RegistrationSchema>) {
+  function onSubmit(values: z.infer<typeof ScoutRegistrationSchema>) {
     console.log(values);
   }
 
@@ -330,13 +330,9 @@ export const RegistrationForm: FC = () => {
             </FormItem>
           )}
         />
-
-        <SubmitButton
-          label={"create account"}
-          className={`${
-            pathname.includes("sign-up-athlete") && "bg-secondary"
-          }`}
-        />
+        <div className="pt-4 flex justify-center">
+          <SubmitButton label={"create account"} />
+        </div>
       </form>
     </Form>
   );

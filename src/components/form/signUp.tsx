@@ -7,7 +7,7 @@ import { TextInput } from "../inputs/textInput";
 import { Facebook } from "../../../public/logo/facebook";
 import { Google } from "../../../public/logo/google";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -25,6 +25,7 @@ export const SignUpForm: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof SignUpSchema>>({
     resolver: zodResolver(SignUpSchema),
@@ -32,6 +33,7 @@ export const SignUpForm: FC = () => {
 
   function onSubmit(values: z.infer<typeof SignUpSchema>) {
     console.log(values);
+    router.push(`${lastSegment}/registration`);
   }
 
   return (

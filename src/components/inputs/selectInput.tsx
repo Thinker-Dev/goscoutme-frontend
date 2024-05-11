@@ -16,12 +16,12 @@ export const SelectInput: FC<Props> = ({
 }: Props) => {
   return (
     <div className="flex flex-col space-y-2">
-      <span className="capitalize font-normal font-lexenda_deca text-[12px] ">
+      <span className="font-normal font-lexenda_deca text-[12px] ">
         {label}
       </span>
       <select
         className={cn(
-          "bg-input rounded-b-md h-[35px] w-[206px] outline-none px-2 text-sm font-normal",
+          "bg-input rounded-b-md h-[39px] w-[206px] outline-none px-2 text-sm font-normal",
           className
         )}
         {...rest}

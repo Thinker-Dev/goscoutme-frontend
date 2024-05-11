@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const RegistrationSchema = z.object({
+export const ScoutRegistrationSchema = z.object({
   firstName: z.string({
     required_error: "This field is required",
   }),
@@ -11,7 +11,7 @@ export const RegistrationSchema = z.object({
     message: "Invalid email",
   }),
   sex: z.string({
-    required_error: "This field is required",
+    required_error: "Required",
   }),
   birthday: z.string({
     required_error: "This field is required",
@@ -23,7 +23,7 @@ export const RegistrationSchema = z.object({
     required_error: "This field is required",
   }),
   organization: z.string({
-    required_error: "This field is required",
+    required_error: "Please upload Club/Agency Certification ",
   }),
   organizationEmail: z.string({
     required_error: "This field is required",
@@ -50,6 +50,6 @@ export const RegistrationSchema = z.object({
     required_error: "This field is required",
   }),
   resposability: z.boolean({
-    required_error: "This field is required",
+    required_error: "Required",
   }),
 });

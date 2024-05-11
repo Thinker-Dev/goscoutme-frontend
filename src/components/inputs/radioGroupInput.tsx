@@ -47,10 +47,12 @@ export const RadioGroupInput: FC<Props> = ({
                 borderRadius: 0,
                 borderBottomLeftRadius: 10,
                 borderBottomRightRadius: 10,
+                width: 39,
+                height: 39,
               }}
               size={39}
             />
-            <span className="capitalize font-normal font-lexenda_deca text-xs">
+            <span className="font-normal font-lexenda_deca text-xs">
               {item.value}
             </span>
           </div>
