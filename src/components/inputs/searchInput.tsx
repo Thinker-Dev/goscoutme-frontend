@@ -27,3 +27,5 @@ export const SearchInput: FC<Props> = forwardRef<HTMLInputElement, Props>(
     );
   }
 );
+
+SearchInput.displayName = "SearchInput";

@@ -19,7 +19,7 @@ export const AthleteCard: FC = () => {
   return (
     <div className="space-y-10 mt-10">
       {athleteData.map((item, index) => (
-        <div className="flex justify-between">
+        <div className="flex justify-between" key={index}>
           <div className="flex space-x-4 ">
             <div className="relative">
               <Profile />

@@ -25,3 +25,5 @@ export const TextAreaInput: FC<Props> = forwardRef<HTMLTextAreaElement, Props>(
     );
   }
 );
+
+TextAreaInput.displayName = "TextAreaInput";

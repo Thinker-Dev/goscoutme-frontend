@@ -30,3 +30,5 @@ export const TextInput: FC<Props> = forwardRef<HTMLInputElement, Props>(
     );
   }
 );
+
+TextInput.displayName = "TextInput";
