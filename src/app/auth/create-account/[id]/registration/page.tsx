@@ -19,7 +19,7 @@ export default function Page() {
     <main className="flex items-center justify-center flex-col space-y-10 min-h-[calc(100vh-116px)] pb-10">
       <SignUpHeader title={title} />
       <RegistrationForm />
-      <span className="text-sm">
+      <span className="text-sm max-xs:text-xs ">
         Already have an account?{" "}
         <Link href={"/auth/login"} className="underline">
           Login

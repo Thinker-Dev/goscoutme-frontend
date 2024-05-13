@@ -21,7 +21,7 @@ export const SelectInput: FC<Props> = ({
       </span>
       <select
         className={cn(
-          "bg-input rounded-b-md h-[39px] w-[206px] outline-none px-2 text-sm font-normal",
+          "bg-input rounded-b-md h-[39px]  outline-none px-2 text-sm font-normal",
           className
         )}
         {...rest}

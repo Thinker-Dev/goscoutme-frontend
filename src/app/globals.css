@@ -103,3 +103,32 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.hidden-scroll {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.styled-scroll-bar {
+  /* width */
+  &::-webkit-scrollbar {
+    width: 11px;
+    padding-top: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    box-shadow: inset 0 0 5px #eee;
+    border-left: 4.5px solid transparent;
+    border-right: 4.5px solid transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #50a8ff;
+    width: 11px;
+  }
+}

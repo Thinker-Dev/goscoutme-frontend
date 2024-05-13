@@ -40,7 +40,12 @@ export const SignInForm: FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput label="email" {...field} className="bg-white" />
+                    <TextInput
+                      label="Email"
+                      {...field}
+                      className="bg-white"
+                      autoComplete="email"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -56,10 +61,13 @@ export const SignInForm: FC = () => {
                   <FormControl>
                     <PasswordInput {...field} className="bg-white" />
                   </FormControl>
-                  <Link href={"#"} className="flex justify-end text-xs">
+                  <FormMessage />
+                  <Link
+                    href={"#"}
+                    className="flex justify-end text-xs max-xs:text-xs"
+                  >
                     Forgot Password?
                   </Link>
-                  <FormMessage />
                 </FormItem>
               )}
             />

@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import Checkbox from "react-custom-checkbox";
 import { XIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Props {
   className?: string;
@@ -18,7 +19,7 @@ export const CheckboxInput: FC<Props> = ({
     setChecked(!checked);
   };
   return (
-    <div className="flex w-[520px] space-x-3">
+    <div className={cn("flex space-x-3")}>
       <Checkbox
         icon={
           <div>

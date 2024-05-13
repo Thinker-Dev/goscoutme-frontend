@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="flex items-center justify-center flex-col space-y-3 min-h-[calc(100vh-116px)] pb-10">
+    <main className="flex items-center justify-center flex-col space-y-3 min-h-[calc(100vh-116px)] xs:pb-10">
       <Title className="font-extralight">
         <span className="text-primary font-black">
           <span className="text-secondary">Go</span>Scout
@@ -18,10 +18,10 @@ export default function Page() {
         </span>{" "}
         Login{" "}
       </Title>
-      <div className="bg-input px-20 py-24 rounded-md">
+      <div className="bg-input xs:px-20 max-xs:w-[80%] py-24 max-xs:py-16 rounded-md">
         <SignInForm />
       </div>
-      <span className="text-sm">
+      <span className="text-sm max-xs:text-xs">
         Dont have an account?{" "}
         <Link href={"/auth/create-account"} className="underline">
           Sign up

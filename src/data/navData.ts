@@ -6,12 +6,20 @@ const menuData: Menu[] = [
     path: "/#",
   },
   {
+    title: "Sport",
+    path: "/sport",
+  },
+  {
+    title: "Dashboard",
+    path: "/dashboard",
+  },
+  {
     title: "About Us",
     path: "/about-us",
   },
   {
-    title: "Reach Out To Us",
-    path: "/reach-out",
+    title: "Reach Out to Us",
+    path: "/reach-out-to-us",
   },
   {
     title: "Create Account",

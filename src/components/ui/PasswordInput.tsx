@@ -13,12 +13,16 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
     const disabled =
       props.value === "" || props.value === undefined || props.disabled;
 
+    const value = props.value !== undefined ? props.value : "";
+
     return (
       <div className="relative">
         <TextInput
           type={showPassword ? "text" : "password"}
           label="Password"
           className={cn(className)}
+          value={value} // Pass down value prop
+          autoComplete="current-password"
           {...props}
         />
         <Button
@@ -41,17 +45,18 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
 
         {/* hides browsers password toggles */}
         <style>{`
-						.hide-password-toggle::-ms-reveal,
-						.hide-password-toggle::-ms-clear {
-							visibility: hidden;
-							pointer-events: none;
-							display: none;
-						}
-					`}</style>
+          .hide-password-toggle::-ms-reveal,
+          .hide-password-toggle::-ms-clear {
+            visibility: hidden;
+            pointer-events: none;
+            display: none;
+          }
+        `}</style>
       </div>
     );
   }
 );
+
 PasswordInput.displayName = "PasswordInput";
 
 export { PasswordInput };

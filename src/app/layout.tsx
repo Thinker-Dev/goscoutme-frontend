@@ -28,7 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body
-        className={`${lexenda.className} ${lexenda_exa.className} ${lexenda_deca.className} max-w-screen-xl mx-auto px-10 min-h-screen`}
+        className={`${lexenda.className} ${lexenda_exa.className} ${lexenda_deca.className} max-w-screen-xl mx-auto xs:px-10 min-h-screen`}
+        suppressHydrationWarning
       >
         <Header />
         {children}

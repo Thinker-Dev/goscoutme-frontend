@@ -10,7 +10,7 @@ export const RegistrationForm: FC = () => {
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 2];
   return (
-    <div>
+    <div className="max-md:w-full">
       {lastSegment === "sign-up-scout" ? (
         <ScoutRegistrationForm />
       ) : (

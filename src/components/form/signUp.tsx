@@ -38,17 +38,21 @@ export const SignUpForm: FC = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 ">
-        <div className="flex space-x-5">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 md:w-[544px] max-xs-xs:w-full max-xs:px-10"
+      >
+        <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
           <FormField
             control={form.control}
             name="firstName"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
                 <FormControl>
                   <TextInput
                     label="First Name"
-                    className="rounded-br-none w-[250px]"
+                    className="rounded-br-none"
+                    autoComplete="name"
                     {...field}
                   />
                 </FormControl>
@@ -61,11 +65,12 @@ export const SignUpForm: FC = () => {
             control={form.control}
             name="lastName"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
                 <FormControl>
                   <TextInput
                     label="Last Name"
-                    className="rounded-bl-none w-[250px]"
+                    className="rounded-bl-none"
+                    autoComplete="family-name"
                     {...field}
                   />
                 </FormControl>
@@ -82,7 +87,7 @@ export const SignUpForm: FC = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <TextInput label="email" {...field} />
+                  <TextInput label="email" {...field} autoComplete="email" />
                 </FormControl>
                 <FormDescription></FormDescription>
                 <FormMessage />
@@ -97,7 +102,7 @@ export const SignUpForm: FC = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <PasswordInput {...field} />
+                  <PasswordInput {...field} autoComplete="current-password" />
                 </FormControl>
                 <FormDescription></FormDescription>
                 <FormMessage />

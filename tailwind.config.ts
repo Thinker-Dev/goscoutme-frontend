@@ -17,6 +17,34 @@ const config = {
         "2xl": "1400px",
       },
     },
+    screens: {
+      xs: "450px",
+      // => @media (min-width: 450px) { ... }
+
+      "xs-xs": "514px",
+      // => @media (min-width: 514px) { ... }
+
+      "xs-sm": "560px",
+      // => @media (min-width: 560px) { ... }
+
+      sm: "640px",
+      // => @media (min-width: 640px) { ... }
+
+      md: "768px",
+      // => @media (min-width: 768px) { ... }
+
+      "md-xs": "890px",
+      // => @media (min-width: 890px) { ... }
+
+      lg: "1024px",
+      // => @media (min-width: 1024px) { ... }
+
+      xl: "1280px",
+      // => @media (min-width: 1280px) { ... }
+
+      "2xl": "1536px",
+      // => @media (min-width: 1536px) { ... }
+    },
     extend: {
       fontFamily: {
         lexenda: ["var(--font-lexenda)"],
@@ -30,7 +58,13 @@ const config = {
         foreground: "hsl(var(--foreground))",
         primary: "#1A83FF",
         input: "#D8D7D7",
-        // red: "#FF0000",
+        redish: "#FF0000",
+        oranjo: "#FFAB56",
+        yellowish: "#FFE768",
+        greenish: "#96DF7D",
+        blueish: "#89BEF9",
+        purpulish: "#A38DDD",
+        grayish: "#B2B2B2",
         paragraph: "#788293",
         subtitle: "#B2AFAF",
         separator: "#EEEEEEEE",

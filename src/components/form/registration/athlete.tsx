@@ -50,14 +50,14 @@ export const AthleteRegistrationForm: FC = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[544px]"
+        className="space-y-4 w-[544px] max-sm:w-full max-xs:px-10"
       >
-        <div className="flex space-x-10">
+        <div className="flex space-x-10 max-xs-xs:space-x-0 max-xs-xs:justify-between">
           <FormField
             control={form.control}
             name="firstName"
             render={({ field }) => (
-              <FormItem className="w-1/2">
+              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
                 <FormControl>
                   <TextInput label="First Name" {...field} />
                 </FormControl>
@@ -69,7 +69,7 @@ export const AthleteRegistrationForm: FC = () => {
             control={form.control}
             name="lastName"
             render={({ field }) => (
-              <FormItem className="w-1/2">
+              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
                 <FormControl>
                   <TextInput label="Last Name" {...field} />
                 </FormControl>
@@ -92,7 +92,7 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 pt-3">
           <span className="font-lexenda_exa font-extrabold text-primary uppercase">
             personal contact information
           </span>
@@ -114,12 +114,12 @@ export const AthleteRegistrationForm: FC = () => {
               control={form.control}
               name="birthday"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="max-sm:w-full">
                   <FormControl>
                     <TextInput
                       label="Date of Birth"
                       {...field}
-                      className="w-[113px] px-2"
+                      className="sm:w-[113px] px-2"
                       type="date"
                     />
                   </FormControl>
@@ -131,7 +131,7 @@ export const AthleteRegistrationForm: FC = () => {
               control={form.control}
               name="countryofBirth"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="max-sm:hidden ">
                   <FormControl>
                     <SelectInput
                       label="Country of Birth"
@@ -144,8 +144,24 @@ export const AthleteRegistrationForm: FC = () => {
               )}
             />
           </div>
+          <FormField
+            control={form.control}
+            name="countryofBirth"
+            render={({ field }) => (
+              <FormItem className="sm:hidden pt-2">
+                <FormControl>
+                  <SelectInput
+                    label="Country of Birth"
+                    className="w-full"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
-        <div className="flex space-x-10">
+        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
             name="nationality"
@@ -154,7 +170,7 @@ export const AthleteRegistrationForm: FC = () => {
                 <FormControl>
                   <SelectInput
                     label="Nationality"
-                    className="w-[140px]"
+                    className="sm:w-[140px]"
                     {...field}
                   />
                 </FormControl>
@@ -175,7 +191,7 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
         </div>
-        <div className="flex flex-row space-x-10">
+        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <div className="flex items-end space-x-2">
             <FormField
               control={form.control}
@@ -239,12 +255,12 @@ export const AthleteRegistrationForm: FC = () => {
             />
           </div>
         </div>
-        <div className="flex flex-row space-x-10">
+        <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
           <FormField
             control={form.control}
             name="parentOne"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className="w-full max-sm:w-[60%]">
                 <FormControl>
                   <TextInput label="Name of Parent or Guardian 1" {...field} />
                 </FormControl>
@@ -256,11 +272,11 @@ export const AthleteRegistrationForm: FC = () => {
             control={form.control}
             name="relationshipOne"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="max-sm:w-[35%]">
                 <FormControl>
                   <TextInput
                     label="Relationship"
-                    className="w-[130px]"
+                    className="sm:w-[130px] "
                     {...field}
                   />
                 </FormControl>
@@ -269,12 +285,12 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
         </div>
-        <div className="flex flex-row space-x-10">
+        <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
           <FormField
             control={form.control}
             name="parentTwo"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className="w-full max-sm:w-[60%]">
                 <FormControl>
                   <TextInput label="Name of Parent or Guardian 2" {...field} />
                 </FormControl>
@@ -286,11 +302,11 @@ export const AthleteRegistrationForm: FC = () => {
             control={form.control}
             name="relationshipTwo"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="max-sm:w-[35%]">
                 <FormControl>
                   <TextInput
                     label="Relationship"
-                    className="w-[130px]"
+                    className="sm:w-[130px]"
                     {...field}
                   />
                 </FormControl>
@@ -299,7 +315,7 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
         </div>
-        <div className="flex space-x-10">
+        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
             name="homeAddress"
@@ -312,7 +328,7 @@ export const AthleteRegistrationForm: FC = () => {
               </FormItem>
             )}
           />
-          <div className="flex flex-col justify-between">
+          <div className="flex flex-col sm:justify-between max-sm:space-y-4">
             <FormField
               control={form.control}
               name="homePhone"
@@ -402,7 +418,7 @@ export const AthleteRegistrationForm: FC = () => {
             career information
           </span>
 
-          <div className="flex flex-row space-x-10">
+          <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
             <FormField
               control={form.control}
               name="athleteStatus"
@@ -490,7 +506,7 @@ export const AthleteRegistrationForm: FC = () => {
             </FormItem>
           )}
         />
-        <div className="flex space-x-10">
+        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
             name="office"
@@ -594,96 +610,99 @@ export const AthleteRegistrationForm: FC = () => {
           <span className="font-lexenda_exa font-extrabold text-primary uppercase">
             career statistics
           </span>
-          <div className="flex justify-between">
-            <FormField
-              control={form.control}
-              name="dateUpdated"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <TextInput
-                      label="Date Updated"
-                      {...field}
-                      className="w-[113px] px-2"
-                      type="date"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="gameAppearences"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <TextInput
-                      label="Game Appearences"
-                      type="number"
-                      className="w-[70px]"
-                      itemCenter
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="minutesPlayed"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <TextInput
-                      label="Minutes Played"
-                      type="number"
-                      className="w-[70px]"
-                      itemCenter
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="gameStarted"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <TextInput
-                      label="Games Started"
-                      type="number"
-                      className="w-[70px]"
-                      itemCenter
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="fieldGoals"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <TextInput
-                      label="Feild Goals"
-                      type="number"
-                      className="w-[70px]"
-                      itemCenter
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <div className="flex flex-col sm:flex-row justify-between max-sm:space-y-4">
+            <div className="flex sm:justify-between sm:w-[67%] pr-5 max-sm:space-x-5">
+              <FormField
+                control={form.control}
+                name="dateUpdated"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <TextInput
+                        label="Date Updated"
+                        {...field}
+                        className="w-[113px] px-2"
+                        type="date"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="gameAppearences"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <TextInput
+                        label="Game Appearences"
+                        type="number"
+                        className="w-[70px]"
+                        itemCenter
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="minutesPlayed"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <TextInput
+                        label="Minutes Played"
+                        type="number"
+                        className="w-[70px]"
+                        itemCenter
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex sm:justify-between sm:w-[33%] max-sm:space-x-5">
+              <FormField
+                control={form.control}
+                name="gameStarted"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <TextInput
+                        label="Games Started"
+                        type="number"
+                        className="w-[70px]"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="fieldGoals"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <TextInput
+                        label="Feild Goals"
+                        type="number"
+                        className="w-[70px]"
+                        itemCenter
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
         </div>
         <div className="pt-4 flex justify-center">

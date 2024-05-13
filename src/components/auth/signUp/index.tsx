@@ -12,7 +12,7 @@ interface Props {
 export const SignUpHeader = ({ title }: Props) => {
   const pathname = usePathname();
   return (
-    <Title className="font-extralight">
+    <Title className="font-extralight text-center mx-10">
       {pathname.includes("sign-up-scout") ? (
         <span>
           <span className="text-primary font-black">{title.bold.scout}</span>{" "}
