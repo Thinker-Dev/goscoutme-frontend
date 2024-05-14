@@ -117,7 +117,7 @@ export const Filter: FC = () => {
                     onChange={() => setSelectedTag(item.name)}
                     hidden
                   />
-                  {item.tag}
+                  {item.tag[0]}
                 </label>
               ))}
             </div>

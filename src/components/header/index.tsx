@@ -14,33 +14,33 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
 import { Notifications } from "../../../public/icons/notifications";
-import { ProfileMini } from "../../../public/icons/profileMini";
 import { Messages } from "../../../public/icons/messages";
+import { ProfileMini } from "../../../public/icons/profile";
 
 export const Header: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
-  const lastSegment = pathSegments[pathSegments.length - 2];
-  const filteredMenuData =
-    lastSegment === "dashboard"
-      ? menuData.filter(
-          (item) =>
-            !["home", "create account", "login"].includes(
-              item.title.toLowerCase()
-            )
-        )
-      : menuData.filter(
-          (item) => !["sport", "dashboard"].includes(item.title.toLowerCase())
-        );
+  const filteredMenuData = pathSegments.includes("dashboard")
+    ? menuData.filter(
+        (item) =>
+          !["home", "create account", "login"].includes(
+            item.title.toLowerCase()
+          )
+      )
+    : menuData.filter(
+        (item) => !["sport", "dashboard"].includes(item.title.toLowerCase())
+      );
   return (
     <div
       className={` flex ${
-        lastSegment === "dashboard" ? "justify-between " : "justify-center"
-      }  items-center h-28 max-xs-sm:h-16 `}
+        pathSegments.includes("dashboard")
+          ? "justify-between "
+          : "justify-center"
+      }  items-center h-28 max-xs-sm:h-16`}
     >
       <nav>
         <ul className="md:flex space-x-10 hidden">
-          {lastSegment === "dashboard" && (
+          {pathSegments.includes("dashboard") && (
             <Link href={"/"} className="text-primary font-black text-2xl -mt-1">
               <span className="text-secondary">Go</span>Scout
               <span className="text-black">.me</span>
@@ -68,7 +68,7 @@ export const Header: FC = () => {
           ))}
         </ul>
       </nav>
-      {lastSegment === "dashboard" && (
+      {pathSegments.includes("dashboard") && (
         <div className="space-x-3 flex items-center">
           <Messages />
           <Notifications />

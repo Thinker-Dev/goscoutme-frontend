@@ -1,24 +1,66 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useRef, useState } from "react";
 import { AthleteCard } from "../cards/athlete";
 import { Title } from "../auth/createAccount";
 import { SearchInput } from "../inputs/searchInput";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { AthleteSearchCard } from "../cards/athlete/search";
+import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 
 export const Athletes: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
+  const sportSegment = pathSegments[pathSegments.length - 2];
+  const ref = useRef<LoadingBarRef>(null);
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      ref.current?.continuousStart();
+
+      if (lastSegment === "search") {
+        router.push(
+          `/dashboard/${sportSegment}/search?q=${encodeURIComponent(
+            searchQuery
+          )}`
+        );
+      } else {
+        router.push(
+          `/dashboard/${lastSegment}/search?q=${encodeURIComponent(
+            searchQuery
+          )}`
+        );
+      }
+    }
+  };
+
   return (
-    <div className="pb-10 pr-12 h-[calc(100vh-113px)] overflow-auto styled-scroll-bar">
-      <Title className="text-primary mb-2 xs:pt-0">
-        <span className="text-black">Your</span>{" "}
-        <span className="text-secondary capitalize">{lastSegment}</span>{" "}
-        Dashboard
+    <div className="pb-10 pr-12 h-[calc(100vh-113px)] overflow-auto styled-scroll-bar w-[77%]">
+      <LoadingBar color="#1A83FF" ref={ref} />
+      <Title className="mb-2 xs:pt-0">
+        {lastSegment === "search" ? (
+          <span className="capitalize">{sportSegment}</span>
+        ) : (
+          <>
+            <span className="text-black">Your</span>{" "}
+            <span className="text-secondary capitalize">{lastSegment}</span>{" "}
+            <span className="text-primary">Dashboard</span>
+          </>
+        )}
       </Title>
-      <SearchInput />
-      <AthleteCard />
+      <SearchInput
+        onKeyDown={handleKeyDown}
+        value={searchQuery}
+        onChange={handleChange}
+      />
+      {lastSegment === "search" ? <AthleteSearchCard /> : <AthleteCard />}
     </div>
   );
 };

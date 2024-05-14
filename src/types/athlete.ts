@@ -1,3 +1,5 @@
+import { TagsTypes } from "./tags";
+
 export interface AthleteType {
   id: number;
   positionPlayed: string;
@@ -13,6 +15,6 @@ export interface AthleteType {
   minutesPlayed: string;
   gamesStarted: string;
   careerGoals: string;
-  status: "red" | "gray" | "orange" | undefined;
+  tag: number;
   otherPositionPlayed: string;
 }

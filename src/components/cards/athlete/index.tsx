@@ -4,6 +4,7 @@ import { Profile } from "../../../../public/icons/profile";
 import { Button } from "@/components/buttons";
 import { Expand } from "../../../../public/icons/expand";
 import filterData from "@/data/filterData";
+import { tagsData } from "@/data/tags";
 
 export const AthleteCard: FC = () => {
   const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
@@ -23,14 +24,9 @@ export const AthleteCard: FC = () => {
           <div className="flex space-x-4 ">
             <div className="relative">
               <Profile />
-              <div
-                className={`absolute rounded-full w-6 h-6 top-[13px] right-[13px] ${
-                  item.status === "red" && "bg-[#FF0000]"
-                }
-                  ${item.status === "orange" && "bg-[#FFAB56]"}
-                  ${item.status === "gray" && "bg-[#B2B2B2]"}
-                `}
-              ></div>
+              <div className="absolute top-[11px] right-[11px]">
+                {tagsData[item.tag].tag[1]}
+              </div>
             </div>
             <div className="flex flex-col text-sm">
               <span className="font-bold text-xl font-lexenda">
@@ -94,7 +90,7 @@ export const AthleteCard: FC = () => {
                 className="uppercase text-[10px] leading-3 font-lexenda_exa font-bold cursor-pointer"
                 onClick={() => toggleExpand(index)}
               >
-                {item.status ? "edit" : "Add"} color tag
+                {item.tag ? "edit" : "Add"} color tag
               </span>
             </div>
           </div>

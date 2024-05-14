@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-export const Profile = ({ className }: React.HTMLAttributes<HTMLElement>) => {
+const Profile = ({ className }: React.HTMLAttributes<HTMLElement>) => {
   return (
     <svg
       width="140"
@@ -9,6 +9,7 @@ export const Profile = ({ className }: React.HTMLAttributes<HTMLElement>) => {
       viewBox="0 0 147 147"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={cn(className)}
     >
       <g clipPath="url(#clip0_2015_491)">
         <path
@@ -42,3 +43,82 @@ export const Profile = ({ className }: React.HTMLAttributes<HTMLElement>) => {
     </svg>
   );
 };
+
+const ProfileMini = ({ className }: React.HTMLAttributes<HTMLElement>) => {
+  return (
+    <svg
+      width="43"
+      height="43"
+      viewBox="0 0 53 53"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clipPath="url(#clip0_10_159)">
+        <path
+          d="M45.2384 45.2383C55.5873 34.8894 55.5873 18.1106 45.2384 7.76167C34.8895 -2.58722 18.1107 -2.58722 7.76177 7.76167C-2.58713 18.1106 -2.58713 34.8894 7.76177 45.2383C18.1107 55.5872 34.8895 55.5872 45.2384 45.2383Z"
+          fill="#1A83FF"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M26.5008 4.73535C38.5214 4.73535 48.2652 14.4791 48.2652 26.4998C48.2652 38.5205 38.5214 48.2642 26.5008 48.2642C14.4801 48.2642 4.73633 38.5205 4.73633 26.4998C4.73633 14.4791 14.4801 4.73535 26.5008 4.73535Z"
+          fill="#50A8FF"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M26.3614 9.22852C30.5189 9.22852 33.8889 12.5833 33.8889 16.7206C33.8889 20.8579 30.5189 24.2127 26.3614 24.2127C22.2039 24.2127 18.834 20.8579 18.834 16.7206C18.834 12.5833 22.2039 9.22852 26.3614 9.22852Z"
+          fill="white"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M26.6262 26.5703C34.863 26.5703 41.411 28.0798 41.411 33.4768C41.411 35.5517 36.2488 43.7733 26.4975 43.7733C16.7462 43.7733 11.584 35.5517 11.584 33.4768C11.584 28.0773 18.3869 26.5703 26.6237 26.5703H26.6262Z"
+          fill="white"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_10_159">
+          <rect width="53" height="53" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+const ProfileMax = ({ className }: React.HTMLAttributes<HTMLElement>) => {
+  return (
+    <svg
+      width="313"
+      height="313"
+      viewBox="0 0 313 313"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M267.17 267.162C328.287 206.045 328.287 106.955 267.17 45.8378C206.053 -15.2793 106.963 -15.2793 45.8458 45.8378C-15.2712 106.955 -15.2712 206.045 45.8458 267.162C106.963 328.279 206.053 328.279 267.17 267.162Z"
+        fill="#1A83FF"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M156.502 27.9668C227.492 27.9668 285.035 85.5101 285.035 156.5C285.035 227.49 227.492 285.033 156.502 285.033C85.5121 285.033 27.9688 227.49 27.9688 156.5C27.9688 85.5101 85.5121 27.9668 156.502 27.9668Z"
+        fill="#50A8FF"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M155.677 54.502C180.23 54.502 200.132 74.3141 200.132 98.7477C200.132 123.181 180.23 142.993 155.677 142.993C131.124 142.993 111.223 123.181 111.223 98.7477C111.223 74.3141 131.124 54.502 155.677 54.502Z"
+        fill="white"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M157.245 156.918C205.888 156.918 244.558 165.833 244.558 197.705C244.558 209.959 214.072 258.513 156.484 258.513C98.8962 258.513 68.4102 209.959 68.4102 197.705C68.4102 165.818 108.586 156.918 157.23 156.918H157.245Z"
+        fill="white"
+      />
+    </svg>
+  );
+};
+
+export { ProfileMini, Profile, ProfileMax };
