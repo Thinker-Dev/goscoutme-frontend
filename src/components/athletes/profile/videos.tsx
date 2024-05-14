@@ -32,7 +32,10 @@ export const Videos: FC = () => {
       <div className="border-b-2">
         <div className="flex gap-8">
           {TAB_NAME.map((item, index) => (
-            <div className="relative border-b-2 border-transparent pb-[15px]">
+            <div
+              key={index}
+              className="relative border-b-2 border-transparent pb-[15px]"
+            >
               <span
                 className={`text-sm capitalize font-semibold px-2 cursor-pointer ${
                   index + 1 == count && "   !text-primary  transition-all"
@@ -71,7 +74,7 @@ export const Videos: FC = () => {
         </div>
       ) : count === INDEXES.shooting ? (
         <div>
-          <p>youtube</p>
+          <p>content</p>
         </div>
       ) : null}
     </div>

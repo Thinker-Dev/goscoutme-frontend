@@ -15,7 +15,7 @@ export const Description: FC = () => {
   };
   return (
     <div className="flex flex-col text-sm">
-      <div className="flex space-x-1 items-center mt-1">
+      <div className="flex space-x-1 items-center mt-1 mb-3">
         <Expand className={`${expandedFilters[0] && "rotate-180"}`} />
         <span
           className="uppercase text-[10px] leading-3 font-lexenda_exa font-bold cursor-pointer"

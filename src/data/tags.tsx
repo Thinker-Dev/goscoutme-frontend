@@ -7,6 +7,7 @@ export const tagsData: TagsTypes[] = [
     name: "red",
     tag: [
       <svg
+        key={0}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -16,6 +17,7 @@ export const tagsData: TagsTypes[] = [
         <circle cx="8" cy="8" r="8" fill="#FF0000" />
       </svg>,
       <svg
+        key={1}
         width="26"
         height="25"
         viewBox="0 0 26 25"
@@ -31,6 +33,7 @@ export const tagsData: TagsTypes[] = [
     name: "orange",
     tag: [
       <svg
+        key={0}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -40,6 +43,7 @@ export const tagsData: TagsTypes[] = [
         <circle cx="8" cy="8" r="8" fill="#FFAB56" />
       </svg>,
       <svg
+        key={1}
         width="26"
         height="25"
         viewBox="0 0 26 25"
@@ -55,6 +59,7 @@ export const tagsData: TagsTypes[] = [
     name: "yellow",
     tag: [
       <svg
+        key={0}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -64,6 +69,7 @@ export const tagsData: TagsTypes[] = [
         <circle cx="8" cy="8" r="8" fill="#FFE768" />
       </svg>,
       <svg
+        key={1}
         width="26"
         height="25"
         viewBox="0 0 26 25"
@@ -79,6 +85,7 @@ export const tagsData: TagsTypes[] = [
     name: "green",
     tag: [
       <svg
+        key={0}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -88,6 +95,7 @@ export const tagsData: TagsTypes[] = [
         <circle cx="8" cy="8" r="8" fill="#96DF7D" />
       </svg>,
       <svg
+        key={1}
         width="26"
         height="25"
         viewBox="0 0 26 25"
@@ -103,6 +111,7 @@ export const tagsData: TagsTypes[] = [
     name: "blue",
     tag: [
       <svg
+        key={0}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -112,6 +121,7 @@ export const tagsData: TagsTypes[] = [
         <circle cx="8" cy="8" r="8" fill="#89BEF9" />
       </svg>,
       <svg
+        key={1}
         width="26"
         height="25"
         viewBox="0 0 26 25"
@@ -127,6 +137,7 @@ export const tagsData: TagsTypes[] = [
     name: "purple",
     tag: [
       <svg
+        key={0}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -136,6 +147,7 @@ export const tagsData: TagsTypes[] = [
         <circle cx="8" cy="8" r="8" fill="#A38DDD" />
       </svg>,
       <svg
+        key={1}
         width="26"
         height="25"
         viewBox="0 0 26 25"
@@ -151,6 +163,7 @@ export const tagsData: TagsTypes[] = [
     name: "gray",
     tag: [
       <svg
+        key={0}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -160,6 +173,7 @@ export const tagsData: TagsTypes[] = [
         <circle cx="8" cy="8" r="8" fill="#B2B2B2" />
       </svg>,
       <svg
+        key={1}
         width="26"
         height="25"
         viewBox="0 0 26 25"
@@ -175,6 +189,7 @@ export const tagsData: TagsTypes[] = [
     name: "none",
     tag: [
       <svg
+        key={0}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -185,6 +200,7 @@ export const tagsData: TagsTypes[] = [
         <path d="M3 3L13 13" stroke="#B2B2B2" />
       </svg>,
       <svg
+        key={1}
         width="26"
         height="25"
         viewBox="0 0 26 25"
