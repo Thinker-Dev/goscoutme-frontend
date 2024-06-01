@@ -4,6 +4,7 @@ import { Lexend } from "next/font/google";
 import { Lexend_Exa } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
+import RecoilContextProvider from "./recoilContextProvider";
 
 const lexenda = Lexend({ subsets: ["latin"], variable: "--font-lexenda" });
 const lexenda_exa = Lexend_Exa({
@@ -27,13 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="">
-      <body
-        className={`${lexenda.className} ${lexenda_exa.className} ${lexenda_deca.className} max-w-screen-xl mx-auto xs:px-10 min-h-screen`}
-        suppressHydrationWarning
-      >
-        <Header />
-        {children}
-      </body>
+      <RecoilContextProvider>
+        <body
+          className={`${lexenda.className} ${lexenda_exa.className} ${lexenda_deca.className} max-w-screen-xl mx-auto xs:px-10 min-h-screen`}
+          suppressHydrationWarning
+        >
+          <Header />
+          {children}
+        </body>
+      </RecoilContextProvider>
     </html>
   );
 }
