@@ -8,7 +8,7 @@ export const Meetings: FC = () => {
       <span className="font-extralight text-4xl text-primary font-lexenda_deca">
         Meetings
       </span>
-      <div className="bg-light-blue rounded-b-[10px] border-gray-200 mt-4 p-4 h-80 styled-meetings-scroll-bar  overflow-auto">
+      <div className="bg-light-blue rounded-b-[10px] border-gray-200 mt-4 p-4 h-80 styled-meetings-scroll-bar overflow-x-hidden overflow-auto">
         <table className="min-w-full ">
           <tbody className="text-sm font-semibold">
             {meetingsData.map((meetings, index) => (
