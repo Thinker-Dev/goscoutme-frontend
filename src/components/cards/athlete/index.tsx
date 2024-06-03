@@ -83,7 +83,7 @@ export const AthleteCard: FC = () => {
           </div>
 
           <div className="space-y-2">
-            <Button to="/dashboard/profile/xx" label="view profile" />
+            <Button to="/dashboard/profile/HI3304" label="view profile" />
             <div className="flex space-x-1 items-center mt-1">
               <Expand className={`${expandedFilters[index] && "rotate-180"}`} />
               <span

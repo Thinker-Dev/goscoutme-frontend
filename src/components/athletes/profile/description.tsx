@@ -5,8 +5,13 @@ import { athleteData } from "@/data/athleteData";
 import { useRecoilState } from "recoil";
 import { appointmentState } from "@/lib/recoil";
 import { ScheduleAppointment } from "./scheduleAppointment";
+import { UploadVideoCard } from "./video/uploadVideoCard";
 
-export const Description: FC = () => {
+interface Props {
+  currentUser: boolean;
+}
+
+export const Description: FC<Props> = ({ currentUser }: Props) => {
   const [appointment, setAppointment] = useRecoilState(appointmentState);
   const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
     Array(filterData.length).fill(false)
@@ -18,7 +23,7 @@ export const Description: FC = () => {
   };
 
   return (
-    <div className="flex flex-col text-sm w-[75%]">
+    <div className="flex flex-col text-sm w-[70%]">
       <div className="flex space-x-1 items-center mt-1 mb-3">
         <Expand className={`${expandedFilters[0] && "rotate-180"}`} />
         <span
@@ -93,6 +98,7 @@ export const Description: FC = () => {
           </>
         )}
         <ScheduleAppointment />
+        {currentUser && <UploadVideoCard />}
       </div>
     </div>
   );

@@ -28,6 +28,7 @@ import { athleteStatusData } from "@/data/athleteStatusData";
 export const AthleteRegistrationForm: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
+  const lastSegment = pathSegments[pathSegments.length - 1];
   const [fileChosen, setFileChosen] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof AthleteRegistrationSchema>>({
@@ -707,7 +708,11 @@ export const AthleteRegistrationForm: FC = () => {
         </div>
         <div className="pt-4 flex justify-center">
           <SubmitButton
-            label={"create account"}
+            label={
+              lastSegment === "update-profile"
+                ? "save profile"
+                : "create account"
+            }
             className={`bg-secondary hover:bg-secondary/90`}
           />
         </div>

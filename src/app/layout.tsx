@@ -5,6 +5,7 @@ import { Lexend_Exa } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import RecoilContextProvider from "./recoilContextProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const lexenda = Lexend({ subsets: ["latin"], variable: "--font-lexenda" });
 const lexenda_exa = Lexend_Exa({
@@ -35,6 +36,7 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          <Toaster />
         </body>
       </RecoilContextProvider>
     </html>

@@ -22,6 +22,10 @@ const menuData: Menu[] = [
     path: "/reach-out-to-us",
   },
   {
+    title: "Subscription Plan",
+    path: "/subscription-plan",
+  },
+  {
     title: "Create Account",
     path: "/auth/create-account",
   },

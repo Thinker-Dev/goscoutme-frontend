@@ -69,6 +69,10 @@ const config = {
         subtitle: "#B2AFAF",
         separator: "#EEEEEEEE",
         secondary: "#0C469A",
+        "pricing-card": {
+          light: "#F0EEEE",
+          dark: "#DAD9D9",
+        },
         highlight: "#606060",
         "light-blue": "#B8DBFF",
         destructive: {

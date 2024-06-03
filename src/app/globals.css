@@ -132,3 +132,49 @@ input[type="number"] {
     width: 11px;
   }
 }
+
+.custom-calendar {
+  background: #b8dbff !important;
+  box-shadow: none !important;
+  width: 400px !important;
+}
+
+.Calendar__section .-shown {
+  background-color: red !important;
+}
+
+.Calendar__weekDay {
+  color: black;
+  font-weight: 600;
+}
+
+.Calendar__weekRow {
+  gap: 10px !important;
+  margin-bottom: 3px !important;
+}
+
+.Calendar__day.-ltr:hover {
+  border-radius: 0% !important;
+  border-bottom-right-radius: 7px !important;
+  border-bottom-left-radius: 7px !important;
+}
+
+.custom-today-day::after {
+  visibility: hidden; /* hide small border under the text */
+}
+
+.costum-selected-day {
+  color: black !important;
+  border-radius: 0% !important;
+  border-bottom-right-radius: 7px !important;
+  border-bottom-left-radius: 7px !important;
+}
+
+.costum-selected-day:focus {
+  outline: none !important;
+  border: none !important;
+}
+.Calendar__day.-ltr:focus {
+  outline: none !important;
+  border: none !important;
+}

@@ -1,0 +1,162 @@
+import {
+  appointmentState,
+  selectedDateState,
+  selectedtimeState,
+} from "@/lib/recoil";
+import React, { FC, useState, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import SelectDate from "./selectDate";
+import SelectTime from "./selectTime";
+import { SubmitButton } from "@/components/buttons/submit";
+import { toast } from "@/components/ui/use-toast";
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
+export const ScheduleAppointment: FC = () => {
+  const [appointment, setAppointment] = useRecoilState(appointmentState);
+  const [selectedTime, setSelectedTime] = useRecoilState(selectedtimeState);
+  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
+  const [value, onChange] = useState<Value>(new Date());
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [success, setSuccess] = useState<boolean>();
+
+  const formatDate = (date: Date | null) => {
+    if (!date) return "Date";
+    const options: Intl.DateTimeFormatOptions = {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate = date.toLocaleDateString("en-GB", options);
+    return formattedDate.replace(/ /g, " ").split(",").join("");
+  };
+
+  const getDayOfWeek = (date: Date | null) => {
+    if (!date) return "Day";
+    return date.toLocaleDateString("en-US", { weekday: "long" });
+  };
+
+  const getTimeZoneString = (date: Date | null) => {
+    if (!date) return "";
+    const timeZoneOffset = -date.getTimezoneOffset();
+    const sign = timeZoneOffset >= 0 ? "+" : "-";
+    const hours = String(Math.floor(Math.abs(timeZoneOffset) / 60)).padStart(
+      2,
+      "0"
+    );
+    const minutes = String(Math.abs(timeZoneOffset) % 60).padStart(2, "0");
+    const timeZoneName = date
+      .toLocaleDateString("en-US", { timeZoneName: "long" })
+      .split(", ")
+      .pop();
+    return `GMT${sign}${hours}${minutes} (${timeZoneName})`;
+  };
+
+  useEffect(() => {
+    if (selectedDate) {
+      setSelectedDay(getDayOfWeek(selectedDate));
+    }
+  }, [selectedDate]);
+
+  const handleConfirmAppointment = async () => {
+    if (!selectedDate || !selectedTime) {
+      toast({
+        title: "Error",
+        description: "Please select both a date and a time.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const currentDate = new Date();
+    if (selectedDate < currentDate) {
+      toast({
+        title: "Error",
+        description: "You cannot schedule an appointment in the past.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      await submitAppointmentData(selectedDate, selectedTime);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to schedule the appointment.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const submitAppointmentData = async (date: Date, time: string) => {
+    // Mock API call or any asynchronous operation to submit appointment data
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log("Appointment data submitted:", date, time);
+    setSuccess(true);
+    setSelectedTime(null);
+    setSelectedDate(new Date());
+    // toast({
+    //   title: "Appointment data submitted",
+    //   description: `${formatDate(selectedDate)} at ${selectedTime}.`,
+    // });
+  };
+
+  return (
+    <>
+      {appointment && (
+        <div className="bg-light-blue rounded-b-md w-full pt-12 pb-12 px-16">
+          {success ? (
+            <div className="w-full flex justify-center mt-16">
+              <span className="font-extralight text-7xl text-center text-secondary">
+                Your meeting has been successfully Scheduled
+              </span>
+            </div>
+          ) : (
+            <div className="space-x-10 flex">
+              <div className="w-[60%] flex flex-col pr-9 items-center">
+                <span className="uppercase text-center font-lexenda_exa font-extrabold text-2xl text-secondary">
+                  select date
+                </span>
+                <SelectDate />
+              </div>
+              <div className="w-[40%] flex flex-col items-center">
+                <span className="uppercase text-center font-lexenda_exa font-extrabold text-2xl text-secondary">
+                  select Time
+                </span>
+                <SelectTime />
+              </div>
+            </div>
+          )}
+          <div className="w-full flex items-center flex-col mt-7">
+            <div className="flex flex-col items-center mb-5">
+              <span className="text-lg text-secondary font-semibold">
+                {formatDate(selectedDate)} / {selectedTime || "Time"} /{" "}
+                {selectedDay || "Day"}
+              </span>
+              <span>8 August 2024 / 03:00 AM / Thursday</span>
+              <span className="text-xs">{getTimeZoneString(selectedDate)}</span>
+            </div>
+            {success ? (
+              <SubmitButton
+                label="close"
+                className="bg-primary w-[100px] hover:bg-primary/70"
+                onClick={() => {
+                  setAppointment(false), setSuccess(false);
+                }}
+              />
+            ) : (
+              <SubmitButton
+                label="confirm appointment"
+                className="bg-redish w-[250px] hover:bg-redish/70"
+                onClick={handleConfirmAppointment}
+              />
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};

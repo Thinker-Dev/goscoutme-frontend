@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="flex pl-14 pr-20  min-h-[calc(100vh-116px)]">
+    <main className="flex px-20  min-h-[calc(100vh-116px)]">
       <Profile />
     </main>
   );
