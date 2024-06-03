@@ -47,11 +47,12 @@ const Profile = ({ className }: React.HTMLAttributes<HTMLElement>) => {
 const ProfileMini = ({ className }: React.HTMLAttributes<HTMLElement>) => {
   return (
     <svg
-      width="43"
-      height="43"
+      width="53"
+      height="53"
       viewBox="0 0 53 53"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="w-10"
     >
       <g clipPath="url(#clip0_10_159)">
         <path

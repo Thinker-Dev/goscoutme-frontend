@@ -15,10 +15,12 @@ import {
   AlertDialogHeader,
 } from "@/components/ui/alert-dialog";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
+import { useRecoilState } from "recoil";
+import { sportState } from "@/lib/recoil";
 
 export const ChooseSport: FC = () => {
   const router = useRouter();
-  const [selectedSport, setSelectedSport] = useState<string>("");
+  const [selectedSport, setSelectedSport] = useRecoilState(sportState);
   const [open, setOpen] = useState<boolean>();
   const ref = useRef<LoadingBarRef>(null);
 

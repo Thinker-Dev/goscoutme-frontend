@@ -33,7 +33,7 @@ export const UploadVideo: FC = () => {
     } else {
       setUploadComplete(false);
     }
-  }, [uploadingFiles]);
+  }, [uploadingFiles, params, router]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {

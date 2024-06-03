@@ -3,7 +3,7 @@ import React, { FC } from "react";
 
 export const SubscriptionPlan: FC = () => {
   return (
-    <div className="flex space-x-7">
+    <div className="flex space-x-5">
       {subscriptionPlanData.map((item, index) => (
         <div key={index} className="flex flex-col w-[300px] ">
           <div

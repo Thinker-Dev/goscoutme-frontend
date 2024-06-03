@@ -1,6 +1,8 @@
+import { sportState } from "@/lib/recoil";
 import { Menu } from "@/types/menu";
+import { useRecoilState } from "recoil";
 
-const menuData: Menu[] = [
+export const menuData: Menu[] = [
   {
     title: "Home",
     path: "/#",
@@ -34,4 +36,3 @@ const menuData: Menu[] = [
     path: "/auth/login",
   },
 ];
-export default menuData;

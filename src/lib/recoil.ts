@@ -5,6 +5,11 @@ export const appointmentState = atom({
   default: false,
 });
 
+export const sportState = atom({
+  key: "sportState",
+  default: <string | null>null,
+});
+
 export const selectedtimeState = atom({
   key: "selectedtimeState",
   default: <string | null>null,

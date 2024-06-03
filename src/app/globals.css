@@ -133,48 +133,45 @@ input[type="number"] {
   }
 }
 
-.custom-calendar {
-  background: #b8dbff !important;
-  box-shadow: none !important;
-  width: 400px !important;
-}
+.styled-messages-scroll-bar {
+  /* width */
+  &::-webkit-scrollbar {
+    width: 11px;
+    padding-top: 10px;
+  }
 
-.Calendar__section .-shown {
-  background-color: red !important;
-}
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    box-shadow: inset 0 0 5px #eee;
+    border-left: 4.5px solid transparent;
+    border-right: 4.5px solid transparent;
+  }
 
-.Calendar__weekDay {
-  color: black;
-  font-weight: 600;
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #0c469a;
+    width: 11px;
+  }
 }
+.styled-meetings-scroll-bar {
+  /* width */
+  &::-webkit-scrollbar {
+    width: 11px;
+    padding-top: 10px;
+  }
 
-.Calendar__weekRow {
-  gap: 10px !important;
-  margin-bottom: 3px !important;
-}
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    box-shadow: inset 0 0 5px #b8dbff;
+    border-left: 4.5px solid transparent;
+    border-right: 4.5px solid transparent;
+  }
 
-.Calendar__day.-ltr:hover {
-  border-radius: 0% !important;
-  border-bottom-right-radius: 7px !important;
-  border-bottom-left-radius: 7px !important;
-}
-
-.custom-today-day::after {
-  visibility: hidden; /* hide small border under the text */
-}
-
-.costum-selected-day {
-  color: black !important;
-  border-radius: 0% !important;
-  border-bottom-right-radius: 7px !important;
-  border-bottom-left-radius: 7px !important;
-}
-
-.costum-selected-day:focus {
-  outline: none !important;
-  border: none !important;
-}
-.Calendar__day.-ltr:focus {
-  outline: none !important;
-  border: none !important;
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #0c469a;
+    width: 11px;
+  }
 }

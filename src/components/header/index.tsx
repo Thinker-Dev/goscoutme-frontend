@@ -1,6 +1,5 @@
 "use client";
 
-import menuData from "@/data/navData";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FC } from "react";
@@ -16,10 +15,16 @@ import { MenuIcon } from "lucide-react";
 import { Notifications } from "../../../public/icons/notifications";
 import { Messages } from "../../../public/icons/messages";
 import { ProfileMini } from "../../../public/icons/profile";
+import { menuData } from "@/data/navData";
+import { useRecoilState } from "recoil";
+import { sportState } from "@/lib/recoil";
+import { Menu } from "@/types/menu";
 
 export const Header: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
+  const [selectedSport, setSelectedSport] = useRecoilState(sportState);
+
   const filteredMenuData = pathSegments.includes("dashboard")
     ? menuData.filter(
         (item) =>
@@ -30,6 +35,7 @@ export const Header: FC = () => {
     : menuData.filter(
         (item) => !["sport", "dashboard"].includes(item.title.toLowerCase())
       );
+
   return (
     <div
       className={` flex ${
@@ -49,7 +55,11 @@ export const Header: FC = () => {
           {filteredMenuData.map((item, index) => (
             <li key={index} className="flex flex-col items-center ">
               <Link
-                href={item.path}
+                href={
+                  item.title.toLowerCase() === "dashboard"
+                    ? `/dashboard/${selectedSport}`
+                    : item.path
+                }
                 className="font-semibold  font-lexenda_exa text-lg transition-all"
               >
                 {item.title}
@@ -70,7 +80,9 @@ export const Header: FC = () => {
       </nav>
       {pathSegments.includes("dashboard") && (
         <div className="space-x-3 flex items-center">
-          <Messages />
+          <Link href={"/dashboard/messages"}>
+            <Messages />
+          </Link>
           <Notifications />
           <ProfileMini />
         </div>

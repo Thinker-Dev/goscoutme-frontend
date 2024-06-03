@@ -1,7 +1,4 @@
 import { Athletes } from "@/components/athletes";
-import { Title } from "@/components/auth/createAccount";
-import { AthleteCard } from "@/components/cards/athlete";
-import { ChooseSport } from "@/components/sports";
 import { Filter } from "@/components/filter";
 import { SearchInput } from "@/components/inputs/searchInput";
 import { Metadata } from "next";
