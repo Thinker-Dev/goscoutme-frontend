@@ -49,47 +49,6 @@ export const ScoutRegistrationForm: FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 w-[544px] max-sm:w-full max-xs:px-10"
       >
-        <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
-                <FormControl>
-                  <TextInput label="First Name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
-                <FormControl>
-                  <TextInput label="Last Name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div>
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <TextInput label="email" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
         <div className="flex sm:space-x-10 max-sm:flex-col">
           <div className="flex justify-between">
             <FormField

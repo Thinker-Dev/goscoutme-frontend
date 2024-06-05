@@ -2,13 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
@@ -23,30 +21,50 @@ import { Menu } from "@/types/menu";
 export const Header: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
-  const [selectedSport, setSelectedSport] = useRecoilState(sportState);
 
-  const filteredMenuData = pathSegments.includes("dashboard")
+  // Replace this with actual login check
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Replace this with your actual authentication logic
+    // Example: setIsLoggedIn(checkUserAuthentication());
+    const checkLoginStatus = async () => {
+      const loggedIn = await checkUserAuthentication();
+      setIsLoggedIn(loggedIn);
+    };
+    checkLoginStatus();
+  }, []);
+
+  const checkUserAuthentication = async () => {
+    // Add your authentication logic here
+    // This is just a placeholder
+    return new Promise<boolean>((resolve) => {
+      setTimeout(() => {
+        resolve(true); // Change this to the actual login check
+      }, 1000);
+    });
+  };
+
+  const filteredMenuData = isLoggedIn
     ? menuData.filter(
         (item) =>
-          !["home", "create account", "login"].includes(
+          !["home", "create account", "login", "sport"].includes(
             item.title.toLowerCase()
           )
       )
     : menuData.filter(
-        (item) => !["sport", "dashboard"].includes(item.title.toLowerCase())
+        (item) => !["dashboard"].includes(item.title.toLowerCase())
       );
 
   return (
     <div
       className={` flex ${
-        pathSegments.includes("dashboard")
-          ? "justify-between "
-          : "justify-center"
+        isLoggedIn ? "justify-between " : "justify-center"
       }  items-center h-28 max-xs-sm:h-16`}
     >
       <nav>
         <ul className="md:flex space-x-10 hidden">
-          {pathSegments.includes("dashboard") && (
+          {isLoggedIn && (
             <Link href={"/"} className="text-primary font-black text-2xl -mt-1">
               <span className="text-secondary">Go</span>Scout
               <span className="text-black">.me</span>
@@ -55,11 +73,7 @@ export const Header: FC = () => {
           {filteredMenuData.map((item, index) => (
             <li key={index} className="flex flex-col items-center ">
               <Link
-                href={
-                  item.title.toLowerCase() === "dashboard"
-                    ? `/dashboard/${selectedSport}`
-                    : item.path
-                }
+                href={item.path}
                 className="font-semibold  font-lexenda_exa text-lg transition-all"
               >
                 {item.title}
@@ -78,7 +92,7 @@ export const Header: FC = () => {
           ))}
         </ul>
       </nav>
-      {pathSegments.includes("dashboard") && (
+      {isLoggedIn && (
         <div className="space-x-3 flex items-center">
           <Link href={"/dashboard/messages"}>
             <Messages />

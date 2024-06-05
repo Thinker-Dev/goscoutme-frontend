@@ -1,15 +1,6 @@
 import { z } from "zod";
 
 export const AthleteRegistrationSchema = z.object({
-  firstName: z.string({
-    required_error: "This field is required",
-  }),
-  lastName: z.string({
-    required_error: "This field is required",
-  }),
-  email: z.string({ required_error: "This field is required" }).email({
-    message: "Invalid email",
-  }),
   sex: z.string({
     required_error: "Required",
   }),

@@ -28,7 +28,7 @@ export const ChooseSport: FC = () => {
     event.preventDefault();
     if (selectedSport) {
       ref.current?.continuousStart();
-      router.push(`/dashboard/${selectedSport}`);
+      router.push(`/auth/sport/user`);
     } else {
       setOpen(true);
     }
@@ -111,7 +111,7 @@ export const ChooseSport: FC = () => {
             <span>Volleyball</span>
           </label>
         </div>
-        <SubmitButton label="View Dashboard" />
+        <SubmitButton label="Continue" />
       </form>
       <AlertDialog open={open}>
         <AlertDialogContent>

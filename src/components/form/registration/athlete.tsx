@@ -53,46 +53,6 @@ export const AthleteRegistrationForm: FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 w-[544px] max-sm:w-full max-xs:px-10"
       >
-        <div className="flex space-x-10 max-xs-xs:space-x-0 max-xs-xs:justify-between">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
-                <FormControl>
-                  <TextInput label="First Name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
-                <FormControl>
-                  <TextInput label="Last Name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div>
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <TextInput label="Email" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
         <div className="space-y-2 pt-3">
           <span className="font-lexenda_exa font-extrabold text-primary uppercase">
             personal contact information

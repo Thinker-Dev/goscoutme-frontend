@@ -29,7 +29,7 @@ export const menuData: Menu[] = [
   },
   {
     title: "Create Account",
-    path: "/auth/create-account",
+    path: "/auth/sport",
   },
   {
     title: "Login",

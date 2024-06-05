@@ -45,8 +45,8 @@ export const AthleteSearchCard: FC = () => {
                   <span>{item.age}yo</span>
                 </div>
 
-                <div className="space-y-2">
-                  <div className="flex space-x-1 items-center mt-1">
+                <div className="">
+                  <div className="flex space-x-1 items-center mt-1 mb-2">
                     <Expand
                       className={`${expandedFilters[index] && "rotate-180"}`}
                     />
@@ -58,9 +58,9 @@ export const AthleteSearchCard: FC = () => {
                     </span>
                   </div>
                   <Button
-                    to="#"
+                    to="/dashboard/profile/HI3304"
                     label="view profile"
-                    className="text-[10px] w-28"
+                    className="text-[10px] w-28 h-7 xs:text-[10px]"
                   />
                 </div>
               </div>

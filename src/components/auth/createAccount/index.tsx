@@ -29,7 +29,7 @@ export const CreateAccount: FC = () => {
           <span>Join as a</span>
         </div>
         <Link
-          href={"create-account/sign-up-scout"}
+          href={"user/scout"}
           className="font-lexenda_deca font-extralight text-primary text-[100px] transition-all hover:-translate-y-1 duration-300 max-md-xs:text-[85px] max-sm:text-[70px]"
         >
           Scout
@@ -45,7 +45,7 @@ export const CreateAccount: FC = () => {
           <span>Join as an</span>
         </div>
         <Link
-          href={"create-account/sign-up-athlete"}
+          href={"user/athlete"}
           className="font-lexenda_deca font-extralight text-secondary text-[100px] transition-all hover:-translate-y-1 duration-300 max-md-xs:text-[85px] max-sm:text-[70px]"
         >
           Athlete

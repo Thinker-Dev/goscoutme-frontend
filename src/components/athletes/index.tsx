@@ -27,15 +27,11 @@ export const Athletes: FC = () => {
 
       if (lastSegment === "search") {
         router.push(
-          `/dashboard/${sportSegment}/search?q=${encodeURIComponent(
-            searchQuery
-          )}`
+          `/${sportSegment}/search?q=${encodeURIComponent(searchQuery)}`
         );
       } else {
         router.push(
-          `/dashboard/${lastSegment}/search?q=${encodeURIComponent(
-            searchQuery
-          )}`
+          `/${lastSegment}/search?q=${encodeURIComponent(searchQuery)}`
         );
       }
     }
