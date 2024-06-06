@@ -16,18 +16,23 @@ import {
 } from "@/components/ui/alert-dialog";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 import { useRecoilState } from "recoil";
-import { sportState } from "@/lib/recoil";
+import { signUpState, sportState } from "@/lib/recoil";
 
 export const ChooseSport: FC = () => {
   const router = useRouter();
   const [selectedSport, setSelectedSport] = useRecoilState(sportState);
   const [open, setOpen] = useState<boolean>();
   const ref = useRef<LoadingBarRef>(null);
+  const [signUp, setSignUp] = useRecoilState(signUpState);
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (selectedSport) {
       ref.current?.continuousStart();
+      setSignUp((prevSignUp) => ({
+        ...prevSignUp,
+        sport_id: selectedSport,
+      }));
       router.push(`/auth/sport/user`);
     } else {
       setOpen(true);
@@ -46,26 +51,26 @@ export const ChooseSport: FC = () => {
           <label className="flex items-center cursor-pointer flex-col space-y-1 text-xl  font-lexenda_exa font-bold">
             <input
               type="radio"
-              value="football"
-              checked={selectedSport === "football"}
-              onChange={() => setSelectedSport("football")}
+              value="1"
+              checked={selectedSport === "1"}
+              onChange={() => setSelectedSport("1")}
               hidden
             />
             <Football
-              fill={`${selectedSport === "football" ? "#1A83FF" : "#0C469A"}`}
+              fill={`${selectedSport === "1" ? "#1A83FF" : "#0C469A"}`}
             />
             <span>Football</span>
           </label>
           <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
             <input
               type="radio"
-              value="basketball"
-              checked={selectedSport === "basketball"}
-              onChange={() => setSelectedSport("basketball")}
+              value="2"
+              checked={selectedSport === "2"}
+              onChange={() => setSelectedSport("2")}
               hidden
             />
             <Bascketball
-              fill={`${selectedSport === "basketball" ? "#1A83FF" : "#0C469A"}`}
+              fill={`${selectedSport === "2" ? "#1A83FF" : "#0C469A"}`}
             />
             <span>Basketball</span>
           </label>
@@ -74,39 +79,35 @@ export const ChooseSport: FC = () => {
           <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
             <input
               type="radio"
-              value="soccer"
-              checked={selectedSport === "soccer"}
-              onChange={() => setSelectedSport("soccer")}
+              value="3"
+              checked={selectedSport === "3"}
+              onChange={() => setSelectedSport("3")}
               hidden
             />
-            <Soccer
-              fill={`${selectedSport === "soccer" ? "#1A83FF" : "#0C469A"}`}
-            />
+            <Soccer fill={`${selectedSport === "3" ? "#1A83FF" : "#0C469A"}`} />
             <span>Soccer</span>
           </label>
           <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
             <input
               type="radio"
-              value="hockey"
-              checked={selectedSport === "hockey"}
-              onChange={() => setSelectedSport("hockey")}
+              value="4"
+              checked={selectedSport === "4"}
+              onChange={() => setSelectedSport("4")}
               hidden
             />
-            <Hockey
-              fill={`${selectedSport === "hockey" ? "#1A83FF" : "#0C469A"}`}
-            />
+            <Hockey fill={`${selectedSport === "4" ? "#1A83FF" : "#0C469A"}`} />
             <span>Hockey</span>
           </label>
           <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
             <input
               type="radio"
-              value="volleyball"
-              checked={selectedSport === "volleyball"}
-              onChange={() => setSelectedSport("volleyball")}
+              value="5"
+              checked={selectedSport === "5"}
+              onChange={() => setSelectedSport("5")}
               hidden
             />
             <Volleyball
-              fill={`${selectedSport === "volleyball" ? "#1A83FF" : "#0C469A"}`}
+              fill={`${selectedSport === "5" ? "#1A83FF" : "#0C469A"}`}
             />
             <span>Volleyball</span>
           </label>

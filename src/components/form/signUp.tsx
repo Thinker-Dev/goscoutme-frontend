@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SubmitButton } from "../buttons/submit";
 import { TextInput } from "../inputs/textInput";
@@ -20,20 +20,57 @@ import {
 } from "@/components/ui/form";
 import { SignUpSchema } from "./schema/signUp";
 import { PasswordInput } from "../ui/PasswordInput";
+import { signUpState } from "@/lib/recoil";
+import { useRecoilState } from "recoil";
+import { axiosInstance } from "@/lib/axios";
+import { toast } from "../ui/use-toast";
+
+export interface IUserResponse {
+  user: {
+    email: string;
+    id: string;
+  };
+  token: string;
+}
 
 export const SignUpForm: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
   const router = useRouter();
+  const [signUp, setSignUp] = useRecoilState(signUpState);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof SignUpSchema>>({
     resolver: zodResolver(SignUpSchema),
   });
 
-  function onSubmit(values: z.infer<typeof SignUpSchema>) {
-    console.log(values);
-    router.push(`${lastSegment}/registration`);
+  async function onSubmit(values: z.infer<typeof SignUpSchema>) {
+    setSignUp((prevSignUp) => ({ ...prevSignUp, email: values.email }));
+
+    setLoading(true);
+    await axiosInstance
+      .post<IUserResponse>("/auth/sign_up", values)
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("token", res.data.token);
+        router.push(`${lastSegment}/registration`);
+        toast({
+          title: "Sucesso",
+          description: res.data.token,
+          variant: "default",
+        });
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast({
+            title: "Error ",
+            description: err.response.data.message,
+            variant: "destructive",
+          });
+        }
+      });
+    setLoading(false);
   }
 
   return (
@@ -42,44 +79,6 @@ export const SignUpForm: FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 md:w-[544px] max-xs-xs:w-full max-xs:px-10"
       >
-        <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
-                <FormControl>
-                  <TextInput
-                    label="First Name"
-                    className="rounded-br-none"
-                    autoComplete="name"
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription></FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
-                <FormControl>
-                  <TextInput
-                    label="Last Name"
-                    className="rounded-bl-none"
-                    autoComplete="family-name"
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription></FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
         <div>
           <FormField
             control={form.control}
@@ -87,9 +86,8 @@ export const SignUpForm: FC = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <TextInput label="email" {...field} autoComplete="email" />
+                  <TextInput label="Email" {...field} autoComplete="email" />
                 </FormControl>
-                <FormDescription></FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -104,7 +102,6 @@ export const SignUpForm: FC = () => {
                 <FormControl>
                   <PasswordInput {...field} autoComplete="current-password" />
                 </FormControl>
-                <FormDescription></FormDescription>
                 <FormMessage />
               </FormItem>
             )}

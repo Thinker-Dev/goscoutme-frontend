@@ -21,18 +21,66 @@ import { CheckboxInput } from "../../inputs/checkBoxInput";
 import { PhoneNumberInput } from "../../inputs/phoneNumberInput";
 import { SelectInput } from "../../inputs/selectInput";
 import { ScoutRegistrationSchema } from "../schema/registration/scout";
+import { signUpState } from "@/lib/recoil";
+import { useRecoilState } from "recoil";
+import { axiosInstance } from "@/lib/axios";
+import { toast } from "@/components/ui/use-toast";
+import { IUserResponse } from "../signUp";
 
 export const ScoutRegistrationForm: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const [fileChosen, setFileChosen] = useState<boolean>(false);
+  const [signUp, setSignUp] = useRecoilState(signUpState);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof ScoutRegistrationSchema>>({
     resolver: zodResolver(ScoutRegistrationSchema),
+    defaultValues: {
+      sport_id: signUp.sport_id,
+      email: signUp.email,
+    },
   });
 
-  function onSubmit(values: z.infer<typeof ScoutRegistrationSchema>) {
-    console.log(values);
+  const token = localStorage.getItem("token");
+
+  const userJSON = localStorage.getItem("user");
+  if (userJSON) {
+    // Parse the JSON string back into a JavaScript object
+    const user = JSON.parse(userJSON);
+    // Now 'user' contains the user data retrieved from localStorage
+    console.log(user);
+  } else {
+    console.log("User data not found in localStorage");
+  }
+
+  async function onSubmit(values: z.infer<typeof ScoutRegistrationSchema>) {
+    setLoading(true);
+    await axiosInstance
+      .post<IUserResponse>("/profile/create_profile", values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        // router.push("/home");
+        toast({
+          title: "Sucesso",
+          description: res.data.token,
+          variant: "default",
+        });
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast({
+            title: "Erro",
+            description: err.response.data.message,
+            variant: "destructive",
+          });
+        }
+      });
+    setLoading(false);
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +97,42 @@ export const ScoutRegistrationForm: FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 w-[544px] max-sm:w-full max-xs:px-10"
       >
+        <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
+          <FormField
+            control={form.control}
+            name="first_name"
+            render={({ field }) => (
+              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
+                <FormControl>
+                  <TextInput
+                    label="First Name"
+                    className="rounded-br-none"
+                    autoComplete="name"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="last_name"
+            render={({ field }) => (
+              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
+                <FormControl>
+                  <TextInput
+                    label="Last Name"
+                    className="rounded-bl-none"
+                    autoComplete="family-name"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <div className="flex sm:space-x-10 max-sm:flex-col">
           <div className="flex justify-between">
             <FormField

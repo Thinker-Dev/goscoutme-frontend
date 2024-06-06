@@ -73,7 +73,7 @@ export const AthleteRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="birthday"
+              name="birth_date"
               render={({ field }) => (
                 <FormItem className="max-sm:w-full">
                   <FormControl>
@@ -90,7 +90,7 @@ export const AthleteRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="countryofBirth"
+              name="country_of_birth"
               render={({ field }) => (
                 <FormItem className="max-sm:hidden ">
                   <FormControl>
@@ -107,7 +107,7 @@ export const AthleteRegistrationForm: FC = () => {
           </div>
           <FormField
             control={form.control}
-            name="countryofBirth"
+            name="country_of_birth"
             render={({ field }) => (
               <FormItem className="sm:hidden pt-2">
                 <FormControl>
@@ -173,7 +173,7 @@ export const AthleteRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="heightMetrics"
+              name="height_metrics"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -204,7 +204,7 @@ export const AthleteRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="weightMetrics"
+              name="weight_metrics"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -219,7 +219,7 @@ export const AthleteRegistrationForm: FC = () => {
         <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
           <FormField
             control={form.control}
-            name="parentOne"
+            name="parent_one"
             render={({ field }) => (
               <FormItem className="w-full max-sm:w-[60%]">
                 <FormControl>
@@ -231,7 +231,7 @@ export const AthleteRegistrationForm: FC = () => {
           />
           <FormField
             control={form.control}
-            name="relationshipOne"
+            name="relationship_one"
             render={({ field }) => (
               <FormItem className="max-sm:w-[35%]">
                 <FormControl>
@@ -249,7 +249,7 @@ export const AthleteRegistrationForm: FC = () => {
         <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
           <FormField
             control={form.control}
-            name="parentTwo"
+            name="parent_two"
             render={({ field }) => (
               <FormItem className="w-full max-sm:w-[60%]">
                 <FormControl>
@@ -261,7 +261,7 @@ export const AthleteRegistrationForm: FC = () => {
           />
           <FormField
             control={form.control}
-            name="relationshipTwo"
+            name="relationship_two"
             render={({ field }) => (
               <FormItem className="max-sm:w-[35%]">
                 <FormControl>
@@ -279,7 +279,7 @@ export const AthleteRegistrationForm: FC = () => {
         <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
-            name="homeAddress"
+            name="home_address"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -292,7 +292,7 @@ export const AthleteRegistrationForm: FC = () => {
           <div className="flex flex-col sm:justify-between max-sm:space-y-4">
             <FormField
               control={form.control}
-              name="homePhone"
+              name="home_phone"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -304,7 +304,7 @@ export const AthleteRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="personalMobile"
+              name="personal_mobile"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -382,7 +382,7 @@ export const AthleteRegistrationForm: FC = () => {
           <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
             <FormField
               control={form.control}
-              name="athleteStatus"
+              name="athlete_status"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
@@ -398,7 +398,7 @@ export const AthleteRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="positionPlayed"
+              name="position_played"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
@@ -483,7 +483,7 @@ export const AthleteRegistrationForm: FC = () => {
           <div className="flex flex-col justify-between">
             <FormField
               control={form.control}
-              name="officePhone"
+              name="office_phone"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -495,7 +495,7 @@ export const AthleteRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="officeMobile"
+              name="office_mobile"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -509,7 +509,7 @@ export const AthleteRegistrationForm: FC = () => {
         </div>
         <FormField
           control={form.control}
-          name="organizationEmail"
+          name="organization_email"
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -521,7 +521,7 @@ export const AthleteRegistrationForm: FC = () => {
         />
         <FormField
           control={form.control}
-          name="leaguesPlayed"
+          name="leagues_played"
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -630,7 +630,7 @@ export const AthleteRegistrationForm: FC = () => {
             <div className="flex sm:justify-between sm:w-[33%] max-sm:space-x-5">
               <FormField
                 control={form.control}
-                name="gameStarted"
+                name="game_started"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
@@ -647,7 +647,7 @@ export const AthleteRegistrationForm: FC = () => {
               />
               <FormField
                 control={form.control}
-                name="fieldGoals"
+                name="field_goals"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>

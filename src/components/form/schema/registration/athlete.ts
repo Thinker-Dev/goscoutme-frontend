@@ -4,10 +4,10 @@ export const AthleteRegistrationSchema = z.object({
   sex: z.string({
     required_error: "Required",
   }),
-  birthday: z.string({
+  birth_date: z.string({
     required_error: "This field is required",
   }),
-  countryofBirth: z.string({
+  country_of_birth: z.string({
     required_error: "This field is required",
   }),
   nationality: z.string({
@@ -19,79 +19,79 @@ export const AthleteRegistrationSchema = z.object({
   height: z.string({
     required_error: "Required",
   }),
-  heightMetrics: z.string({
+  height_metrics: z.string({
     required_error: "Required",
   }),
   weight: z.string({
     required_error: "Required",
   }),
-  weightMetrics: z.string({
+  weight_metrics: z.string({
     required_error: "Required",
   }),
-  parentOne: z.string({
+  parent_one: z.string({
     required_error: "This field is required",
   }),
-  relationshipOne: z.string({
+  relationship_one: z.string({
     required_error: "This field is required",
   }),
-  parentTwo: z.string({
+  parent_two: z.string({
     required_error: "This field is required",
   }),
-  relationshipTwo: z.string({
+  relationship_two: z.string({
     required_error: "This field is required",
   }),
   consent: z.string({
     required_error: "Please upload Parent/Guardian Consent",
   }),
-  athleteStatus: z.string({
+  athlete_status: z.string({
     required_error: "Required",
   }),
-  positionPlayed: z.string({
+  position_played: z.string({
     required_error: "This field is required",
   }),
-  leaguesPlayed: z.string({
+  leagues_played: z.string({
     required_error: "This field is required",
   }),
-  dateUpdated: z.string({
+  date_updated: z.string({
     required_error: "Required",
   }),
-  gameAppearences: z.string({
+  game_appearences: z.string({
     required_error: "Required",
   }),
-  gameStarted: z.string({
+  game_started: z.string({
     required_error: "Required",
   }),
-  minutesPlayed: z.string({
+  minutes_played: z.string({
     required_error: "Required",
   }),
-  fieldGoals: z.string({
+  field_goals: z.string({
     required_error: "Required",
   }),
   organization: z.string({
     required_error: "Please ulpoad Club/Agency Certification",
   }),
-  organizationEmail: z.string({
+  organization_email: z.string({
     required_error: "This field is required",
   }),
   office: z.string({
     required_error: "This field is required",
   }),
-  officePhone: z.string({
+  office_phone: z.string({
     required_error: "This field is required",
   }),
-  officeMobile: z.string({
+  office_mobile: z.string({
     required_error: "This field is required",
   }),
   affiliations: z.string({
     required_error: "This field is required",
   }),
-  homeAddress: z.string({
+  home_address: z.string({
     required_error: "This field is required",
   }),
-  homePhone: z.string({
+  home_phone: z.string({
     required_error: "This field is required",
   }),
-  personalMobile: z.string({
+  personal_mobile: z.string({
     required_error: "This field is required",
   }),
   resposability: z.boolean({
