@@ -23,7 +23,7 @@ import { SelectInput } from "../../inputs/selectInput";
 import { ScoutRegistrationSchema } from "../schema/registration/scout";
 import { signUpState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
-import { axiosInstance } from "@/lib/axios";
+import { privateInstance } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
 import { IUserResponse } from "../signUp";
 
@@ -56,7 +56,7 @@ export const ScoutRegistrationForm: FC = () => {
 
   async function onSubmit(values: z.infer<typeof ScoutRegistrationSchema>) {
     setLoading(true);
-    await axiosInstance
+    await privateInstance
       .post<IUserResponse>("/profile/create_profile", values, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ export const ScoutRegistrationForm: FC = () => {
         // router.push("/home");
         toast({
           title: "Sucesso",
-          description: res.data.token,
+          description: res.data.user.id,
           variant: "default",
         });
       })

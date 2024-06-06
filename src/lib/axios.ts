@@ -1,12 +1,20 @@
 import { IUserResponse } from "@/components/form/signUp";
 import axios from "axios";
 
-export const axiosInstance = axios.create({
+export const privateInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+export const publicInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 interface Session {
   access_token: string;
   token_type: string;
@@ -16,7 +24,7 @@ interface Session {
 
 }
 
-axiosInstance.interceptors.request.use(
+privateInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("session") as string;
     const session: Session = JSON.parse(token);
@@ -30,7 +38,7 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-axiosInstance.interceptors.response.use(
+privateInstance.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -39,9 +47,9 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       const access_token = await refreshAccessToken();
-      axiosInstance.defaults.headers.common["Authorization"] =
+      privateInstance.defaults.headers.common["Authorization"] =
         "Bearer " + access_token;
-      return axiosInstance(originalRequest);
+      return privateInstance(originalRequest);
     }
 
     return Promise.reject(error);
@@ -53,7 +61,7 @@ const refreshAccessToken = async () => {
     if (tokens) {
       const token: Session = JSON.parse(tokens);
 
-      const keys = await axiosInstance.get<IUserResponse>("auth/refresh_token", {
+      const keys = await privateInstance.get<IUserResponse>("auth/refresh_token", {
         headers: { Authorization: `Bearer ${token.refresh_token}` },
       });
       localStorage.set("session", JSON.stringify(keys.data.session));

@@ -22,7 +22,7 @@ import { SignUpSchema } from "./schema/signUp";
 import { PasswordInput } from "../ui/PasswordInput";
 import { signUpState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
-import { axiosInstance } from "@/lib/axios";
+import { privateInstance } from "@/lib/axios";
 import { toast } from "../ui/use-toast";
 
 export interface IUserResponse {
@@ -92,7 +92,7 @@ export const SignUpForm: FC = () => {
     setSignUp((prevSignUp) => ({ ...prevSignUp, email: values.email }));
 
     setLoading(true);
-    await axiosInstance
+    await privateInstance
       .post<IUserResponse>("/auth/sign_up", values)
       .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data.user));
