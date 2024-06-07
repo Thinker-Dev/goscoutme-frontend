@@ -5,8 +5,13 @@ import { Button } from "@/components/buttons";
 import { Expand } from "../../../../public/icons/expand";
 import filterData from "@/data/filterData";
 import { tagsData } from "@/data/tags";
+import { Athlete } from "@/types/auth";
 
-export const AthleteCard: FC = () => {
+interface Props {
+  data: Athlete[];
+}
+
+export const AthleteCard: FC<Props> = ({ data }: Props) => {
   const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
     Array(filterData.length).fill(false)
   );
@@ -19,60 +24,62 @@ export const AthleteCard: FC = () => {
 
   return (
     <div className="space-y-10 mt-10">
-      {athleteData.map((item, index) => (
+      {data.map((athlete, index) => (
         <div className="flex justify-between" key={index}>
           <div className="flex space-x-4 ">
             <div className="relative">
               <Profile />
               <div className="absolute top-[11px] right-[11px]">
-                {tagsData[item.tag].tag[1]}
+                {/* {tagsData[athlete.tag].tag[1]} */}
               </div>
             </div>
             <div className="flex flex-col text-sm">
               <span className="font-bold text-xl font-lexenda">
-                {item.id} {item.positionPlayed}
+                {/* {athlete.id} {athlete.positionPlayed} */}
               </span>
               <span className="font-extralight text-[40px] leading-[40px] text-secondary font-lexenda_deca">
-                {item.name}
+                {athlete.profile.first_name} {athlete.profile.last_name}
               </span>
               <span className="font-bold text-base font-lexenda">
-                {item.level}
+                {athlete.status}
               </span>
               <div className="space-x-5">
-                <span>{item.sex}</span>
-                <span>{item.age}yo</span>
-                <span>{item.height}</span>
-                <span>{item.weight}</span>
+                <span>{athlete.profile.sex}</span>
+                <span>{athlete.age}yo</span>
+                <span>{athlete.height}cm</span>
+                <span>{athlete.weight}kg</span>
                 <span>
                   <span className="text-paragraph">Country:</span>{" "}
-                  {item.country}
+                  {/* {athlete.profile.nationality} */}
+                  null
                 </span>
                 <span>
-                  <span className="text-paragraph">Region:</span> {item.region}
+                  <span className="text-paragraph">Region:</span>
+                  {/* {athlete.region} */}
                 </span>
               </div>
               <div className="space-x-5">
                 <span>
                   <span className="text-paragraph">Game Appearances:</span>{" "}
-                  {item.gameAppearances}
+                  {/* {athlete.gameAppearances} */}
                 </span>
                 <span>
                   <span className="text-paragraph">Minutes Played: </span>
-                  {item.minutesPlayed}
+                  {/* {athlete.minutesPlayed} */}
                 </span>
                 <span>
                   <span className="text-paragraph">Games Started: </span>
-                  {item.gamesStarted}
+                  {/* {athlete.gamesStarted} */}
                 </span>
               </div>
               <div className="space-x-5">
                 <span>
                   <span className="text-paragraph">Career Goals: </span>
-                  {item.careerGoals}
+                  {/* {athlete.careerGoals} */}
                 </span>
                 <span className="">
                   <span className="text-paragraph ">OtherPosition Played:</span>{" "}
-                  {item.otherPositionPlayed}
+                  {/* {athlete.otherPositionPlayed} */}
                 </span>
               </div>
               <span className="font-bold mt-2">
@@ -83,14 +90,17 @@ export const AthleteCard: FC = () => {
           </div>
 
           <div className="space-y-2">
-            <Button to="/dashboard/profile/HI3304" label="view profile" />
-            <div className="flex space-x-1 items-center mt-1">
+            <Button
+              to={`/dashboard/profile/${athlete?.profile.public_id}`}
+              label="view profile"
+            />
+            <div className="flex space-x-1 athletes-center mt-1">
               <Expand className={`${expandedFilters[index] && "rotate-180"}`} />
               <span
                 className="uppercase text-[10px] leading-3 font-lexenda_exa font-bold cursor-pointer"
                 onClick={() => toggleExpand(index)}
               >
-                {item.tag ? "edit" : "Add"} color tag
+                {/* {athlete.tag ? "edit" : "Add"} color tag */}
               </span>
             </div>
           </div>

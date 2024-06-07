@@ -1,4 +1,4 @@
-import { IUserResponse } from "@/components/form/signUp";
+import { IUserResponse } from "@/types/auth";
 import axios from "axios";
 
 export const privateInstance = axios.create({
@@ -21,7 +21,6 @@ interface Session {
   expires_in: number;
   expires_at: number;
   refresh_token: string;
-
 }
 
 privateInstance.interceptors.request.use(
@@ -61,9 +60,12 @@ const refreshAccessToken = async () => {
     if (tokens) {
       const token: Session = JSON.parse(tokens);
 
-      const keys = await privateInstance.get<IUserResponse>("auth/refresh_token", {
-        headers: { Authorization: `Bearer ${token.refresh_token}` },
-      });
+      const keys = await privateInstance.get<IUserResponse>(
+        "auth/refresh_token",
+        {
+          headers: { Authorization: `Bearer ${token.refresh_token}` },
+        }
+      );
       localStorage.set("session", JSON.stringify(keys.data.session));
       return keys.data.session.access_token;
     }

@@ -28,13 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="">
+    <html lang="en">
       <RecoilContextProvider>
         <body
           className={`${lexenda.className} ${lexenda_exa.className} ${lexenda_deca.className} max-w-screen-xl mx-auto xs:px-10 min-h-screen`}
           suppressHydrationWarning
         >
-          <Header />
           {children}
           <Toaster />
         </body>

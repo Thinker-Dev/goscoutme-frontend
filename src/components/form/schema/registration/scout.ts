@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 export const ScoutRegistrationSchema = z.object({
-  sport_id: z.string({
+  sport_id: z.number({
+    required_error: "This field is required",
+  }),
+  userType: z.string({
     required_error: "This field is required",
   }),
   first_name: z.string({
@@ -16,7 +19,7 @@ export const ScoutRegistrationSchema = z.object({
   sex: z.string({
     required_error: "Required",
   }),
-  birthday: z.string({
+  birt_date: z.string({
     required_error: "This field is required",
   }),
   nationality: z.string({
@@ -43,13 +46,13 @@ export const ScoutRegistrationSchema = z.object({
   otherAffiliations: z.string({
     required_error: "This field is required",
   }),
-  homeAddress: z.string({
+  address: z.string({
     required_error: "This field is required",
   }),
-  homePhone: z.string({
+  phone: z.string({
     required_error: "This field is required",
   }),
-  personalMobile: z.string({
+  mobile: z.string({
     required_error: "This field is required",
   }),
   resposability: z.boolean({

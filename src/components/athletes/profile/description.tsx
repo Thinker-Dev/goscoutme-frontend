@@ -6,59 +6,106 @@ import { useRecoilState } from "recoil";
 import { appointmentState } from "@/lib/recoil";
 import { ScheduleAppointment } from "./scheduleAppointment";
 import { UploadVideoCard } from "./video/uploadVideoCard";
+import { Athlete, Profile } from "@/types/auth";
 
 interface Props {
   currentUser: boolean;
+  athlete: Athlete | null;
 }
 
-export const Description: FC<Props> = ({ currentUser }: Props) => {
+export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
   const [appointment, setAppointment] = useRecoilState(appointmentState);
   const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
     Array(filterData.length).fill(false)
   );
+
   const toggleExpand = (index: number) => {
     const newExpandedFilters = [...expandedFilters];
     newExpandedFilters[index] = !newExpandedFilters[index];
     setExpandedFilters(newExpandedFilters);
   };
 
+  const getFirstSixWords = (text?: string) => {
+    if (!text) return "";
+    const words = text.split(" ");
+    return words.length > 1 ? words.slice(0, 6).join(" ") : text.slice(0, 6);
+  };
+
+  const formatDate = (dateString: string | undefined): string => {
+    if (!dateString) return "";
+
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const capitalizeFirstLetter = (text: string | undefined): string => {
+    if (!text) return "";
+
+    text = text.toLowerCase();
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
   return (
     <div className="flex flex-col text-sm w-[70%]">
-      <div className="flex space-x-1 items-center mt-1 mb-3">
-        <Expand className={`${expandedFilters[0] && "rotate-180"}`} />
-        <span
-          className="uppercase text-[10px] leading-3 font-lexenda_exa font-bold cursor-pointer"
-          onClick={() => toggleExpand(0)}
-        >
-          {athleteData[0].tag ? "edit" : "Add"} color tag
-        </span>
-      </div>
-      <span className="font-bold  text-2xl font-lexenda">HI3304 Striker</span>
+      {!currentUser && (
+        <div className="flex space-x-1 items-center mt-1 mb-3">
+          <Expand className={`${expandedFilters[0] && "rotate-180"}`} />
+          <span
+            className="uppercase text-[10px] leading-3 font-lexenda_exa font-bold cursor-pointer"
+            onClick={() => toggleExpand(0)}
+          >
+            {athleteData[0].tag ? "edit" : "Add"} color tag
+          </span>
+        </div>
+      )}
+      <span className="font-bold  text-2xl font-lexenda">
+        <span className="uppercase">
+          {getFirstSixWords(athlete?.profile.public_id)}
+        </span>{" "}
+        Striker
+      </span>
       <span className="font-extralight text-5xl text-secondary font-lexenda_deca">
-        Alfredo Di Stefano III
+        {athlete?.profile.first_name} {athlete?.profile.last_name}
       </span>
       <div className="space-y-2 w-full">
-        <span className="font-bold font-lexenda text-lg ">Amateur</span>
+        <span className="font-bold font-lexenda text-lg ">
+          {" "}
+          {athlete?.status}
+        </span>
         {!appointment && (
           <>
             <div className="flex space-x-8">
               <div className="flex-col flex">
                 <span className="font-bold text-lg leading-5">Sex</span>
-                <span className="font-extralight text-2xl">Male</span>
+                <span className="font-extralight text-2xl">
+                  {athlete?.profile.sex}
+                </span>
               </div>
               <div className="flex-col flex">
                 <span className="font-bold text-lg leading-5">Age</span>
-                <span className="font-extralight text-2xl">18</span>
+                <span className="font-extralight text-2xl">
+                  {" "}
+                  {athlete?.age}
+                </span>
               </div>
               <div className="flex-col flex">
                 <span className="font-bold text-lg leading-5">Height</span>
-                <span className="font-extralight text-2xl">
-                  170.18cm/5ft 7in
+                <span className="font-extralight text-2xl lowercase">
+                  {athlete?.height}
+                  {athlete?.height_metric}/5ft 7in
                 </span>
               </div>
               <div className="flex-col flex">
                 <span className="font-bold text-lg leading-5">Weight</span>
-                <span className="font-extralight text-2xl">50kgs/110.2lbs</span>
+                <span className="font-extralight text-2xl lowercase">
+                  {athlete?.weight}
+                  {athlete?.weight_metric}
+                  50kgs/110.2lbs
+                </span>
               </div>
             </div>
             <div className="flex space-x-8">
@@ -66,14 +113,16 @@ export const Description: FC<Props> = ({ currentUser }: Props) => {
                 <span className="font-bold text-lg leading-5">
                   Date of Birth
                 </span>
-                <span className="font-extralight text-2xl">March 21, 2006</span>
+                <span className="font-extralight text-2xl">
+                  {formatDate(athlete?.profile.birt_date)}
+                </span>
               </div>
               <div className="flex-col flex">
                 <span className="font-bold text-lg leading-5">
                   Country/Nationality
                 </span>
                 <span className="font-extralight text-2xl">
-                  Argentine Spanish
+                  null/{capitalizeFirstLetter(athlete?.profile.nationality)}
                 </span>
               </div>
             </div>
@@ -81,7 +130,7 @@ export const Description: FC<Props> = ({ currentUser }: Props) => {
               <div className="flex-col flex">
                 <span className="font-bold text-lg">Citizenships</span>
                 <span className="font-extralight text-xl">
-                  Argentine, British
+                  {athlete?.citzenship}
                 </span>
               </div>
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SubmitButton } from "../buttons/submit";
 import { TextInput } from "../inputs/textInput";
@@ -17,15 +17,45 @@ import {
 import { SignInSchema } from "./schema/signIn";
 import { PasswordInput } from "../ui/PasswordInput";
 import Link from "next/link";
+import { IUserResponse } from "@/types/auth";
+import { privateInstance } from "@/lib/axios";
+import { useRouter } from "next/navigation";
+import { toast } from "../ui/use-toast";
 
 export const SignInForm: FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
   });
 
-  function onSubmit(values: z.infer<typeof SignInSchema>) {
+  async function onSubmit(values: z.infer<typeof SignInSchema>) {
     console.log(values);
+    setLoading(true);
+    await privateInstance
+      .post<IUserResponse>("/auth/sign_in", values)
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("profile", JSON.stringify(res.data.profile));
+        localStorage.setItem("session", JSON.stringify(res.data.session));
+        router.push("/dashboard");
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast({
+            title: "Error ",
+            description: err.response.data.message,
+            variant: "destructive",
+          });
+        }
+      });
+    setLoading(false);
   }
+
+  // console.log("====================================");
+  // console.log(localStorage.getItem("session"));
+  // console.log("====================================");
+
   return (
     <Form {...form}>
       <form
@@ -74,7 +104,7 @@ export const SignInForm: FC = () => {
           </div>
         </div>
 
-        <SubmitButton label={"login"} />
+        <SubmitButton label={"login"} loading={loading} />
       </form>
     </Form>
   );

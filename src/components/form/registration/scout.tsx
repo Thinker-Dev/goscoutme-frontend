@@ -4,7 +4,7 @@ import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SubmitButton } from "../../buttons/submit";
 import { TextInput } from "../../inputs/textInput";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -25,9 +25,10 @@ import { signUpState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
 import { privateInstance } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
-import { IUserResponse } from "../signUp";
+import { IUserResponse } from "@/types/auth";
 
 export const ScoutRegistrationForm: FC = () => {
+  const router = useRouter();
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const [fileChosen, setFileChosen] = useState<boolean>(false);
@@ -39,32 +40,18 @@ export const ScoutRegistrationForm: FC = () => {
     defaultValues: {
       sport_id: signUp.sport_id,
       email: signUp.email,
+      userType: "SCOUT",
     },
   });
-
-  const token = localStorage.getItem("token");
-
-  const userJSON = localStorage.getItem("user");
-  if (userJSON) {
-    // Parse the JSON string back into a JavaScript object
-    const user = JSON.parse(userJSON);
-    // Now 'user' contains the user data retrieved from localStorage
-    console.log(user);
-  } else {
-    console.log("User data not found in localStorage");
-  }
 
   async function onSubmit(values: z.infer<typeof ScoutRegistrationSchema>) {
     setLoading(true);
     await privateInstance
-      .post<IUserResponse>("/profile/create_profile", values, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post<IUserResponse>("/profile/create_profile", values)
       .then((res) => {
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        // router.push("/home");
+        localStorage.setItem("profile", JSON.stringify(res.data.profile));
+        // localStorage.setItem("scout", JSON.stringify(res.data.scout));
+        router.push("/dashboard");
         toast({
           title: "Sucesso",
           description: res.data.user.id,
@@ -149,7 +136,7 @@ export const ScoutRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="birthday"
+              name="birt_date"
               render={({ field }) => (
                 <FormItem className="sm:hidden">
                   <FormControl>
@@ -171,7 +158,7 @@ export const ScoutRegistrationForm: FC = () => {
             <div className="flex flex-row sm:space-x-5 max-sm:mt-4">
               <FormField
                 control={form.control}
-                name="birthday"
+                name="birt_date"
                 render={({ field }) => (
                   <FormItem className="max-sm:hidden">
                     <FormControl>
@@ -297,7 +284,7 @@ export const ScoutRegistrationForm: FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <PhoneNumberInput label="Phone" {...field} />
+                    <TextInput type="number" label="Phone" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -309,7 +296,7 @@ export const ScoutRegistrationForm: FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <PhoneNumberInput label="Mobile" {...field} />
+                    <TextInput type="number" label="Mobile" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -351,7 +338,7 @@ export const ScoutRegistrationForm: FC = () => {
           <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
             <FormField
               control={form.control}
-              name="homeAddress"
+              name="address"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
@@ -364,11 +351,12 @@ export const ScoutRegistrationForm: FC = () => {
             <div className="flex flex-col sm:justify-between max-sm:space-y-4">
               <FormField
                 control={form.control}
-                name="homePhone"
+                name="phone"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <PhoneNumberInput label="Home Phone" {...field} />
+                      {/* <PhoneNumberInput label="Home Phone" {...field} /> */}
+                      <TextInput type="number" label="Home Phone" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -376,11 +364,16 @@ export const ScoutRegistrationForm: FC = () => {
               />
               <FormField
                 control={form.control}
-                name="personalMobile"
+                name="mobile"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <PhoneNumberInput label="Personal Mobile" {...field} />
+                      {/* <PhoneNumberInput label="Personal Mobile" {...field} /> */}
+                      <TextInput
+                        type="number"
+                        label="Personal Mobile"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -408,7 +401,7 @@ export const ScoutRegistrationForm: FC = () => {
         />
 
         <div className="pt-4 flex justify-center">
-          <SubmitButton label={"create account"} />
+          <SubmitButton label={"create account"} loading={loading} />
         </div>
       </form>
     </Form>

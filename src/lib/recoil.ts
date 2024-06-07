@@ -6,10 +6,10 @@ export const appointmentState = atom({
   default: false,
 });
 
-export const sportState = atom({
-  key: "sportState",
-  default: <string | null>null,
-});
+// export const sportState = atom({
+//   key: "sportState",
+//   default: <string | null>null,
+// });
 
 export const selectedtimeState = atom({
   key: "selectedtimeState",
@@ -19,7 +19,7 @@ export const selectedtimeState = atom({
 export const signUpState = atom<SignUpTypes>({
   key: "signUpState",
   default: {
-    sport_id: "",
+    sport_id: 0,
     email: "",
   },
 });

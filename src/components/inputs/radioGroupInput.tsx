@@ -33,8 +33,8 @@ export const RadioGroupInput: FC<Props> = ({
         {data.map((item, index) => (
           <div className="flex items-center space-x-1" key={index}>
             <Checkbox
-              checked={selectedValue === item.value}
-              onChange={() => handleCheckboxChange(item.value)}
+              checked={selectedValue === item.id}
+              onChange={() => handleCheckboxChange(item.id)}
               icon={
                 <div>
                   <XIcon color="black" size={35} fontWeight={800} />

@@ -24,57 +24,7 @@ import { signUpState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
 import { privateInstance } from "@/lib/axios";
 import { toast } from "../ui/use-toast";
-
-export interface IUserResponse {
-  profile: Profile;
-  session: Session;
-  user: User;
-}
-
-interface Session {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-  expires_at: number;
-  refresh_token: string;
-  user: User;
-}
-
-interface User {
-  id: string;
-  aud: string;
-  role: string;
-  email: string;
-  email_confirmed_at: string;
-  phone: string;
-  confirmed_at: string;
-  last_sign_in_at: string;
-  app_metadata: Appmetadata;
-  created_at: string;
-  updated_at: string;
-  is_anonymous: boolean;
-}
-
-interface Appmetadata {
-  provider: string;
-  providers: string[];
-}
-
-interface Profile {
-  id: number;
-  public_id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  sex: string;
-  birt_date: string;
-  account_status: string;
-  nationality: string;
-  sport_id: number;
-  phone: null;
-  mobile: null;
-  address: string;
-}
+import { IUserResponse } from "@/types/auth";
 
 export const SignUpForm: FC = () => {
   const pathname = usePathname();
@@ -96,14 +46,8 @@ export const SignUpForm: FC = () => {
       .post<IUserResponse>("/auth/sign_up", values)
       .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data.user));
-        localStorage.setItem("profile", JSON.stringify(res.data.profile));
         localStorage.setItem("session", JSON.stringify(res.data.session));
         router.push(`${lastSegment}/registration`);
-        toast({
-          title: "Sucesso",
-          description: "",
-          variant: "default",
-        });
       })
       .catch((err) => {
         if (err.response) {
@@ -167,6 +111,7 @@ export const SignUpForm: FC = () => {
           </div>
           <SubmitButton
             label={"Continue"}
+            loading={loading}
             className={`${
               pathname.includes("sign-up-athlete") &&
               "bg-secondary hover:bg-secondary/90"

@@ -1,4 +1,4 @@
 export type SignUpTypes = {
-  sport_id?: string;
+  sport_id: number;
   email: string;
 };

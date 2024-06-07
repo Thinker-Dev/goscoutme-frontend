@@ -2,11 +2,11 @@ import { CheckBoxType } from "@/types/checkBox";
 
 export const athleteStatusData: CheckBoxType[] = [
   {
-    id: 1,
+    id: "AMATEUR",
     value: "Amateur",
   },
   {
-    id: 0,
+    id: "PROFESSIONAL",
     value: "Professional",
   },
 ];

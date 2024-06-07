@@ -2,11 +2,11 @@ import { CheckBoxType } from "@/types/checkBox";
 
 export const heightData: CheckBoxType[] = [
   {
-    id: 0,
+    id: "CM",
     value: "cm",
   },
   {
-    id: 1,
+    id: "FT",
     value: "ft/in",
   },
 ];

@@ -1,14 +1,21 @@
 import { cn } from "@/lib/utils";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Loader2 } from "lucide-react";
 import React from "react";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   label: string;
   upload?: boolean;
+  loading?: boolean;
 }
 
-export const SubmitButton = ({ className, upload, label, ...rest }: Props) => {
+export const SubmitButton = ({
+  className,
+  upload,
+  label,
+  loading,
+  ...rest
+}: Props) => {
   return (
     <button
       {...rest}
@@ -18,7 +25,13 @@ export const SubmitButton = ({ className, upload, label, ...rest }: Props) => {
       )}
     >
       {upload && <ArrowUp strokeWidth={2.5} className="mr-2" />}
-      <span>{label}</span>
+      {loading ? (
+        <span className="flex items-center justify-center">
+          <Loader2 className="h-5 w-5 animate-spin" />
+        </span>
+      ) : (
+        <span>{label}</span>
+      )}
     </button>
   );
 };

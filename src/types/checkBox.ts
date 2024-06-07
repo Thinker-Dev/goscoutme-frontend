@@ -1,4 +1,4 @@
 export interface CheckBoxType {
-  id: number;
+  id: string;
   value: string;
 }

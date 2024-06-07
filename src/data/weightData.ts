@@ -2,11 +2,11 @@ import { CheckBoxType } from "@/types/checkBox";
 
 export const weightData: CheckBoxType[] = [
   {
-    id: 0,
+    id: "KG",
     value: "kgs",
   },
   {
-    id: 1,
+    id: "LB",
     value: "lbs",
   },
 ];

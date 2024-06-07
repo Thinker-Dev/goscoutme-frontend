@@ -2,11 +2,11 @@ import { CheckBoxType } from "@/types/checkBox";
 
 export const genderData: CheckBoxType[] = [
   {
-    id: 0,
+    id: "MALE",
     value: "Male",
   },
   {
-    id: 1,
+    id: "FEMALE",
     value: "Female",
   },
 ];

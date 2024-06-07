@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { FC } from "react";
 import {
   DropdownMenu,
@@ -10,19 +10,37 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
+import { Notifications } from "../../../public/icons/notifications";
+import { Messages } from "../../../public/icons/messages";
 import { menuData } from "@/data/navData";
+import { Profile } from "./profile";
 
-export const Header: FC = () => {
+export const DashboardHeader: FC = () => {
+  const router = useRouter();
   const pathname = usePathname();
 
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("profile");
+    localStorage.removeItem("session");
+    router.push("/auth/login");
+  };
+
   const filteredMenuData = menuData.filter(
-    (item) => !["dashboard"].includes(item.title.toLowerCase())
+    (item) =>
+      !["home", "create account", "login", "subscription plan"].includes(
+        item.title.toLowerCase()
+      )
   );
 
   return (
-    <div className={` flex justify-center items-center h-28 max-xs-sm:h-16`}>
+    <div className={` flex justify-between items-center h-28 max-xs-sm:h-16`}>
       <nav>
         <ul className="md:flex space-x-10 hidden">
+          <Link href={"/"} className="text-primary font-black text-2xl -mt-1">
+            <span className="text-secondary">Go</span>Scout
+            <span className="text-black">.me</span>
+          </Link>
           {filteredMenuData.map((item, index) => (
             <li key={index} className="flex flex-col items-center ">
               <Link
@@ -45,7 +63,13 @@ export const Header: FC = () => {
           ))}
         </ul>
       </nav>
-
+      <div className="space-x-3 flex items-center">
+        <Link href={"/dashboard/messages"}>
+          <Messages />
+        </Link>
+        <Notifications />
+        <Profile handleSignOut={handleSignOut} />
+      </div>
       <DropdownMenu>
         <DropdownMenuTrigger className="md:hidden" aria-disabled={true}>
           <MenuIcon />

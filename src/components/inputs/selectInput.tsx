@@ -28,15 +28,7 @@ export const SelectInput: FC<Props> = ({
       >
         <option value=""></option>
         {COUNTRIES.map((item, index) => (
-          <option
-            value={item.name}
-            key={index}
-            style={{
-              backgroundImage: `url(${item.image})`,
-              backgroundSize: "contain",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
+          <option value={item.name} key={index}>
             {item.name}
           </option>
         ))}

@@ -1,10 +1,28 @@
 import { z } from "zod";
 
 export const AthleteRegistrationSchema = z.object({
+  sport_id: z.number({
+    required_error: "This field is required",
+  }),
+  userType: z.string({
+    required_error: "This field is required",
+  }),
+  first_name: z.string({
+    required_error: "This field is required",
+  }),
+  last_name: z.string({
+    required_error: "This field is required",
+  }),
+  email: z.string({ required_error: "This field is required" }).email({
+    message: "Invalid email",
+  }),
   sex: z.string({
     required_error: "Required",
   }),
-  birth_date: z.string({
+  age: z.number({
+    required_error: "This field is required",
+  }),
+  birt_date: z.string({
     required_error: "This field is required",
   }),
   country_of_birth: z.string({
@@ -13,19 +31,19 @@ export const AthleteRegistrationSchema = z.object({
   nationality: z.string({
     required_error: "This field is required",
   }),
-  citizenship: z.string({
+  citzenship: z.string({
     required_error: "This field is required",
   }),
-  height: z.string({
+  height: z.number({
     required_error: "Required",
   }),
-  height_metrics: z.string({
+  height_metric: z.string({
     required_error: "Required",
   }),
-  weight: z.string({
+  weight: z.number({
     required_error: "Required",
   }),
-  weight_metrics: z.string({
+  weight_metric: z.string({
     required_error: "Required",
   }),
   parent_one: z.string({
@@ -43,7 +61,7 @@ export const AthleteRegistrationSchema = z.object({
   consent: z.string({
     required_error: "Please upload Parent/Guardian Consent",
   }),
-  athlete_status: z.string({
+  status: z.string({
     required_error: "Required",
   }),
   position_played: z.string({
@@ -85,13 +103,13 @@ export const AthleteRegistrationSchema = z.object({
   affiliations: z.string({
     required_error: "This field is required",
   }),
-  home_address: z.string({
+  address: z.string({
     required_error: "This field is required",
   }),
-  home_phone: z.string({
+  phone: z.string({
     required_error: "This field is required",
   }),
-  personal_mobile: z.string({
+  mobile: z.string({
     required_error: "This field is required",
   }),
   resposability: z.boolean({

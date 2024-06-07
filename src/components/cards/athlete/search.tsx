@@ -6,8 +6,13 @@ import filterData from "@/data/filterData";
 import { tagsData } from "@/data/tags";
 import { LoadmoreButton } from "@/components/buttons/loadmore";
 import { Profile } from "../../../../public/icons/profile";
+import { Athlete } from "@/types/auth";
 
-export const AthleteSearchCard: FC = () => {
+interface Props {
+  data: Athlete[];
+}
+
+export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
   const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
     Array(filterData.length).fill(false)
   );

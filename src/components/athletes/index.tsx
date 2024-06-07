@@ -7,6 +7,7 @@ import { SearchInput } from "../inputs/searchInput";
 import { usePathname, useRouter } from "next/navigation";
 import { AthleteSearchCard } from "../cards/athlete/search";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
+import useGetAllAthletes from "@/lib/hooks/useGetAllAthletes";
 
 export const Athletes: FC = () => {
   const pathname = usePathname();
@@ -16,6 +17,9 @@ export const Athletes: FC = () => {
   const ref = useRef<LoadingBarRef>(null);
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState(2);
+  const { athletes } = useGetAllAthletes({ page, items });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -56,7 +60,11 @@ export const Athletes: FC = () => {
         value={searchQuery}
         onChange={handleChange}
       />
-      {lastSegment === "search" ? <AthleteSearchCard /> : <AthleteCard />}
+      {lastSegment === "search" ? (
+        <AthleteSearchCard data={athletes} />
+      ) : (
+        <AthleteCard data={athletes} />
+      )}
     </div>
   );
 };
