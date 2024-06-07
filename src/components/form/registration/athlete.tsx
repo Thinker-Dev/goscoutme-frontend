@@ -747,7 +747,7 @@ export const AthleteRegistrationForm: FC = () => {
                   <FormItem>
                     <FormControl>
                       <TextInput
-                        label="Feild Goals"
+                        label="Field Goals"
                         type="number"
                         className="w-[70px]"
                         itemCenter
