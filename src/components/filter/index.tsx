@@ -1,5 +1,3 @@
-"use client";
-
 import filterData from "@/data/filterData";
 import React, { FC, useState } from "react";
 import { Expand } from "../../../public/icons/expand";

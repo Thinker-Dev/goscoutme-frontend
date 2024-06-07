@@ -1,5 +1,3 @@
-"use client";
-
 import React, { FC, useRef, useState } from "react";
 import { AthleteCard } from "../cards/athlete";
 import { Title } from "../auth/createAccount";
