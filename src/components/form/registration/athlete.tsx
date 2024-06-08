@@ -19,8 +19,6 @@ import { genderData } from "@/data/genderData";
 import { RadioGroupInput } from "../../inputs/radioGroupInput";
 import { TextAreaInput } from "../../inputs/textAreaInput";
 import { CheckboxInput } from "../../inputs/checkBoxInput";
-import { PhoneNumberInput } from "../../inputs/phoneNumberInput";
-import { SelectInput } from "../../inputs/selectInput";
 import { weightData } from "@/data/weightData";
 import { heightData } from "@/data/heightData";
 import { athleteStatusData } from "@/data/athleteStatusData";
@@ -29,6 +27,9 @@ import { signUpState } from "@/lib/recoil";
 import { privateInstance } from "@/lib/axios";
 import { IUserResponse } from "@/types/auth";
 import { toast } from "@/components/ui/use-toast";
+import { SelectPositionsInput } from "@/components/inputs/select/positions";
+import { SelectCoutriesInput } from "@/components/inputs/select/countries";
+import { MultiSelectInput } from "@/components/inputs/select/multi";
 
 export const AthleteRegistrationForm: FC = () => {
   const router = useRouter();
@@ -63,9 +64,9 @@ export const AthleteRegistrationForm: FC = () => {
     return age;
   };
 
-  const watchBirthDate = form.watch("birt_date");
+  const watchBirthDate = form.watch("birth_date");
   useEffect(() => {
-    const birthDate = form.getValues("birt_date");
+    const birthDate = form.getValues("birth_date");
     if (birthDate) {
       const age = calculateAge(birthDate);
       form.setValue("age", age);
@@ -75,7 +76,46 @@ export const AthleteRegistrationForm: FC = () => {
   async function onSubmit(values: z.infer<typeof AthleteRegistrationSchema>) {
     setLoading(true);
     await privateInstance
-      .post<IUserResponse>("/profile/create_profile", values)
+      .post<IUserResponse>("/profile/create_profile", {
+        sport_id: values.sport_id,
+        userType: values.userType,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        sex: values.sex,
+        age: values.age,
+        birth_date: values.birth_date,
+        country_of_birth: values.country_of_birth,
+        nationality: values.nationality,
+        citzenship: [values.citzenship],
+        height: values.height,
+        height_metric: values.height_metric,
+        weight: values.weight,
+        weight_metric: values.weight_metric,
+        parent_one: values.parent_one,
+        relationship_one: values.relationship_one,
+        parent_two: values.parent_two,
+        relationship_two: values.relationship_two,
+        consent: values.consent,
+        status: values.status,
+        sport_position_id: Number(values.sport_position_id),
+        leagues_played: values.leagues_played,
+        date_updated: values.date_updated,
+        game_appearances: values.game_appearances,
+        game_started: values.game_started,
+        minutes_played: values.minutes_played,
+        field_goals: values.field_goals,
+        org_name: values.org_name,
+        org_email: values.org_email,
+        office: values.office,
+        org_phone: values.org_phone,
+        org_mobile: values.org_mobile,
+        affiliations: values.affiliations,
+        address: values.address,
+        phone: values.phone,
+        mobile: values.mobile,
+        resposability: values.resposability,
+      })
       .then((res) => {
         localStorage.setItem("profile", JSON.stringify(res.data.profile));
         localStorage.setItem("athlete", JSON.stringify(res.data.athlete));
@@ -107,110 +147,86 @@ export const AthleteRegistrationForm: FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 w-[544px] max-sm:w-full max-xs:px-10"
       >
-        <div className="space-y-2 pt-3">
-          <span className="font-lexenda_exa font-extrabold text-primary uppercase">
-            personal contact information
-          </span>
-          <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
-            <FormField
-              control={form.control}
-              name="first_name"
-              render={({ field }) => (
-                <FormItem className="w-1/2 max-xs-xs:w-[48%]">
-                  <FormControl>
-                    <TextInput
-                      label="First Name"
-                      className="rounded-br-none"
-                      autoComplete="name"
-                      {...field}
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="last_name"
-              render={({ field }) => (
-                <FormItem className="w-1/2 max-xs-xs:w-[48%]">
-                  <FormControl>
-                    <TextInput
-                      label="Last Name"
-                      className="rounded-bl-none"
-                      autoComplete="family-name"
-                      {...field}
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+        <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
+          <FormField
+            control={form.control}
+            name="first_name"
+            render={({ field }) => (
+              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
+                <FormControl>
+                  <TextInput
+                    label="First Name"
+                    autoComplete="name"
+                    {...field}
+                    required
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="last_name"
+            render={({ field }) => (
+              <FormItem className="w-1/2 max-xs-xs:w-[48%]">
+                <FormControl>
+                  <TextInput
+                    label="Last Name"
+                    autoComplete="family-name"
+                    {...field}
+                    required
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
-          <div className="flex flex-row space-x-10">
-            <FormField
-              control={form.control}
-              name="sex"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <RadioGroupInput
-                      label="sex"
-                      required
-                      {...field}
-                      data={genderData}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="birt_date"
-              render={({ field }) => (
-                <FormItem className="max-sm:w-full">
-                  <FormControl>
-                    <TextInput
-                      label="Date of Birth"
-                      {...field}
-                      className="sm:w-[113px] px-2"
-                      type="date"
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="country_of_birth"
-              render={({ field }) => (
-                <FormItem className="max-sm:hidden ">
-                  <FormControl>
-                    <SelectInput
-                      label="Country of Birth"
-                      className="w-full"
-                      required
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+        <div className="flex flex-row space-x-10">
+          <FormField
+            control={form.control}
+            name="sex"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <RadioGroupInput
+                    label="sex"
+                    required
+                    {...field}
+                    data={genderData}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="birth_date"
+            render={({ field }) => (
+              <FormItem className="max-sm:w-full">
+                <FormControl>
+                  <TextInput
+                    label="Date of Birth"
+                    {...field}
+                    className="sm:w-[113px] px-2"
+                    type="date"
+                    required
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="country_of_birth"
             render={({ field }) => (
-              <FormItem className="sm:hidden pt-2">
+              <FormItem className="max-sm:hidden ">
                 <FormControl>
-                  <SelectInput
+                  <SelectCoutriesInput
                     label="Country of Birth"
                     className="w-full"
                     required
@@ -222,6 +238,23 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
         </div>
+        <FormField
+          control={form.control}
+          name="country_of_birth"
+          render={({ field }) => (
+            <FormItem className="sm:hidden pt-2">
+              <FormControl>
+                <SelectCoutriesInput
+                  label="Country of Birth"
+                  className="w-full"
+                  required
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
@@ -229,7 +262,7 @@ export const AthleteRegistrationForm: FC = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <SelectInput
+                  <SelectCoutriesInput
                     label="Nationality"
                     className="sm:w-[140px]"
                     required
@@ -243,14 +276,20 @@ export const AthleteRegistrationForm: FC = () => {
           <FormField
             control={form.control}
             name="citzenship"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <TextInput label="Citizenship" required {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              return (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <SelectCoutriesInput
+                      label="Citizenship"
+                      required
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
           />
         </div>
         <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
@@ -321,7 +360,7 @@ export const AthleteRegistrationForm: FC = () => {
             />
           </div>
         </div>
-        <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
+        {/* <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
           <FormField
             control={form.control}
             name="parent_one"
@@ -355,8 +394,8 @@ export const AthleteRegistrationForm: FC = () => {
               </FormItem>
             )}
           />
-        </div>
-        <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
+        </div> */}
+        {/* <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
           <FormField
             control={form.control}
             name="parent_two"
@@ -390,7 +429,7 @@ export const AthleteRegistrationForm: FC = () => {
               </FormItem>
             )}
           />
-        </div>
+        </div> */}
         <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
@@ -442,7 +481,7 @@ export const AthleteRegistrationForm: FC = () => {
           </div>
         </div>
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="consent"
           render={({ field }) => (
@@ -498,7 +537,7 @@ export const AthleteRegistrationForm: FC = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <div className="pt-3 space-y-2">
           <span className="font-lexenda_exa font-extrabold text-primary uppercase">
             career information
@@ -524,11 +563,17 @@ export const AthleteRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="position_played"
+              name="sport_position_id"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <TextInput label="Position Played" required {...field} />
+                    <SelectPositionsInput
+                      label="Position Played"
+                      className="w-full"
+                      sport_id={signUp.sport_id}
+                      required
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -537,9 +582,9 @@ export const AthleteRegistrationForm: FC = () => {
           </div>
         </div>
 
-        <FormField
+        {/* <FormField
           control={form.control}
-          name="organization"
+          name="org_document_url"
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -592,7 +637,7 @@ export const AthleteRegistrationForm: FC = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
@@ -609,7 +654,7 @@ export const AthleteRegistrationForm: FC = () => {
           <div className="flex flex-col justify-between">
             <FormField
               control={form.control}
-              name="office_phone"
+              name="org_phone"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -621,7 +666,7 @@ export const AthleteRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="office_mobile"
+              name="org_mobile"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -635,7 +680,7 @@ export const AthleteRegistrationForm: FC = () => {
         </div>
         <FormField
           control={form.control}
-          name="organization_email"
+          name="org_email"
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -720,7 +765,7 @@ export const AthleteRegistrationForm: FC = () => {
               />
               <FormField
                 control={form.control}
-                name="game_appearences"
+                name="game_appearances"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
@@ -729,8 +774,9 @@ export const AthleteRegistrationForm: FC = () => {
                         type="number"
                         required
                         className="w-[70px]"
-                        itemCenter
                         {...field}
+                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                        itemCenter
                       />
                     </FormControl>
                     <FormMessage />
@@ -747,9 +793,10 @@ export const AthleteRegistrationForm: FC = () => {
                         label="Minutes Played"
                         type="number"
                         className="w-[70px]"
+                        {...field}
+                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
                         required
                         itemCenter
-                        {...field}
                       />
                     </FormControl>
                     <FormMessage />
@@ -768,8 +815,9 @@ export const AthleteRegistrationForm: FC = () => {
                         label="Games Started"
                         type="number"
                         className="w-[70px]"
-                        required
                         {...field}
+                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                        required
                       />
                     </FormControl>
                     <FormMessage />
@@ -787,8 +835,9 @@ export const AthleteRegistrationForm: FC = () => {
                         type="number"
                         required
                         className="w-[70px]"
-                        itemCenter
                         {...field}
+                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                        itemCenter
                       />
                     </FormControl>
                     <FormMessage />

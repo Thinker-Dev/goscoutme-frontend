@@ -4,10 +4,10 @@ import React, { FC, useRef, useState } from "react";
 import { AthleteCard } from "../cards/athlete";
 import { Title } from "../auth/createAccount";
 import { SearchInput } from "../inputs/searchInput";
-import { usePathname, useRouter } from "next/navigation";
-import { AthleteSearchCard } from "../cards/athlete/search";
+import { usePathname } from "next/navigation";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
-import useGetAllAthletes from "@/lib/hooks/useGetAllAthletes";
+import { useUserStorage } from "@/lib/hooks/useUserStorage";
+import useGetAthlete from "@/lib/hooks/useGetAthlete";
 
 export const Athletes: FC = () => {
   const pathname = usePathname();
@@ -16,10 +16,12 @@ export const Athletes: FC = () => {
   const sportSegment = pathSegments[pathSegments.length - 2];
   const ref = useRef<LoadingBarRef>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const { data: athletes, isLoading } = useGetAllAthletes({
-    page: 1,
-    items: 2,
+  const { data: athletes, isLoading } = useGetAthlete({
+    status: "AMATEUR",
+    page: 0,
+    items: 6,
   });
+  const { profile } = useUserStorage();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -39,7 +41,9 @@ export const Athletes: FC = () => {
         ) : (
           <>
             <span className="text-black">Your</span>{" "}
-            <span className="text-secondary capitalize">Soccer</span>{" "}
+            <span className="text-secondary capitalize">
+              {profile?.sport.name}
+            </span>{" "}
             <span className="text-primary">Dashboard</span>
           </>
         )}

@@ -34,7 +34,7 @@ export const ChooseSport: FC = () => {
         ...prevSignUp,
         sport_id: selectedSport,
       }));
-      router.push(`/auth/sport/user`);
+      router.push(`/auth/create-account/sport/user`);
     } else {
       setOpen(true);
     }

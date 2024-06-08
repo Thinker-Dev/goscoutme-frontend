@@ -41,10 +41,10 @@ export interface Profile {
   last_name: string;
   email: string;
   sex: string;
-  birt_date: string;
+  birth_date: string;
   account_status: string;
   nationality: string;
-  sport_id: number;
+  sport: Sport;
   phone: null;
   mobile: null;
   address: string;
@@ -61,4 +61,17 @@ export interface Athlete {
   weight_metric: string;
   status: string;
   leagues_played: null;
+  sport_position: Position;
+}
+
+export interface Position {
+  id: number;
+  sportId: number;
+  name: string;
+}
+
+export interface Sport {
+  id: number;
+  public_id: number;
+  name: string;
 }

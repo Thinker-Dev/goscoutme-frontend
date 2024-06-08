@@ -47,7 +47,7 @@ export const SignUpForm: FC = () => {
       .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data.user));
         localStorage.setItem("session", JSON.stringify(res.data.session));
-        router.push(`${lastSegment}/registration`);
+        router.push(`${lastSegment}/sport`);
       })
       .catch((err) => {
         if (err.response) {

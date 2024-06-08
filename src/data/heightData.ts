@@ -7,6 +7,6 @@ export const heightData: CheckBoxType[] = [
   },
   {
     id: "FT",
-    value: "ft/in",
+    value: "ft.in",
   },
 ];

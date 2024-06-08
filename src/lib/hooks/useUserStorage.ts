@@ -7,18 +7,15 @@ export const useUserStorage = () => {
   const pathname = usePathname();
   const [user, setUser] = useState<User>();
   const [profile, setProfile] = useState<Profile>();
-  const [athlete, setAthlete] = useState<Athlete>();
   const [session, setSession] = useState<Session>();
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
     const storedProfile = JSON.parse(localStorage.getItem("profile") || "{}");
-    const storedAthlete = JSON.parse(localStorage.getItem("athlete") || "{}");
     const storedSession = JSON.parse(localStorage.getItem("session") || "{}");
 
     setUser(storedUser);
     setProfile(storedProfile);
-    setAthlete(storedAthlete);
     setSession(storedSession);
   }, []);
 
@@ -30,5 +27,5 @@ export const useUserStorage = () => {
     }
   }, [pathname, profile?.public_id]);
 
-  return { user, profile, session, athlete, currentUser };
+  return { user, profile, session, currentUser };
 };

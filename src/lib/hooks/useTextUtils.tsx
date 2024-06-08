@@ -21,7 +21,7 @@ const useTextUtils = () => {
   const capitalizeFirstLetter = (text?: string): string => {
     if (!text) return "";
 
-    text = text.toLowerCase();
+    text = text.toLowerCase().replace("_", " ");
     return text.charAt(0).toUpperCase() + text.slice(1);
   };
 

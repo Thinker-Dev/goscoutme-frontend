@@ -24,7 +24,6 @@ export const Filter: FC = () => {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Navigate to the selected color tag route
     if (selectedTag) {
       router.push(`/tags/${selectedTag}`);
     }
@@ -32,6 +31,7 @@ export const Filter: FC = () => {
 
   return (
     <aside className="sticky bottom-0 ml-10 mt-[50px] w-[200px]">
+      {}
       <span className="uppercase font-lexenda_exa text-paragraph font-semibold text-sm">
         filters
       </span>

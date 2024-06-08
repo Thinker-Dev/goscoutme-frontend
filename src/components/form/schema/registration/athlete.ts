@@ -22,7 +22,7 @@ export const AthleteRegistrationSchema = z.object({
   age: z.number({
     required_error: "This field is required",
   }),
-  birt_date: z.string({
+  birth_date: z.string({
     required_error: "This field is required",
   }),
   country_of_birth: z.string({
@@ -46,25 +46,15 @@ export const AthleteRegistrationSchema = z.object({
   weight_metric: z.string({
     required_error: "Required",
   }),
-  parent_one: z.string({
-    required_error: "This field is required",
-  }),
-  relationship_one: z.string({
-    required_error: "This field is required",
-  }),
-  parent_two: z.string({
-    required_error: "This field is required",
-  }),
-  relationship_two: z.string({
-    required_error: "This field is required",
-  }),
-  consent: z.string({
-    required_error: "Please upload Parent/Guardian Consent",
-  }),
+  parent_one: z.string().optional(),
+  relationship_one: z.string().optional(),
+  parent_two: z.string().optional(),
+  relationship_two: z.string().optional(),
+  consent: z.string().optional(),
   status: z.string({
     required_error: "Required",
   }),
-  position_played: z.string({
+  sport_position_id: z.string({
     required_error: "This field is required",
   }),
   leagues_played: z.string({
@@ -73,23 +63,23 @@ export const AthleteRegistrationSchema = z.object({
   date_updated: z.string({
     required_error: "Required",
   }),
-  game_appearences: z.string({
+  game_appearances: z.number({
     required_error: "Required",
   }),
-  game_started: z.string({
+  game_started: z.number({
     required_error: "Required",
   }),
-  minutes_played: z.string({
+  minutes_played: z.number({
     required_error: "Required",
   }),
-  field_goals: z.string({
+  field_goals: z.number({
     required_error: "Required",
   }),
-  organization: z.string().optional(),
-  organization_email: z.string().optional(),
+  org_name: z.string().optional(),
+  org_email: z.string().optional(),
   office: z.string().optional(),
-  office_phone: z.string().optional(),
-  office_mobile: z.string().optional(),
+  org_phone: z.string().optional(),
+  org_mobile: z.string().optional(),
   affiliations: z.string().optional(),
   address: z.string({
     required_error: "This field is required",

@@ -7,7 +7,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CreditCard, LogOut, User } from "lucide-react";
+import {
+  CreditCard,
+  LogOut,
+  Settings,
+  Settings2Icon,
+  SettingsIcon,
+  User,
+} from "lucide-react";
 import { useUserStorage } from "@/lib/hooks/useUserStorage";
 import Link from "next/link";
 
@@ -16,10 +23,8 @@ interface Props {
 }
 
 export const Profile = ({ handleSignOut }: Props) => {
-  const { profile, session } = useUserStorage();
-  console.log("====================================");
-  console.log(profile);
-  console.log("====================================");
+  const { profile } = useUserStorage();
+
   return (
     <div>
       <DropdownMenu modal={false}>
@@ -27,12 +32,20 @@ export const Profile = ({ handleSignOut }: Props) => {
           <ProfileMini />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-10">
-          <Link href={`/dashboard/profile/${profile?.public_id}`}>
-            <DropdownMenuItem className="space-x-3 cursor-pointer">
-              <User className="w-[18px]" />
-              <span>{profile?.first_name}</span>
-            </DropdownMenuItem>
-          </Link>
+          {!profile?.id && (
+            <Link href={`/dashboard/profile/${profile?.public_id}`}>
+              <DropdownMenuItem className="space-x-3 cursor-pointer">
+                <User className="w-[18px]" />
+                <span>
+                  {profile?.first_name} {profile?.last_name}
+                </span>
+              </DropdownMenuItem>
+            </Link>
+          )}
+          <DropdownMenuItem className="space-x-3 cursor-pointer">
+            <SettingsIcon className="w-[18px]" />
+            <span>Settings</span>
+          </DropdownMenuItem>
           <DropdownMenuItem className="space-x-3 cursor-pointer">
             <CreditCard className="w-[18px]" />
             <span>Billing</span>

@@ -40,8 +40,7 @@ export const AthleteCard: FC<Props> = ({ data }: Props) => {
                 <span className="uppercase">
                   {getFirstSixWords(athlete.profile.public_id)}
                 </span>{" "}
-                Striker
-                {/* {athlete.positionPlayed} */}
+                {athlete.sport_position.name}
               </span>
               <span className="font-extralight text-[40px] leading-[40px] text-secondary font-lexenda_deca">
                 {athlete.profile.first_name} {athlete.profile.last_name}
@@ -61,7 +60,7 @@ export const AthleteCard: FC<Props> = ({ data }: Props) => {
                 </span>
                 <span>
                   <span className="text-paragraph">Region:</span>
-                  {/* {athlete.region} */}
+                  {athlete.profile.nationality}
                 </span>
               </div>
               <div className="space-x-5">

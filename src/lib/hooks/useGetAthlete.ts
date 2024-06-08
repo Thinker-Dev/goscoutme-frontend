@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { privateInstance } from "../axios";
 import { Athlete } from "@/types/auth";
+import { useQuery } from "@tanstack/react-query";
 
 interface IGetAthletes {
   sex?: string;
@@ -12,6 +13,21 @@ interface IGetAthletes {
   items?: number;
 }
 
+const fetchAthletes = async ({
+  sex,
+  ageMin,
+  ageMax,
+  status,
+  country,
+  page,
+  items,
+}: IGetAthletes) => {
+  const response = await privateInstance.get("/profile/get_athletes", {
+    params: { sex, ageMin, ageMax, status, country, page, items },
+  });
+  return response.data;
+};
+
 const useGetAthlete = ({
   sex,
   ageMin,
@@ -21,32 +37,15 @@ const useGetAthlete = ({
   page,
   items,
 }: IGetAthletes) => {
-  const [athletes, setAthletes] = useState<Athlete[]>([]);
-
-  useEffect(() => {
-    const fetchAthletes = async () => {
-      try {
-        const response = await privateInstance.get("/profile/get_athletes", {
-          params: {
-            sex,
-            ageMin,
-            ageMax,
-            status,
-            country,
-            page,
-            items,
-          },
-        });
-        setAthletes(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchAthletes();
-  }, [sex, ageMin, ageMax, status, country, page, items]);
-
-  return { athletes };
+  return useQuery({
+    queryKey: [
+      "athletes",
+      { sex, ageMin, ageMax, status, country, page, items },
+    ],
+    queryFn: () =>
+      fetchAthletes({ sex, ageMin, ageMax, status, country, page, items }),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
 };
 
 export default useGetAthlete;

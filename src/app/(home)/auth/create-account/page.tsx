@@ -21,7 +21,14 @@ const title: TitleTypes = {
 export default function Page() {
   return (
     <main className="flex items-center justify-center flex-col space-y-10 min-h-[calc(100vh-116px)] pb-10">
-      <SignUpHeader title={title} />
+      {/* <SignUpHeader title={title} /> */}
+      <Title className="font-extralight">
+        <span className="text-primary font-black">
+          <span className="text-secondary">Go</span>Scout
+          <span className="text-black">.me</span>
+        </span>{" "}
+        Sign up{" "}
+      </Title>
       <SignUpForm />
       <span className="text-sm max-xs:text-xs ">
         Already have an account?{" "}

@@ -19,14 +19,14 @@ import { RadioGroupInput } from "../../inputs/radioGroupInput";
 import { TextAreaInput } from "../../inputs/textAreaInput";
 import { CheckboxInput } from "../../inputs/checkBoxInput";
 import { PhoneNumberInput } from "../../inputs/phoneNumberInput";
-import { SelectInput } from "../../inputs/selectInput";
+import { SelectCoutriesInput } from "../../inputs/select/countries";
 import { ScoutRegistrationSchema } from "../schema/registration/scout";
 import { signUpState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
 import { privateInstance } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
 import { IUserResponse } from "@/types/auth";
-import useGetSportsPositions from "@/lib/hooks/useGetSport";
+import { COUNTRIES } from "@/data/countriesData";
 
 export const ScoutRegistrationForm: FC = () => {
   const router = useRouter();
@@ -142,7 +142,7 @@ export const ScoutRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="birt_date"
+              name="birth_date"
               render={({ field }) => (
                 <FormItem className="sm:hidden">
                   <FormControl>
@@ -165,7 +165,7 @@ export const ScoutRegistrationForm: FC = () => {
             <div className="flex flex-row sm:space-x-5 max-sm:mt-4">
               <FormField
                 control={form.control}
-                name="birt_date"
+                name="birth_date"
                 render={({ field }) => (
                   <FormItem className="max-sm:hidden">
                     <FormControl>
@@ -188,7 +188,7 @@ export const ScoutRegistrationForm: FC = () => {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormControl>
-                      <SelectInput
+                      <SelectCoutriesInput
                         label="Nationality"
                         className="sm:w-[206px]"
                         {...field}
@@ -216,7 +216,7 @@ export const ScoutRegistrationForm: FC = () => {
           </div>
         </div>
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="organization"
           render={({ field }) => (
@@ -271,7 +271,7 @@ export const ScoutRegistrationForm: FC = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
@@ -289,7 +289,7 @@ export const ScoutRegistrationForm: FC = () => {
           <div className="flex flex-col sm:justify-between max-sm:space-y-4">
             <FormField
               control={form.control}
-              name="officePhone"
+              name="org_phone"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -301,7 +301,7 @@ export const ScoutRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="officeMobile"
+              name="org_mobile"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -316,7 +316,7 @@ export const ScoutRegistrationForm: FC = () => {
 
         <FormField
           control={form.control}
-          name="organizationEmail"
+          name="org_email"
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -329,7 +329,7 @@ export const ScoutRegistrationForm: FC = () => {
 
         <FormField
           control={form.control}
-          name="otherAffiliations"
+          name="affiliations"
           render={({ field }) => (
             <FormItem>
               <FormControl>

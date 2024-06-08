@@ -43,7 +43,11 @@ export const Profile: FC = () => {
             </Link>
           )}
         </div>
-        <Description currentUser={currentUser} athlete={athlete} />
+        <Description
+          currentUser={currentUser}
+          athlete={athlete}
+          isLoading={isLoading}
+        />
       </div>
       <div className="flex space-x-10">
         <div className="w-[25%] ">

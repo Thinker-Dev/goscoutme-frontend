@@ -19,7 +19,7 @@ export const ScoutRegistrationSchema = z.object({
   sex: z.string({
     required_error: "Required",
   }),
-  birt_date: z.string({
+  birth_date: z.string({
     required_error: "This field is required",
   }),
   nationality: z.string({
@@ -29,11 +29,11 @@ export const ScoutRegistrationSchema = z.object({
     required_error: "This field is required",
   }),
   organization: z.string().optional(),
-  organizationEmail: z.string().optional(),
+  org_email: z.string().optional(),
   office: z.string().optional(),
-  officePhone: z.string().optional(),
-  officeMobile: z.string().optional(),
-  otherAffiliations: z.string().optional(),
+  org_phone: z.string().optional(),
+  org_mobile: z.string().optional(),
+  affiliations: z.string().optional(),
   address: z.string({
     required_error: "This field is required",
   }),

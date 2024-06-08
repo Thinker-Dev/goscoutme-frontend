@@ -5,15 +5,21 @@ import { useRecoilState } from "recoil";
 import { appointmentState } from "@/lib/recoil";
 import { ScheduleAppointment } from "./scheduleAppointment";
 import { UploadVideoCard } from "./video/uploadVideoCard";
-import { Athlete, Profile } from "@/types/auth";
+import { Athlete, Position } from "@/types/auth";
 import useTextUtils from "@/lib/hooks/useTextUtils";
+import useMetricConversion from "@/lib/hooks/useMetricConversion";
 
 interface Props {
   currentUser: boolean;
   athlete: Athlete | undefined;
+  isLoading: boolean;
 }
 
-export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
+export const Description: FC<Props> = ({
+  currentUser,
+  athlete,
+  isLoading,
+}: Props) => {
   const [appointment, setAppointment] = useRecoilState(appointmentState);
   const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
     Array(filterData.length).fill(false)
@@ -27,6 +33,13 @@ export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
 
   const { getFirstSixWords, formatDate, capitalizeFirstLetter } =
     useTextUtils();
+
+  const { convertedHValue, convertedWValue } = useMetricConversion({
+    height: athlete?.height,
+    weight: athlete?.weight,
+    heightMetric: athlete?.height_metric.toLocaleLowerCase(),
+    weightMetric: athlete?.weight_metric.toLocaleLowerCase(),
+  });
 
   return (
     <div className="flex flex-col text-sm w-[70%]">
@@ -45,8 +58,9 @@ export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
         <span className="uppercase">
           {getFirstSixWords(athlete?.profile.public_id)}
         </span>{" "}
-        Striker
+        {/* <span>{athlete?.sport_position.name}</span> */}
       </span>
+
       <span className="font-extralight text-5xl text-secondary font-lexenda_deca">
         {athlete?.profile.first_name} {athlete?.profile.last_name}
       </span>
@@ -61,7 +75,7 @@ export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
               <div className="flex-col flex">
                 <span className="font-bold text-lg leading-5">Sex</span>
                 <span className="font-extralight text-2xl">
-                  {athlete?.profile.sex}
+                  {capitalizeFirstLetter(athlete?.profile.sex)}
                 </span>
               </div>
               <div className="flex-col flex">
@@ -74,16 +88,17 @@ export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
               <div className="flex-col flex">
                 <span className="font-bold text-lg leading-5">Height</span>
                 <span className="font-extralight text-2xl lowercase">
-                  {athlete?.height}
-                  {athlete?.height_metric}/5ft 7in
+                  {/* {athlete?.height}
+                  {athlete?.height_metric} */}
+                  {!isLoading && <>{convertedHValue}</>}
                 </span>
               </div>
               <div className="flex-col flex">
                 <span className="font-bold text-lg leading-5">Weight</span>
                 <span className="font-extralight text-2xl lowercase">
-                  {athlete?.weight}
-                  {athlete?.weight_metric}
-                  50kgs/110.2lbs
+                  {!isLoading && <>{convertedWValue}</>}
+                  {/* {athlete?.weight}
+                  {athlete?.weight_metric} */}
                 </span>
               </div>
             </div>
@@ -93,7 +108,7 @@ export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
                   Date of Birth
                 </span>
                 <span className="font-extralight text-2xl">
-                  {formatDate(athlete?.profile.birt_date)}
+                  {formatDate(athlete?.profile.birth_date)}
                 </span>
               </div>
               <div className="flex-col flex">
@@ -101,15 +116,16 @@ export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
                   Country/Nationality
                 </span>
                 <span className="font-extralight text-2xl">
-                  null/{capitalizeFirstLetter(athlete?.profile.nationality)}
+                  null/
+                  {capitalizeFirstLetter(athlete?.profile.nationality)}
                 </span>
               </div>
             </div>
             <div className="flex space-x-8">
               <div className="flex-col flex">
-                <span className="font-bold text-lg">Citizenships</span>
+                <span className="font-bold text-lg">Citizenship</span>
                 <span className="font-extralight text-xl">
-                  {athlete?.citzenship}
+                  {capitalizeFirstLetter(athlete?.citzenship.toString())}
                 </span>
               </div>
             </div>

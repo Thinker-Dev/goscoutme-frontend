@@ -1,8 +1,7 @@
 import { COUNTRIES } from "@/data/countriesData";
+import useTextUtils from "@/lib/hooks/useTextUtils";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import React, { FC, useState } from "react";
-import ReactFlagsSelect from "react-flags-select";
+import React, { FC } from "react";
 
 interface Props extends React.InputHTMLAttributes<HTMLSelectElement> {
   label: string;
@@ -10,7 +9,7 @@ interface Props extends React.InputHTMLAttributes<HTMLSelectElement> {
   required?: boolean;
 }
 
-export const SelectInput: FC<Props> = ({
+export const SelectCoutriesInput: FC<Props> = ({
   label,
   className,
   required,
@@ -30,7 +29,7 @@ export const SelectInput: FC<Props> = ({
       >
         <option value=""></option>
         {COUNTRIES.map((item, index) => (
-          <option value={item.name} key={index}>
+          <option value={item.id} key={index}>
             {item.name}
           </option>
         ))}
