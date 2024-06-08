@@ -8,13 +8,15 @@ interface Props {
   label: string;
   className?: string;
   data: CheckBoxType[];
-  onChange: (value: string) => void; // Add onChange handler
+  onChange: (value: string) => void;
+  required?: boolean;
 }
 
 export const RadioGroupInput: FC<Props> = ({
   label,
   className,
   data,
+  required,
   onChange,
 }: Props) => {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
@@ -27,7 +29,7 @@ export const RadioGroupInput: FC<Props> = ({
   return (
     <div className={`flex flex-col space-y-2 ${className}`}>
       <span className="capitalize font-normal font-lexenda_deca text-[12px]">
-        {label}
+        {label} {required && <span className="text-redish">*</span>}
       </span>
       <div className="flex space-x-2">
         {data.map((item, index) => (

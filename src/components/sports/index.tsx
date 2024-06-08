@@ -24,8 +24,10 @@ export const ChooseSport: FC = () => {
   const [open, setOpen] = useState<boolean>();
   const ref = useRef<LoadingBarRef>(null);
   const [signUp, setSignUp] = useRecoilState(signUpState);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     event.preventDefault();
     if (selectedSport) {
       setSignUp((prevSignUp) => ({
@@ -36,10 +38,11 @@ export const ChooseSport: FC = () => {
     } else {
       setOpen(true);
     }
+    setLoading(false);
   };
 
   return (
-    <div className=" flex flex-col items-center space-y-5">
+    <div className=" flex flex-col items-center">
       <LoadingBar color="#1A83FF" ref={ref} />
 
       <form
@@ -109,7 +112,7 @@ export const ChooseSport: FC = () => {
             <span>Volleyball</span>
           </label>
         </div>
-        <SubmitButton label="Continue" />
+        <SubmitButton label="Continue" loading={loading} />
       </form>
       <AlertDialog open={open}>
         <AlertDialogContent>

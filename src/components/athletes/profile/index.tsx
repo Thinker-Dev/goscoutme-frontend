@@ -19,7 +19,16 @@ export const Profile: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
-  const { athlete, loading, error } = useGetAthleteById({ id: lastSegment });
+  const { data: athlete, isLoading } = useGetAthleteById(lastSegment);
+
+  if (isLoading)
+    return (
+      <div className="w-full min-h-[calc(100vh-116px)] items-center justify-center flex space-x-1">
+        <div className="h-5 w-5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+        <div className="h-5 w-5 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+        <div className="h-5 w-5 bg-primary rounded-full animate-bounce"></div>
+      </div>
+    );
 
   return (
     <div className="flex space-y-5 flex-col">

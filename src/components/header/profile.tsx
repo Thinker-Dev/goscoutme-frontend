@@ -4,7 +4,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -17,7 +16,10 @@ interface Props {
 }
 
 export const Profile = ({ handleSignOut }: Props) => {
-  const { profile, user } = useUserStorage();
+  const { profile, session } = useUserStorage();
+  console.log("====================================");
+  console.log(profile);
+  console.log("====================================");
   return (
     <div>
       <DropdownMenu modal={false}>

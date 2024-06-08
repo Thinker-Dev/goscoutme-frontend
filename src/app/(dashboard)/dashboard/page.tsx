@@ -1,5 +1,3 @@
-"use client";
-
 import { Athletes } from "@/components/athletes";
 import { Filter } from "@/components/filter";
 

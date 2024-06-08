@@ -175,3 +175,19 @@ input[type="number"] {
     width: 11px;
   }
 }
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulse-text {
+  animation: pulse 1.5s infinite;
+}

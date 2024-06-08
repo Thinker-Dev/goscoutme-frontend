@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { privateInstance } from "../axios";
 import { Athlete } from "@/types/auth";
 
@@ -7,38 +7,19 @@ interface IGetAllAthletes {
   items?: number;
 }
 
+const fetchAthletes = async ({ page, items }: IGetAllAthletes) => {
+  const response = await privateInstance.get("/profile/get_all_athletes", {
+    params: { page, items },
+  });
+  return response.data;
+};
+
 const useGetAllAthletes = ({ page, items }: IGetAllAthletes) => {
-  const [athletes, setAthletes] = useState<Athlete[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchAthletes = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await privateInstance.get(
-          "/profile/get_all_athletes",
-          {
-            params: {
-              page,
-              items,
-            },
-          }
-        );
-        setAthletes(response.data);
-      } catch (err) {
-        setError("An error occurred while fetching athletes.");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAthletes();
-  }, [page, items]);
-
-  return { athletes, loading, error };
+  return useQuery({
+    queryKey: ["athletes", { page, items }],
+    queryFn: () => fetchAthletes({ page, items }),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
 };
 
 export default useGetAllAthletes;

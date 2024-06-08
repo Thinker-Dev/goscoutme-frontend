@@ -85,24 +85,12 @@ export const AthleteRegistrationSchema = z.object({
   field_goals: z.string({
     required_error: "Required",
   }),
-  organization: z.string({
-    required_error: "Please ulpoad Club/Agency Certification",
-  }),
-  organization_email: z.string({
-    required_error: "This field is required",
-  }),
-  office: z.string({
-    required_error: "This field is required",
-  }),
-  office_phone: z.string({
-    required_error: "This field is required",
-  }),
-  office_mobile: z.string({
-    required_error: "This field is required",
-  }),
-  affiliations: z.string({
-    required_error: "This field is required",
-  }),
+  organization: z.string().optional(),
+  organization_email: z.string().optional(),
+  office: z.string().optional(),
+  office_phone: z.string().optional(),
+  office_mobile: z.string().optional(),
+  affiliations: z.string().optional(),
   address: z.string({
     required_error: "This field is required",
   }),

@@ -1,16 +1,16 @@
 import React, { FC, useState } from "react";
 import { Expand } from "../../../../public/icons/expand";
 import filterData from "@/data/filterData";
-import { athleteData } from "@/data/athleteData";
 import { useRecoilState } from "recoil";
 import { appointmentState } from "@/lib/recoil";
 import { ScheduleAppointment } from "./scheduleAppointment";
 import { UploadVideoCard } from "./video/uploadVideoCard";
 import { Athlete, Profile } from "@/types/auth";
+import useTextUtils from "@/lib/hooks/useTextUtils";
 
 interface Props {
   currentUser: boolean;
-  athlete: Athlete | null;
+  athlete: Athlete | undefined;
 }
 
 export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
@@ -25,29 +25,8 @@ export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
     setExpandedFilters(newExpandedFilters);
   };
 
-  const getFirstSixWords = (text?: string) => {
-    if (!text) return "";
-    const words = text.split(" ");
-    return words.length > 1 ? words.slice(0, 6).join(" ") : text.slice(0, 6);
-  };
-
-  const formatDate = (dateString: string | undefined): string => {
-    if (!dateString) return "";
-
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
-  const capitalizeFirstLetter = (text: string | undefined): string => {
-    if (!text) return "";
-
-    text = text.toLowerCase();
-    return text.charAt(0).toUpperCase() + text.slice(1);
-  };
+  const { getFirstSixWords, formatDate, capitalizeFirstLetter } =
+    useTextUtils();
 
   return (
     <div className="flex flex-col text-sm w-[70%]">
@@ -58,7 +37,7 @@ export const Description: FC<Props> = ({ currentUser, athlete }: Props) => {
             className="uppercase text-[10px] leading-3 font-lexenda_exa font-bold cursor-pointer"
             onClick={() => toggleExpand(0)}
           >
-            {athleteData[0].tag ? "edit" : "Add"} color tag
+            {/* {athleteData[0].tag ? "edit" : "Add"} color tag */}
           </span>
         </div>
       )}

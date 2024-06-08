@@ -3,9 +3,9 @@ import { Lexend_Deca } from "next/font/google";
 import { Lexend } from "next/font/google";
 import { Lexend_Exa } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/header";
 import RecoilContextProvider from "./recoilContextProvider";
 import { Toaster } from "@/components/ui/toaster";
+import QueryProvider from "./queryProvider";
 
 const lexenda = Lexend({ subsets: ["latin"], variable: "--font-lexenda" });
 const lexenda_exa = Lexend_Exa({
@@ -34,7 +34,7 @@ export default function RootLayout({
           className={`${lexenda.className} ${lexenda_exa.className} ${lexenda_deca.className} max-w-screen-xl mx-auto xs:px-10 min-h-screen`}
           suppressHydrationWarning
         >
-          {children}
+          <QueryProvider>{children}</QueryProvider>
           <Toaster />
         </body>
       </RecoilContextProvider>

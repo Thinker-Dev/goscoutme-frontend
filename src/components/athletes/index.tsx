@@ -15,11 +15,11 @@ export const Athletes: FC = () => {
   const lastSegment = pathSegments[pathSegments.length - 1];
   const sportSegment = pathSegments[pathSegments.length - 2];
   const ref = useRef<LoadingBarRef>(null);
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [items, setItems] = useState(2);
-  const { athletes } = useGetAllAthletes({ page, items });
+  const { data: athletes, isLoading } = useGetAllAthletes({
+    page: 1,
+    items: 2,
+  });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -27,17 +27,6 @@ export const Athletes: FC = () => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      ref.current?.continuousStart();
-
-      if (lastSegment === "search") {
-        router.push(
-          `/${sportSegment}/search?q=${encodeURIComponent(searchQuery)}`
-        );
-      } else {
-        router.push(
-          `/${lastSegment}/search?q=${encodeURIComponent(searchQuery)}`
-        );
-      }
     }
   };
 
@@ -50,7 +39,7 @@ export const Athletes: FC = () => {
         ) : (
           <>
             <span className="text-black">Your</span>{" "}
-            <span className="text-secondary capitalize">{lastSegment}</span>{" "}
+            <span className="text-secondary capitalize">Soccer</span>{" "}
             <span className="text-primary">Dashboard</span>
           </>
         )}
@@ -61,9 +50,22 @@ export const Athletes: FC = () => {
         onChange={handleChange}
       />
       {lastSegment === "search" ? (
-        <AthleteSearchCard data={athletes} />
+        <></>
       ) : (
-        <AthleteCard data={athletes} />
+        // <AthleteSearchCard data={athletes} />
+        <>
+          {isLoading ? (
+            <>
+              <div className="w-full min-h-[calc(100vh-240px)] items-center justify-center flex space-x-1">
+                <div className="h-5 w-5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                <div className="h-5 w-5 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                <div className="h-5 w-5 bg-primary rounded-full animate-bounce"></div>
+              </div>
+            </>
+          ) : (
+            <AthleteCard data={athletes} />
+          )}
+        </>
       )}
     </div>
   );

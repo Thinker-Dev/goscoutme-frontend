@@ -16,7 +16,6 @@ export const useUserStorage = () => {
     const storedAthlete = JSON.parse(localStorage.getItem("athlete") || "{}");
     const storedSession = JSON.parse(localStorage.getItem("session") || "{}");
 
-    // Update state with retrieved user-related data
     setUser(storedUser);
     setProfile(storedProfile);
     setAthlete(storedAthlete);

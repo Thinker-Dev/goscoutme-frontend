@@ -5,7 +5,7 @@ export const Hockey = ({ ...props }: React.SVGProps<SVGPathElement>) => {
   return (
     <svg
       width="98"
-      height="61"
+      height="55  "
       viewBox="0 0 118 81"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

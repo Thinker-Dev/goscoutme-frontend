@@ -4,14 +4,15 @@ import React, { FC, forwardRef } from "react";
 interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   className?: string;
+  required?: boolean;
 }
 
 export const TextAreaInput: FC<Props> = forwardRef<HTMLTextAreaElement, Props>(
-  ({ label, className, ...rest }, ref) => {
+  ({ label, className, required, ...rest }, ref) => {
     return (
       <div className="flex flex-col space-y-2">
         <span className="capitalize font-normal font-lexenda_deca text-[12px] ">
-          {label}
+          {label} {required && <span className="text-redish">*</span>}
         </span>
         <textarea
           ref={ref}

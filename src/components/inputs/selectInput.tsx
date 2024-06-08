@@ -7,17 +7,19 @@ import ReactFlagsSelect from "react-flags-select";
 interface Props extends React.InputHTMLAttributes<HTMLSelectElement> {
   label: string;
   className?: string;
+  required?: boolean;
 }
 
 export const SelectInput: FC<Props> = ({
   label,
   className,
+  required,
   ...rest
 }: Props) => {
   return (
     <div className="flex flex-col space-y-2">
       <span className="font-normal font-lexenda_deca text-[12px] ">
-        {label}
+        {label} {required && <span className="text-redish">*</span>}
       </span>
       <select
         className={cn(

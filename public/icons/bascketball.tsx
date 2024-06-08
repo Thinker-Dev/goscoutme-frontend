@@ -4,8 +4,8 @@ import React from "react";
 export const Bascketball = ({ ...props }: React.SVGProps<SVGPathElement>) => {
   return (
     <svg
-      width="129"
-      height="129"
+      width="110"
+      height="110"
       viewBox="0 0 149 149"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

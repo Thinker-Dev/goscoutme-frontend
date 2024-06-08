@@ -1,4 +1,3 @@
-import { athleteData } from "@/data/athleteData";
 import React, { FC, useState } from "react";
 import { Button } from "@/components/buttons";
 import { Expand } from "../../../../public/icons/expand";
@@ -23,7 +22,7 @@ export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
     setExpandedFilters(newExpandedFilters);
   };
 
-  const filteredAthletes = athleteData.slice(0, 9);
+  const filteredAthletes = data.slice(0, 9);
 
   return (
     <div className="space-y-10">
@@ -34,19 +33,20 @@ export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
               <div className="relative">
                 <Profile />
                 <div className="absolute top-[11px] right-[11px]">
-                  {tagsData[item.tag].tag[1]}
+                  {/* {tagsData[item.tag].tag[1]} */}
                 </div>
               </div>
               <div className="flex flex-col text-sm">
                 <span className="font-bold text-xl font-lexenda">
-                  {item.id} <br /> {item.positionPlayed}
+                  {item.id} <br />
+                  {/* {item.positionPlayed} */}
                 </span>
                 {/* <span className="font-extralight text-[40px] leading-[40px] text-secondary font-lexenda_deca">
                 {item.name}
               </span> */}
-                <span className="font-lexenda">{item.level}</span>
+                <span className="font-lexenda">{item.status}</span>
                 <div className="space-x-2 font-lexenda_deca">
-                  <span>{item.sex}</span>
+                  <span>{item.profile.sex}</span>
                   <span>{item.age}yo</span>
                 </div>
 
@@ -59,7 +59,7 @@ export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
                       className="uppercase text-[8px] leading-3 font-lexenda_exa font-bold cursor-pointer"
                       onClick={() => toggleExpand(index)}
                     >
-                      {item.tag !== 6 ? "edit" : "Add"} color tag
+                      {/* {item.tag !== 6 ? "edit" : "Add"} color tag */}
                     </span>
                   </div>
                   <Button

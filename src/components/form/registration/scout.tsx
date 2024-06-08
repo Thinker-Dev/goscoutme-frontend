@@ -26,6 +26,7 @@ import { useRecoilState } from "recoil";
 import { privateInstance } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
 import { IUserResponse } from "@/types/auth";
+import useGetSportsPositions from "@/lib/hooks/useGetSport";
 
 export const ScoutRegistrationForm: FC = () => {
   const router = useRouter();
@@ -93,8 +94,8 @@ export const ScoutRegistrationForm: FC = () => {
                 <FormControl>
                   <TextInput
                     label="First Name"
-                    className="rounded-br-none"
                     autoComplete="name"
+                    required
                     {...field}
                   />
                 </FormControl>
@@ -110,8 +111,8 @@ export const ScoutRegistrationForm: FC = () => {
                 <FormControl>
                   <TextInput
                     label="Last Name"
-                    className="rounded-bl-none"
                     autoComplete="family-name"
+                    required
                     {...field}
                   />
                 </FormControl>
@@ -128,7 +129,12 @@ export const ScoutRegistrationForm: FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <RadioGroupInput label="sex" {...field} data={genderData} />
+                    <RadioGroupInput
+                      label="sex"
+                      required
+                      {...field}
+                      data={genderData}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -145,6 +151,7 @@ export const ScoutRegistrationForm: FC = () => {
                       {...field}
                       className=" px-2 "
                       type="date"
+                      required
                       placeholder="aa"
                     />
                   </FormControl>
@@ -165,6 +172,7 @@ export const ScoutRegistrationForm: FC = () => {
                       <TextInput
                         label="Date of Birth"
                         {...field}
+                        required
                         className="w-[113px] px-2 "
                         type="date"
                         placeholder="aa"
@@ -184,6 +192,7 @@ export const ScoutRegistrationForm: FC = () => {
                         label="Nationality"
                         className="sm:w-[206px]"
                         {...field}
+                        required
                       />
                     </FormControl>
                     <FormMessage />
@@ -198,7 +207,7 @@ export const ScoutRegistrationForm: FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput label="Citizenship" {...field} />
+                    <TextInput label="Citizenship" required {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -342,7 +351,7 @@ export const ScoutRegistrationForm: FC = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <TextAreaInput label="Home Address" {...field} />
+                    <TextAreaInput label="Home Address" required {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -356,7 +365,12 @@ export const ScoutRegistrationForm: FC = () => {
                   <FormItem>
                     <FormControl>
                       {/* <PhoneNumberInput label="Home Phone" {...field} /> */}
-                      <TextInput type="number" label="Home Phone" {...field} />
+                      <TextInput
+                        type="number"
+                        label="Home Phone"
+                        required
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -368,11 +382,12 @@ export const ScoutRegistrationForm: FC = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      {/* <PhoneNumberInput label="Personal Mobile" {...field} /> */}
+                      {/* <PhoneNumberInput label="Personal Mobile" required {...field} /> */}
                       <TextInput
                         type="number"
                         label="Personal Mobile"
                         {...field}
+                        required
                       />
                     </FormControl>
                     <FormMessage />
