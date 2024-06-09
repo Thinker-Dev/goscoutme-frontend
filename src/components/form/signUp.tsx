@@ -20,8 +20,6 @@ import {
 } from "@/components/ui/form";
 import { SignUpSchema } from "./schema/signUp";
 import { PasswordInput } from "../ui/PasswordInput";
-import { signUpState } from "@/lib/recoil";
-import { useRecoilState } from "recoil";
 import { privateInstance } from "@/lib/axios";
 import { toast } from "../ui/use-toast";
 import { IUserResponse } from "@/types/auth";
@@ -31,7 +29,6 @@ export const SignUpForm: FC = () => {
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
   const router = useRouter();
-  const [signUp, setSignUp] = useRecoilState(signUpState);
   const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof SignUpSchema>>({
@@ -39,8 +36,6 @@ export const SignUpForm: FC = () => {
   });
 
   async function onSubmit(values: z.infer<typeof SignUpSchema>) {
-    setSignUp((prevSignUp) => ({ ...prevSignUp, email: values.email }));
-
     setLoading(true);
     await privateInstance
       .post<IUserResponse>("/auth/sign_up", values)

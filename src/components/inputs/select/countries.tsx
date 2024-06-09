@@ -1,5 +1,5 @@
 import { COUNTRIES } from "@/data/countriesData";
-import useTextUtils from "@/lib/hooks/useTextUtils";
+import useTextUtils from "../../../hooks/useTextUtils";
 import { cn } from "@/lib/utils";
 import React, { FC } from "react";
 

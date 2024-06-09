@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="flex  min-h-[calc(100vh-116px)]">
-      <Athletes />
-      <Filter />
+      {/* <Athletes /> */}
+      {/* <Filter /> */}
     </main>
   );
 }

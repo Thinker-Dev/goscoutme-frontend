@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { privateInstance } from "../axios";
+import { privateInstance } from "../lib/axios";
 import { Athlete } from "@/types/auth";
 import { useQuery } from "@tanstack/react-query";
 
@@ -28,7 +28,7 @@ const fetchAthletes = async ({
   return response.data;
 };
 
-const useGetAthlete = ({
+const useGetAthletes = ({
   sex,
   ageMin,
   ageMax,
@@ -44,8 +44,8 @@ const useGetAthlete = ({
     ],
     queryFn: () =>
       fetchAthletes({ sex, ageMin, ageMax, status, country, page, items }),
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 5,
   });
 };
 
-export default useGetAthlete;
+export default useGetAthletes;

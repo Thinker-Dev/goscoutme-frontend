@@ -1,0 +1,90 @@
+import {
+  Profile,
+  Session,
+  User,
+  Athlete,
+  Sport,
+  Appmetadata,
+} from "@/types/auth";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+
+const defaultAppMetadata: Appmetadata = {
+  provider: "",
+  providers: [],
+  // Add other fields if they exist
+};
+
+const defaultSport: Sport = {
+  id: 0,
+  name: "",
+  public_id: 0,
+};
+
+const defaultProfile: Profile = {
+  id: 0,
+  public_id: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  sex: "",
+  birth_date: "",
+  account_status: "",
+  nationality: "",
+  sport: defaultSport,
+  phone: null,
+  mobile: null,
+  address: "",
+};
+
+const defaultUser: User = {
+  id: "",
+  aud: "",
+  role: "",
+  email: "",
+  email_confirmed_at: "",
+  phone: "",
+  confirmed_at: "",
+  last_sign_in_at: "",
+  app_metadata: defaultAppMetadata,
+  created_at: "",
+  updated_at: "",
+  is_anonymous: false,
+};
+
+const defaultSession: Session = {
+  access_token: "",
+  token_type: "",
+  expires_in: 0,
+  expires_at: 0,
+  refresh_token: "",
+  user: defaultUser,
+};
+
+export const useUserStorage = () => {
+  const [currentUser, setCurrentUser] = useState<boolean>(false);
+  const pathname = usePathname();
+  const [user, setUser] = useState<User>(defaultUser);
+  const [profile, setProfile] = useState<Profile>(defaultProfile);
+  const [session, setSession] = useState<Session>(defaultSession);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+    const storedProfile = JSON.parse(localStorage.getItem("profile") || "{}");
+    const storedSession = JSON.parse(localStorage.getItem("session") || "{}");
+
+    setUser(storedUser);
+    setProfile(storedProfile);
+    setSession(storedSession);
+  }, []);
+
+  useEffect(() => {
+    if (pathname.includes(`${profile?.public_id}`)) {
+      setCurrentUser(true);
+    } else {
+      setCurrentUser(false);
+    }
+  }, [pathname, profile?.public_id]);
+
+  return { user, profile, session, currentUser };
+};

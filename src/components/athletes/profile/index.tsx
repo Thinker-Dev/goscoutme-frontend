@@ -9,8 +9,8 @@ import { Videos } from "./video";
 import { AppointmentScheduler } from "./appointmentScheduler";
 import { CameraIcon } from "../../../../public/icons/camera";
 import Link from "next/link";
-import { useUserStorage } from "@/lib/hooks/useUserStorage";
-import useGetAthleteById from "@/lib/hooks/useGetAthleteById";
+import { useUserStorage } from "../../../hooks/useUserStorage";
+import useGetAthleteById from "../../../hooks/useGetAthleteById";
 import { usePathname } from "next/navigation";
 
 export const Profile: FC = () => {

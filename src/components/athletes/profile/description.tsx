@@ -1,13 +1,13 @@
 import React, { FC, useState } from "react";
 import { Expand } from "../../../../public/icons/expand";
-import filterData from "@/data/filterData";
+import filterData from "../../../hooks/useFilterData";
 import { useRecoilState } from "recoil";
 import { appointmentState } from "@/lib/recoil";
 import { ScheduleAppointment } from "./scheduleAppointment";
 import { UploadVideoCard } from "./video/uploadVideoCard";
 import { Athlete, Position } from "@/types/auth";
-import useTextUtils from "@/lib/hooks/useTextUtils";
-import useMetricConversion from "@/lib/hooks/useMetricConversion";
+import useTextUtils from "../../../hooks/useTextUtils";
+import useMetricConversion from "../../../hooks/useMetricConversion";
 
 interface Props {
   currentUser: boolean;

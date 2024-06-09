@@ -15,7 +15,7 @@ import {
   SettingsIcon,
   User,
 } from "lucide-react";
-import { useUserStorage } from "@/lib/hooks/useUserStorage";
+import { useUserStorage } from "../../hooks/useUserStorage";
 import Link from "next/link";
 
 interface Props {
@@ -32,16 +32,16 @@ export const Profile = ({ handleSignOut }: Props) => {
           <ProfileMini />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-10">
-          {!profile?.id && (
-            <Link href={`/dashboard/profile/${profile?.public_id}`}>
-              <DropdownMenuItem className="space-x-3 cursor-pointer">
-                <User className="w-[18px]" />
-                <span>
-                  {profile?.first_name} {profile?.last_name}
-                </span>
-              </DropdownMenuItem>
-            </Link>
-          )}
+          {/* {!profile && ( */}
+          <Link href={`/dashboard/profile/${profile.public_id}`}>
+            <DropdownMenuItem className="space-x-3 cursor-pointer">
+              <User className="w-[18px]" />
+              <span>
+                {profile?.first_name} {profile?.last_name}
+              </span>
+            </DropdownMenuItem>
+          </Link>
+          {/* )} */}
           <DropdownMenuItem className="space-x-3 cursor-pointer">
             <SettingsIcon className="w-[18px]" />
             <span>Settings</span>

@@ -6,22 +6,20 @@ import { Title } from "../auth/createAccount";
 import { SearchInput } from "../inputs/searchInput";
 import { usePathname } from "next/navigation";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
-import { useUserStorage } from "@/lib/hooks/useUserStorage";
-import useGetAthlete from "@/lib/hooks/useGetAthlete";
+import { Profile } from "@/types/auth";
 
-export const Athletes: FC = () => {
+interface Props {
+  profile: Profile | undefined;
+  athletes: any;
+}
+
+export const Athletes: FC<Props> = ({ profile, athletes }: Props) => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
   const sportSegment = pathSegments[pathSegments.length - 2];
   const ref = useRef<LoadingBarRef>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const { data: athletes, isLoading } = useGetAthlete({
-    status: "AMATEUR",
-    page: 0,
-    items: 6,
-  });
-  const { profile } = useUserStorage();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -54,22 +52,9 @@ export const Athletes: FC = () => {
         onChange={handleChange}
       />
       {lastSegment === "search" ? (
-        <></>
+        <>{/* <AthleteSearchCard data={athletes} /> */}</>
       ) : (
-        // <AthleteSearchCard data={athletes} />
-        <>
-          {isLoading ? (
-            <>
-              <div className="w-full min-h-[calc(100vh-240px)] items-center justify-center flex space-x-1">
-                <div className="h-5 w-5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                <div className="h-5 w-5 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                <div className="h-5 w-5 bg-primary rounded-full animate-bounce"></div>
-              </div>
-            </>
-          ) : (
-            <AthleteCard data={athletes} />
-          )}
-        </>
+        <AthleteCard data={athletes} />
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 import { COUNTRIES } from "@/data/countriesData";
-import useGetSportsPositions from "@/lib/hooks/useGetSport";
+import useGetSportsPositions from "../../../hooks/useGetSport";
 import { cn } from "@/lib/utils";
 import { Position } from "@/types/auth";
 import React, { FC } from "react";

@@ -1,8 +1,8 @@
 import React, { FC, useState } from "react";
 import { Button } from "@/components/buttons";
 import { Expand } from "../../../../public/icons/expand";
-import filterData from "@/data/filterData";
-import { tagsData } from "@/data/tags";
+import filterData from "../../../hooks/useFilterData";
+import { tagsData } from "../../../hooks/tags";
 import { LoadmoreButton } from "@/components/buttons/loadmore";
 import { Profile } from "../../../../public/icons/profile";
 import { Athlete } from "@/types/auth";
