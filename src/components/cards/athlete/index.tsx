@@ -116,8 +116,10 @@ export const AthleteCard: FC<Props> = ({ data }: Props) => {
           </div>
         ))
       ) : (
-        <div className="w-full min-h-[calc(100vh-280px)] items-center justify-center flex ">
-          No athlete found!
+        <div className="w-full min-h-[calc(100vh-280px)] items-center justify-center flex space-x-1">
+          <div className="h-5 w-5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+          <div className="h-5 w-5 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+          <div className="h-5 w-5 bg-primary rounded-full animate-bounce"></div>
         </div>
       )}
     </div>

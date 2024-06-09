@@ -21,7 +21,12 @@ const useFilterData = ({ positions }: Props) => {
             plural: "positions",
           },
           filters: positions.map((item: Position) => ({
-            value: [item.name],
+            value: [
+              {
+                id: item.id.toString(),
+                value: item.name,
+              },
+            ],
           })),
         },
         {
@@ -29,29 +34,25 @@ const useFilterData = ({ positions }: Props) => {
             singular: "sex",
           },
           filters: genderData.map((item) => ({
-            value: [item.value],
+            value: [
+              {
+                id: item.id,
+                value: item.value,
+              },
+            ],
           })),
-        },
-        {
-          title: {
-            singular: "age category",
-            plural: "age categories",
-          },
-          filters: [
-            {
-              value: ["5-7", "8-11"],
-            },
-            {
-              value: ["12-14", "15-17"],
-            },
-          ],
         },
         {
           title: {
             singular: "career",
           },
           filters: athleteStatusData.map((item) => ({
-            value: [item.value],
+            value: [
+              {
+                id: item.id,
+                value: item.value,
+              },
+            ],
           })),
         },
         {
@@ -60,7 +61,12 @@ const useFilterData = ({ positions }: Props) => {
             plural: "regions",
           },
           filters: COUNTRIES.map((item) => ({
-            value: [item.name],
+            value: [
+              {
+                id: item.id,
+                value: item.name,
+              },
+            ],
           })),
         },
         {
@@ -69,7 +75,12 @@ const useFilterData = ({ positions }: Props) => {
             plural: "countries",
           },
           filters: COUNTRIES.map((item) => ({
-            value: [item.name],
+            value: [
+              {
+                id: item.id,
+                value: item.name,
+              },
+            ],
           })),
         },
       ];

@@ -1,12 +1,15 @@
 "use client";
 
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useRef } from "react";
 import { AthleteCard } from "../cards/athlete";
 import { Title } from "../auth/createAccount";
 import { SearchInput } from "../inputs/searchInput";
 import { usePathname } from "next/navigation";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 import { Profile } from "@/types/auth";
+import { AthleteSearchCard } from "../cards/athlete/search";
+import { searchQueryState } from "@/lib/recoil";
+import { useRecoilState } from "recoil";
 
 interface Props {
   profile: Profile | undefined;
@@ -19,15 +22,10 @@ export const Athletes: FC<Props> = ({ profile, athletes }: Props) => {
   const lastSegment = pathSegments[pathSegments.length - 1];
   const sportSegment = pathSegments[pathSegments.length - 2];
   const ref = useRef<LoadingBarRef>(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useRecoilState(searchQueryState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-    }
   };
 
   return (
@@ -46,13 +44,11 @@ export const Athletes: FC<Props> = ({ profile, athletes }: Props) => {
           </>
         )}
       </Title>
-      <SearchInput
-        onKeyDown={handleKeyDown}
-        value={searchQuery}
-        onChange={handleChange}
-      />
-      {lastSegment === "search" ? (
-        <>{/* <AthleteSearchCard data={athletes} /> */}</>
+      <SearchInput value={searchQuery} onChange={handleChange} />
+      {searchQuery ? (
+        <>
+          <AthleteSearchCard data={athletes} />
+        </>
       ) : (
         <AthleteCard data={athletes} />
       )}

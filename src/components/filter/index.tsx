@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 import Checkbox from "react-custom-checkbox";
 import { BsCheckLg } from "react-icons/bs";
 import { Position } from "@/types/auth";
+import { useRecoilState } from "recoil";
+import { filterState } from "@/lib/recoil";
+import { AgeCategory } from "./ageCategory";
 
 interface Props {
   positions: Position[] | undefined;
@@ -17,9 +20,8 @@ export const Filter: FC<Props> = ({ positions }: Props) => {
   const filterData = useFilterData({ positions });
   const router = useRouter();
   const [selectedTag, setSelectedTag] = useState("");
-  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+  const [checkedItems, setCheckedItems] = useRecoilState(filterState);
+
   const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
     Array(filterData.filterData.length).fill(false)
   );
@@ -30,10 +32,17 @@ export const Filter: FC<Props> = ({ positions }: Props) => {
     setExpandedFilters(newExpandedFilters);
   };
 
-  const handleCheckboxChange = (value: string) => {
+  const handleCheckboxChange = (category: string, value: string) => {
     setCheckedItems((prev) => {
-      const newCheckedItems = { ...prev, [value]: !prev[value] };
-      console.log("Checked items:", newCheckedItems);
+      const categoryItems = prev[category] ? prev[category].split("-") : [];
+      const newCategoryItems = categoryItems.includes(value)
+        ? categoryItems.filter((item) => item !== value)
+        : [...categoryItems, value];
+      const newCheckedItems = {
+        ...prev,
+        [category]: newCategoryItems.join("-"),
+      };
+      console.log(newCheckedItems);
       return newCheckedItems;
     });
   };
@@ -83,14 +92,18 @@ export const Filter: FC<Props> = ({ positions }: Props) => {
                           width: 15,
                           height: 15,
                         }}
-                        checked={!!checkedItems[value]}
-                        onChange={() => handleCheckboxChange(value)}
+                        checked={(
+                          checkedItems[item.title.singular]?.split("-") || []
+                        ).includes(value.value)}
+                        onChange={() =>
+                          handleCheckboxChange(item.title.singular, value.id)
+                        }
                       />
                       <label
                         htmlFor="filtercheck"
                         className="text-[12px] leading-5 font-lexenda_exa font-light "
                       >
-                        {value}
+                        {value.value}
                       </label>
                     </div>
                   ))}
@@ -110,8 +123,23 @@ export const Filter: FC<Props> = ({ positions }: Props) => {
                 </span>
               </div>
             )}
+            {index === 1 && (
+              <div className="mt-2">
+                <h1 className="uppercase font-bold font-lexenda_exa text-sm">
+                  age category
+                </h1>
+                <AgeCategory />
+              </div>
+            )}
           </div>
         ))}
+
+        <div>
+          <h1 className="uppercase font-bold font-lexenda_exa text-sm">
+            age category
+          </h1>
+          <AgeCategory />
+        </div>
         <div>
           <form onSubmit={handleFormSubmit}>
             <h1 className="uppercase font-bold font-lexenda_exa text-sm">

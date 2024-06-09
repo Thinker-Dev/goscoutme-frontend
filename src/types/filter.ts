@@ -4,6 +4,9 @@ export type FilterTypes = {
     plural?: string;
   };
   filters: {
-    value: string[];
+    value: {
+      id: string;
+      value: string;
+    }[];
   }[];
 };
