@@ -34,7 +34,7 @@ export const SelectPositionsInput: FC<Props> = ({
         <option value=""></option>
         {!isLoading && (
           <>
-            {data.map((item: Position) => (
+            {data?.map((item: Position) => (
               <option value={item.id} key={item.id}>
                 {item.name}
               </option>
