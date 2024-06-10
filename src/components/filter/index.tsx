@@ -1,16 +1,29 @@
 "use client";
 
-import filterData from "@/data/filterData";
+import useFilterData from "../../hooks/useFilterData";
 import React, { FC, useState } from "react";
 import { Expand } from "../../../public/icons/expand";
-import { tagsData } from "@/data/tags";
+import { tagsData } from "../../hooks/tags";
 import { useRouter } from "next/navigation";
 import Checkbox from "react-custom-checkbox";
 import { BsCheckLg } from "react-icons/bs";
+import { Position } from "@/types/auth";
+import { useRecoilState } from "recoil";
+import { filterState } from "@/lib/recoil";
+import { AgeCategory } from "./ageCategory";
 
-export const Filter: FC = () => {
+interface Props {
+  positions: Position[] | undefined;
+}
+
+export const Filter: FC<Props> = ({ positions }: Props) => {
+  const filterData = useFilterData({ positions });
+  const router = useRouter();
+  const [selectedTag, setSelectedTag] = useState("");
+  const [checkedItems, setCheckedItems] = useRecoilState(filterState);
+
   const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
-    Array(filterData.length).fill(false)
+    Array(filterData.filterData.length).fill(false)
   );
 
   const toggleExpand = (index: number) => {
@@ -19,8 +32,20 @@ export const Filter: FC = () => {
     setExpandedFilters(newExpandedFilters);
   };
 
-  const router = useRouter();
-  const [selectedTag, setSelectedTag] = useState("");
+  const handleCheckboxChange = (category: string, value: string) => {
+    setCheckedItems((prev) => {
+      const categoryItems = prev[category] ? prev[category].split("-") : [];
+      const newCategoryItems = categoryItems.includes(value)
+        ? categoryItems.filter((item) => item !== value)
+        : [...categoryItems, value];
+      const newCheckedItems = {
+        ...prev,
+        [category]: newCategoryItems.join("-"),
+      };
+      console.log(newCheckedItems);
+      return newCheckedItems;
+    });
+  };
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,12 +56,11 @@ export const Filter: FC = () => {
 
   return (
     <aside className="sticky bottom-0 ml-10 mt-[50px] w-[200px]">
-      {}
       <span className="uppercase font-lexenda_exa text-paragraph font-semibold text-sm">
         filters
       </span>
       <div className="space-y-3 hidden-scroll h-[calc(100vh-194px)] mt-2 pb-10">
-        {filterData.map((item, index) => (
+        {filterData.filterData.map((item, index) => (
           <div key={index} className="">
             <h1 className="uppercase font-bold font-lexenda_exa text-sm">
               {item.title.singular}
@@ -68,12 +92,18 @@ export const Filter: FC = () => {
                           width: 15,
                           height: 15,
                         }}
+                        checked={(
+                          checkedItems[item.title.singular]?.split("-") || []
+                        ).includes(value.value)}
+                        onChange={() =>
+                          handleCheckboxChange(item.title.singular, value.id)
+                        }
                       />
                       <label
                         htmlFor="filtercheck"
                         className="text-[12px] leading-5 font-lexenda_exa font-light "
                       >
-                        {value}
+                        {value.value}
                       </label>
                     </div>
                   ))}
@@ -93,8 +123,23 @@ export const Filter: FC = () => {
                 </span>
               </div>
             )}
+            {index === 1 && (
+              <div className="mt-2">
+                <h1 className="uppercase font-bold font-lexenda_exa text-sm">
+                  age category
+                </h1>
+                <AgeCategory />
+              </div>
+            )}
           </div>
         ))}
+
+        <div>
+          <h1 className="uppercase font-bold font-lexenda_exa text-sm">
+            age category
+          </h1>
+          <AgeCategory />
+        </div>
         <div>
           <form onSubmit={handleFormSubmit}>
             <h1 className="uppercase font-bold font-lexenda_exa text-sm">

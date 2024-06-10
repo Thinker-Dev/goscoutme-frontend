@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { privateInstance } from "../axios";
+import { privateInstance } from "../lib/axios";
 import { Position } from "@/types/auth";
 
 const fetchSportsPositions = async (sportId: number): Promise<Position[]> => {

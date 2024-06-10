@@ -1,14 +1,19 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-const Messages = ({ className }: React.HTMLAttributes<HTMLElement>) => {
+const Messages = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLOrSVGElement>) => {
   return (
     <svg
+      className={cn(className)}
       width="38"
       height="30"
       viewBox="0 0 44 36"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <g clipPath="url(#clip0_2013_92)">
         <path
@@ -27,16 +32,19 @@ const Messages = ({ className }: React.HTMLAttributes<HTMLElement>) => {
 
 const MessagesMeetingIcon = ({
   className,
-}: React.HTMLAttributes<HTMLElement>) => {
+  ...props
+}: React.HTMLAttributes<HTMLOrSVGElement>) => {
   return (
     <svg
+      className={cn(className)}
       width="28"
       height="27"
       viewBox="0 0 28 27"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
-      <g clip-path="url(#clip0_2035_3685)">
+      <g clipPath="url(#clip0_2035_3685)">
         <path
           d="M17.404 16.1337L13.7414 17.0272C13.5345 17.0775 13.3232 17.0885 13.1097 17.0688C13.059 17.0797 13.0062 17.0841 12.9512 17.0841H5.42567C4.98106 17.0841 4.62228 16.7249 4.62228 16.2848C4.62228 15.8446 4.98326 15.4854 5.42567 15.4854H11.0825C10.9394 15.1131 10.8976 14.7211 10.979 14.3445L11.7846 10.5909C11.8705 10.1945 12.0685 9.82876 12.3569 9.54188L16.0679 5.84961H0V19.942C0 21.3501 1.14897 22.4933 2.56426 22.4933H3.30163V26.0038C3.30163 26.8907 4.37796 27.3331 5.00747 26.7068L9.24456 22.4911H19.4466C20.8619 22.4911 22.0108 21.3479 22.0108 19.9398V11.9793L18.3945 15.5774C18.1215 15.849 17.7782 16.0417 17.4018 16.1337H17.404Z"
           fill="white"

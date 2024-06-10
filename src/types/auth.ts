@@ -29,7 +29,7 @@ export interface User {
   is_anonymous: boolean;
 }
 
-interface Appmetadata {
+export interface Appmetadata {
   provider: string;
   providers: string[];
 }
@@ -48,6 +48,7 @@ export interface Profile {
   phone: null;
   mobile: null;
   address: string;
+  // athlete: Profile;
 }
 
 export interface Athlete {

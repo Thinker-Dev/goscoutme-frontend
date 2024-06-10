@@ -25,8 +25,9 @@ import { signUpState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
 import { privateInstance } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
-import { IUserResponse } from "@/types/auth";
+import { IUserResponse, User } from "@/types/auth";
 import { COUNTRIES } from "@/data/countriesData";
+import { useUserStorage } from "../../../hooks/useUserStorage";
 
 export const ScoutRegistrationForm: FC = () => {
   const router = useRouter();
@@ -35,20 +36,37 @@ export const ScoutRegistrationForm: FC = () => {
   const [fileChosen, setFileChosen] = useState<boolean>(false);
   const [signUp, setSignUp] = useRecoilState(signUpState);
   const [loading, setLoading] = useState<boolean>(false);
+  const { user } = useUserStorage();
 
   const form = useForm<z.infer<typeof ScoutRegistrationSchema>>({
     resolver: zodResolver(ScoutRegistrationSchema),
-    defaultValues: {
-      sport_id: signUp.sport_id,
-      email: signUp.email,
-      userType: "SCOUT",
-    },
   });
 
   async function onSubmit(values: z.infer<typeof ScoutRegistrationSchema>) {
     setLoading(true);
     await privateInstance
-      .post<IUserResponse>("/profile/create_profile", values)
+      .post<IUserResponse>("/profile/create_profile", {
+        email: user.email,
+        public_id: user.id,
+        userType: "SCOUT",
+        sport_id: signUp.sport_id,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        sex: values.sex,
+        birth_date: values.birth_date,
+        nationality: values.nationality,
+        citzenship: values.citzenship,
+        organization: values.organization,
+        org_email: values.org_email,
+        office: values.office,
+        org_phone: values.org_phone,
+        org_mobile: values.org_mobile,
+        affiliations: values.affiliations,
+        address: values.address,
+        phone: values.phone,
+        mobile: values.mobile,
+        resposability: values.resposability,
+      })
       .then((res) => {
         localStorage.setItem("profile", JSON.stringify(res.data.profile));
         // localStorage.setItem("scout", JSON.stringify(res.data.scout));
@@ -203,7 +221,7 @@ export const ScoutRegistrationForm: FC = () => {
 
             <FormField
               control={form.control}
-              name="citizenship"
+              name="citzenship"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -217,62 +235,62 @@ export const ScoutRegistrationForm: FC = () => {
         </div>
 
         {/* <FormField
-          control={form.control}
-          name="organization"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <TextInput
-                  label="Organization/Club/Agency Represented"
-                  onChange={(event) => {
-                    field.onChange(event);
-                    handleChange(event);
-                  }}
-                  onBlur={field.onBlur}
-                  value={field.value}
-                  name={field.name}
-                  type="file"
-                  className={`pt-[7px] ${
-                    fileChosen ? " text-black" : "text-transparent"
-                  }`}
-                  id="custom-input"
-                  accept="application/pdf"
-                  max-size="5000"
-                />
-              </FormControl>
+            control={form.control}
+            name="organization"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <TextInput
+                    label="Organization/Club/Agency Represented"
+                    onChange={(event) => {
+                      field.onChange(event);
+                      handleChange(event);
+                    }}
+                    onBlur={field.onBlur}
+                    value={field.value}
+                    name={field.name}
+                    type="file"
+                    className={`pt-[7px] ${
+                      fileChosen ? " text-black" : "text-transparent"
+                    }`}
+                    id="custom-input"
+                    accept="application/pdf"
+                    max-size="5000"
+                  />
+                </FormControl>
 
-              <span className="text-xs mt-2 flex items-center font-lexenda_deca  mx-2 ">
-                <label
-                  htmlFor="custom-input"
-                  className="cursor-pointer flex items-center space-x-2"
-                >
-                  <svg
-                    width="24"
-                    height="23"
-                    viewBox="0 0 24 23"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
+                <span className="text-xs mt-2 flex items-center font-lexenda_deca  mx-2 ">
+                  <label
+                    htmlFor="custom-input"
+                    className="cursor-pointer flex items-center space-x-2"
                   >
-                    <path
-                      d="M13.0607 0.939341C12.4749 0.353554 11.5251 0.353554 10.9393 0.939341L1.3934 10.4853C0.807612 11.0711 0.807612 12.0208 1.3934 12.6066C1.97919 13.1924 2.92893 13.1924 3.51472 12.6066L12 4.12132L20.4853 12.6066C21.0711 13.1924 22.0208 13.1924 22.6066 12.6066C23.1924 12.0208 23.1924 11.0711 22.6066 10.4853L13.0607 0.939341ZM13.5 23L13.5 2L10.5 2L10.5 23L13.5 23Z"
-                      fill="#1A83FF"
-                    />
-                  </svg>
-                  <span className="uppercase font-black text-primary">
-                    upload
+                    <svg
+                      width="24"
+                      height="23"
+                      viewBox="0 0 24 23"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        d="M13.0607 0.939341C12.4749 0.353554 11.5251 0.353554 10.9393 0.939341L1.3934 10.4853C0.807612 11.0711 0.807612 12.0208 1.3934 12.6066C1.97919 13.1924 2.92893 13.1924 3.51472 12.6066L12 4.12132L20.4853 12.6066C21.0711 13.1924 22.0208 13.1924 22.6066 12.6066C23.1924 12.0208 23.1924 11.0711 22.6066 10.4853L13.0607 0.939341ZM13.5 23L13.5 2L10.5 2L10.5 23L13.5 23Z"
+                        fill="#1A83FF"
+                      />
+                    </svg>
+                    <span className="uppercase font-black text-primary">
+                      upload
+                    </span>
+                  </label>
+
+                  <span className="">
+                    &nbsp;Club/Agency Certification (PDF 5Mb)
                   </span>
-                </label>
-
-                <span className="">
-                  &nbsp;Club/Agency Certification (PDF 5Mb)
                 </span>
-              </span>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+         */}
         <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
@@ -364,7 +382,6 @@ export const ScoutRegistrationForm: FC = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      {/* <PhoneNumberInput label="Home Phone" {...field} /> */}
                       <TextInput
                         type="number"
                         label="Home Phone"
@@ -382,7 +399,6 @@ export const ScoutRegistrationForm: FC = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      {/* <PhoneNumberInput label="Personal Mobile" required {...field} /> */}
                       <TextInput
                         type="number"
                         label="Personal Mobile"

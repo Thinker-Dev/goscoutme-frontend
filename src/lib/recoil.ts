@@ -6,10 +6,10 @@ export const appointmentState = atom({
   default: false,
 });
 
-// export const sportState = atom({
-//   key: "sportState",
-//   default: <string | null>null,
-// });
+export const searchQueryState = atom({
+  key: "searchQueryState",
+  default: "",
+});
 
 export const selectedtimeState = atom({
   key: "selectedtimeState",
@@ -27,4 +27,14 @@ export const signUpState = atom<SignUpTypes>({
 export const selectedDateState = atom({
   key: "selectedDateState",
   default: new Date(),
+});
+
+export const ageCategoryState = atom({
+  key: "ageCategoryState",
+  default: { ageMin: 0, ageMax: 0 },
+});
+
+export const filterState = atom<{ [key: string]: string }>({
+  key: "filterState",
+  default: {},
 });

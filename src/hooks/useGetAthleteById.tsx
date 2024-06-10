@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Athlete } from "@/types/auth"; // Adjust the path as necessary
-import { privateInstance } from "../axios";
+import { privateInstance } from "../lib/axios";
 
 const fetchAthleteById = async (id: string) => {
   const response = await privateInstance.get("/profile/get_athlete_by_id", {

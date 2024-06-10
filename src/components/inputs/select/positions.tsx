@@ -1,5 +1,5 @@
 import { COUNTRIES } from "@/data/countriesData";
-import useGetSportsPositions from "@/lib/hooks/useGetSport";
+import useGetSportsPositions from "../../../hooks/useGetSport";
 import { cn } from "@/lib/utils";
 import { Position } from "@/types/auth";
 import React, { FC } from "react";
@@ -34,7 +34,7 @@ export const SelectPositionsInput: FC<Props> = ({
         <option value=""></option>
         {!isLoading && (
           <>
-            {data.map((item: Position) => (
+            {data?.map((item: Position) => (
               <option value={item.id} key={item.id}>
                 {item.name}
               </option>

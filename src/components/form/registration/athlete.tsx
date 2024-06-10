@@ -30,6 +30,7 @@ import { toast } from "@/components/ui/use-toast";
 import { SelectPositionsInput } from "@/components/inputs/select/positions";
 import { SelectCoutriesInput } from "@/components/inputs/select/countries";
 import { MultiSelectInput } from "@/components/inputs/select/multi";
+import { useUserStorage } from "../../../hooks/useUserStorage";
 
 export const AthleteRegistrationForm: FC = () => {
   const router = useRouter();
@@ -39,15 +40,11 @@ export const AthleteRegistrationForm: FC = () => {
   const [fileChosen, setFileChosen] = useState<boolean>(false);
   const [signUp, setSignUp] = useRecoilState(signUpState);
   const [loading, setLoading] = useState<boolean>(false);
+  const { user } = useUserStorage();
+  const [newAge, setNewAge] = useState<number | null>(null);
 
   const form = useForm<z.infer<typeof AthleteRegistrationSchema>>({
     resolver: zodResolver(AthleteRegistrationSchema),
-    defaultValues: {
-      sport_id: signUp.sport_id,
-      email: signUp.email,
-      userType: "ATHLETE",
-      age: 0,
-    },
   });
 
   const calculateAge = (birthDate: string) => {
@@ -69,7 +66,7 @@ export const AthleteRegistrationForm: FC = () => {
     const birthDate = form.getValues("birth_date");
     if (birthDate) {
       const age = calculateAge(birthDate);
-      form.setValue("age", age);
+      setNewAge(age);
     }
   }, [watchBirthDate]);
 
@@ -77,13 +74,14 @@ export const AthleteRegistrationForm: FC = () => {
     setLoading(true);
     await privateInstance
       .post<IUserResponse>("/profile/create_profile", {
-        sport_id: values.sport_id,
-        userType: values.userType,
+        sport_id: signUp.sport_id,
+        email: user.email,
+        userType: "ATHLETE",
+        public_id: user.id,
+        age: newAge,
         first_name: values.first_name,
         last_name: values.last_name,
-        email: values.email,
         sex: values.sex,
-        age: values.age,
         birth_date: values.birth_date,
         country_of_birth: values.country_of_birth,
         nationality: values.nationality,
