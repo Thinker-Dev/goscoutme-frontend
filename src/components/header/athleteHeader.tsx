@@ -17,7 +17,7 @@ import { deleteCookie } from "../../api/cookies";
 import { useUserStorage } from "@/hooks/useUserStorage";
 import { ProfileDropdow } from "./profileDropdown";
 
-export const DashboardHeader: FC = () => {
+export const AthleteHeader: FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { profile } = useUserStorage();
@@ -32,16 +32,23 @@ export const DashboardHeader: FC = () => {
 
   const filteredMenuData = menuData.filter(
     (item) =>
-      !["home", "create account", "login", "subscription plan"].includes(
-        item.title.toLowerCase()
-      )
+      ![
+        "home",
+        "create account",
+        "login",
+        "subscription plan",
+        "dashboard",
+      ].includes(item.title.toLowerCase())
   );
 
   return (
     <div className={` flex justify-between items-center h-28 max-xs-sm:h-16`}>
       <nav>
         <ul className="md:flex space-x-10 hidden">
-          <Link href={"/"} className="text-primary font-black text-2xl -mt-1">
+          <Link
+            href={`/${profile?.public_id}`}
+            className="text-primary font-black text-2xl -mt-1"
+          >
             <span className="text-secondary">Go</span>Scout
             <span className="text-black">.me</span>
           </Link>
@@ -68,11 +75,15 @@ export const DashboardHeader: FC = () => {
         </ul>
       </nav>
       <div className="space-x-3 flex items-center">
-        <Link href={"/dashboard/messages"}>
+        <Link href={"/messages"}>
           <Messages />
         </Link>
         <Notifications />
-        <ProfileDropdow profile={profile} handleSignOut={handleSignOut} />
+        <ProfileDropdow
+          profile={profile}
+          handleSignOut={handleSignOut}
+          athlete
+        />
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger className="md:hidden" aria-disabled={true}>

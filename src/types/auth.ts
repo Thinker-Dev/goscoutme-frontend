@@ -45,10 +45,11 @@ export interface Profile {
   account_status: string;
   nationality: string;
   sport: Sport;
-  phone: null;
-  mobile: null;
+  phone: string;
+  mobile: string;
   address: string;
-  // athlete: Profile;
+  affiliations: string;
+  athlete: Athlete;
 }
 
 export interface Athlete {
@@ -61,7 +62,7 @@ export interface Athlete {
   weight: number;
   weight_metric: string;
   status: string;
-  leagues_played: null;
+  leagues_played: string;
   sport_position: Position;
 }
 

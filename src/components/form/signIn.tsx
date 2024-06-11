@@ -21,6 +21,7 @@ import { IUserResponse } from "@/types/auth";
 import { privateInstance } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { toast } from "../ui/use-toast";
+import { createCookie } from "../../api/cookies";
 
 export const SignInForm: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,13 +36,16 @@ export const SignInForm: FC = () => {
     await privateInstance
       .post<IUserResponse>("/auth/sign_in", values)
       .then((res) => {
-        console.log("====================================");
-        console.log(res);
-        console.log("====================================");
         localStorage.setItem("user", JSON.stringify(res.data.user));
         localStorage.setItem("profile", JSON.stringify(res.data.profile));
         localStorage.setItem("session", JSON.stringify(res.data.session));
-        router.push("/dashboard");
+        createCookie(
+          JSON.stringify(res.data.session),
+          JSON.stringify(res.data.profile)
+        );
+        res.data.profile.athlete
+          ? router.push(`${res.data.profile.public_id}`)
+          : router.push("/dashboard");
       })
       .catch((err) => {
         if (err.response) {

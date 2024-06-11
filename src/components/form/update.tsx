@@ -2,8 +2,8 @@
 
 import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { SubmitButton } from "../../buttons/submit";
-import { TextInput } from "../../inputs/textInput";
+import { SubmitButton } from "../buttons/submit";
+import { TextInput } from "../inputs/textInput";
 import { usePathname, useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,26 +14,29 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { AthleteRegistrationSchema } from "../schema/registration/athlete";
+import { AthleteRegistrationSchema } from "./schema/registration/athlete";
 import { genderData } from "@/data/genderData";
-import { RadioGroupInput } from "../../inputs/radioGroupInput";
-import { TextAreaInput } from "../../inputs/textAreaInput";
-import { CheckboxInput } from "../../inputs/checkBoxInput";
+import { RadioGroupInput } from "../inputs/radioGroupInput";
+import { TextAreaInput } from "../inputs/textAreaInput";
+import { CheckboxInput } from "../inputs/checkBoxInput";
 import { weightData } from "@/data/weightData";
 import { heightData } from "@/data/heightData";
 import { athleteStatusData } from "@/data/athleteStatusData";
 import { useRecoilState } from "recoil";
 import { signUpState } from "@/lib/recoil";
 import { privateInstance } from "@/lib/axios";
-import { IUserResponse } from "@/types/auth";
+import { Athlete, IUserResponse } from "@/types/auth";
 import { toast } from "@/components/ui/use-toast";
 import { SelectPositionsInput } from "@/components/inputs/select/positions";
 import { SelectCoutriesInput } from "@/components/inputs/select/countries";
-import { MultiSelectInput } from "@/components/inputs/select/multi";
-import { useUserStorage } from "../../../hooks/useUserStorage";
-import { createCookie } from "@/api/cookies";
+import { useUserStorage } from "../../hooks/useUserStorage";
+import { UpdateSchema } from "./schema/update";
 
-export const AthleteRegistrationForm: FC = () => {
+interface Props {
+  athlete: Athlete | undefined;
+}
+
+export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
@@ -44,8 +47,41 @@ export const AthleteRegistrationForm: FC = () => {
   const { user } = useUserStorage();
   const [newAge, setNewAge] = useState<number | null>(null);
 
-  const form = useForm<z.infer<typeof AthleteRegistrationSchema>>({
-    resolver: zodResolver(AthleteRegistrationSchema),
+  const form = useForm<z.infer<typeof UpdateSchema>>({
+    resolver: zodResolver(UpdateSchema),
+    defaultValues: {
+      first_name: athlete?.profile.first_name,
+      last_name: athlete?.profile.last_name,
+      birth_date: athlete?.profile.birth_date,
+      country_of_birth: athlete?.profile.nationality,
+      nationality: athlete?.profile.nationality,
+      sex: athlete?.profile.sex,
+      // citzenship: athlete?.citzenship,
+      // height: athlete?.height,
+      // weight: athlete?.weight,
+      // parent_one: athlete?.,
+      // relationship_one: athlete?.relationship_one,
+      // parent_two: athlete?.parent_two,
+      // relationship_two: athlete?.relationship_two,
+      // consent: athlete?.consent,
+      // status: athlete?.status,
+      // sport_position_id: "1",
+      // leagues_played: athlete?.leagues_played,
+      // date_updated: values.date_updated,
+      // game_appearances: athlete?.game_appearances,
+      // game_started: athlete?.game_started,
+      // minutes_played: athlete?.minutes_played,
+      // field_goals: athlete?.field_goals,
+      // org_name: athlete?.profile.,
+      // org_email: athlete?.org_email,
+      // office: athlete?.office,
+      // org_phone: athlete?.org_phone,
+      // org_mobile: athlete?.org_mobile,
+      // affiliations: athlete?.profile.affiliations,
+      // address: athlete?.address,
+      phone: athlete?.profile.phone,
+      mobile: athlete?.profile.mobile,
+    },
   });
 
   const calculateAge = (birthDate: string) => {
@@ -71,55 +107,54 @@ export const AthleteRegistrationForm: FC = () => {
     }
   }, [watchBirthDate]);
 
-  async function onSubmit(values: z.infer<typeof AthleteRegistrationSchema>) {
+  async function onSubmit(values: z.infer<typeof UpdateSchema>) {
     setLoading(true);
     await privateInstance
-      .post<IUserResponse>("/profile/create_profile", {
-        sport_id: signUp.sport_id,
-        email: user.email,
-        userType: "ATHLETE",
-        public_id: user.id,
-        age: newAge,
+      .put<IUserResponse>("/profile/update_profile", {
+        // sport_id: signUp.sport_id,
+        // email: user.email,
+        // userType: "ATHLETE",
+        id: athlete?.profile.id,
+        public_id: athlete?.profile.public_id,
+        // age: newAge,
         first_name: values.first_name,
         last_name: values.last_name,
         sex: values.sex,
         birth_date: values.birth_date,
         country_of_birth: values.country_of_birth,
         nationality: values.nationality,
-        citzenship: [values.citzenship],
-        height: values.height,
-        height_metric: values.height_metric,
-        weight: values.weight,
-        weight_metric: values.weight_metric,
-        parent_one: values.parent_one,
-        relationship_one: values.relationship_one,
-        parent_two: values.parent_two,
-        relationship_two: values.relationship_two,
-        consent: values.consent,
-        status: values.status,
-        sport_position_id: Number(values.sport_position_id),
-        leagues_played: values.leagues_played,
-        date_updated: values.date_updated,
-        game_appearances: values.game_appearances,
-        game_started: values.game_started,
-        minutes_played: values.minutes_played,
-        field_goals: values.field_goals,
-        org_name: values.org_name,
-        org_email: values.org_email,
-        office: values.office,
-        org_phone: values.org_phone,
-        org_mobile: values.org_mobile,
-        affiliations: values.affiliations,
+        // citzenship: [values.citzenship],
+        // height: values.height,
+        // height_metric: values.height_metric,
+        // weight: values.weight,
+        // weight_metric: values.weight_metric,
+        // parent_one: values.parent_one,
+        // relationship_one: values.relationship_one,
+        // parent_two: values.parent_two,
+        // relationship_two: values.relationship_two,
+        // consent: values.consent,
+        // status: values.status,
+        // sport_position_id: Number(values.sport_position_id),
+        // leagues_played: values.leagues_played,
+        // date_updated: values.date_updated,
+        // game_appearances: values.game_appearances,
+        // game_started: values.game_started,
+        // minutes_played: values.minutes_played,
+        // field_goals: values.field_goals,
+        // org_name: values.org_name,
+        // org_email: values.org_email,
+        // office: values.office,
+        // org_phone: values.org_phone,
+        // org_mobile: values.org_mobile,
+        // affiliations: values.affiliations,
         address: values.address,
         phone: values.phone,
         mobile: values.mobile,
-        resposability: values.resposability,
       })
       .then((res) => {
         localStorage.setItem("profile", JSON.stringify(res.data.profile));
         localStorage.setItem("athlete", JSON.stringify(res.data.athlete));
-        createCookie(JSON.stringify(res.data.profile));
-        router.push(`/${res.data.profile.public_id}`);
+        router.push("/dashboard/profile");
       })
       .catch((err) => {
         if (err.response) {
@@ -194,6 +229,7 @@ export const AthleteRegistrationForm: FC = () => {
                   <RadioGroupInput
                     label="sex"
                     required
+                    defaultSelected={`${athlete?.profile.sex}`}
                     {...field}
                     data={genderData}
                   />
@@ -273,7 +309,7 @@ export const AthleteRegistrationForm: FC = () => {
               </FormItem>
             )}
           />
-          <FormField
+          {/* <FormField
             control={form.control}
             name="citzenship"
             render={({ field }) => {
@@ -290,9 +326,9 @@ export const AthleteRegistrationForm: FC = () => {
                 </FormItem>
               );
             }}
-          />
+          /> */}
         </div>
-        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
+        {/* <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <div className="flex items-end space-x-2">
             <FormField
               control={form.control}
@@ -319,7 +355,12 @@ export const AthleteRegistrationForm: FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <RadioGroupInput label="" {...field} data={heightData} />
+                    <RadioGroupInput
+                      label=""
+                      {...field}
+                      defaultSelected={`${athlete?.height_metric}`}
+                      data={heightData}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -352,14 +393,19 @@ export const AthleteRegistrationForm: FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <RadioGroupInput label="" {...field} data={weightData} />
+                    <RadioGroupInput
+                      label=""
+                      {...field}
+                      defaultSelected={`${athlete?.weight_metric}`}
+                      data={weightData}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-        </div>
+        </div> */}
         {/* <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
           <FormField
             control={form.control}
@@ -538,7 +584,7 @@ export const AthleteRegistrationForm: FC = () => {
             </FormItem>
           )}
         /> */}
-        <div className="pt-3 space-y-2">
+        {/* <div className="pt-3 space-y-2">
           <span className="font-lexenda_exa font-extrabold text-primary uppercase">
             career information
           </span>
@@ -553,6 +599,7 @@ export const AthleteRegistrationForm: FC = () => {
                     <RadioGroupInput
                       label="Athlete Status"
                       {...field}
+                      defaultSelected={`${athlete?.status}`}
                       required
                       data={athleteStatusData}
                     />
@@ -580,7 +627,7 @@ export const AthleteRegistrationForm: FC = () => {
               )}
             />
           </div>
-        </div>
+        </div> */}
 
         {/* <FormField
           control={form.control}
@@ -638,7 +685,7 @@ export const AthleteRegistrationForm: FC = () => {
             </FormItem>
           )}
         /> */}
-        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
+        {/* <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
             name="office"
@@ -717,22 +764,6 @@ export const AthleteRegistrationForm: FC = () => {
                   label="Affiliations"
                   className="h-20"
                   {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="resposability"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <CheckboxInput
-                  {...field}
-                  info="I hereby declare that all the information contained is in accordance with facts or truths to my knowledge. I take full responsibility for the correctness of the said information."
                 />
               </FormControl>
               <FormMessage />
@@ -844,9 +875,9 @@ export const AthleteRegistrationForm: FC = () => {
                   </FormItem>
                 )}
               />
-            </div>
+            </div> 
           </div>
-        </div>
+        </div>*/}
         <div className="pt-4 flex justify-center">
           <SubmitButton
             loading={loading}

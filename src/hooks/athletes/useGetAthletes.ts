@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { privateInstance } from "../lib/axios";
+import { privateInstance } from "../../lib/axios";
 import { Athlete } from "@/types/auth";
 import { useQuery } from "@tanstack/react-query";
 

@@ -18,16 +18,15 @@ import { genderData } from "@/data/genderData";
 import { RadioGroupInput } from "../../inputs/radioGroupInput";
 import { TextAreaInput } from "../../inputs/textAreaInput";
 import { CheckboxInput } from "../../inputs/checkBoxInput";
-import { PhoneNumberInput } from "../../inputs/phoneNumberInput";
 import { SelectCoutriesInput } from "../../inputs/select/countries";
 import { ScoutRegistrationSchema } from "../schema/registration/scout";
 import { signUpState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
 import { privateInstance } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
-import { IUserResponse, User } from "@/types/auth";
-import { COUNTRIES } from "@/data/countriesData";
+import { IUserResponse } from "@/types/auth";
 import { useUserStorage } from "../../../hooks/useUserStorage";
+import { createCookie } from "@/api/cookies";
 
 export const ScoutRegistrationForm: FC = () => {
   const router = useRouter();
@@ -69,7 +68,7 @@ export const ScoutRegistrationForm: FC = () => {
       })
       .then((res) => {
         localStorage.setItem("profile", JSON.stringify(res.data.profile));
-        // localStorage.setItem("scout", JSON.stringify(res.data.scout));
+        createCookie(JSON.stringify(res.data.profile));
         router.push("/dashboard");
         toast({
           title: "Sucesso",

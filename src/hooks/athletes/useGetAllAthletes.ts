@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { privateInstance } from "../lib/axios";
+import { privateInstance } from "../../lib/axios";
 import { Athlete } from "@/types/auth";
 
 interface IGetAllAthletes {

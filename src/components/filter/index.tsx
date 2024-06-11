@@ -3,7 +3,7 @@
 import useFilterData from "../../hooks/useFilterData";
 import React, { FC, useState } from "react";
 import { Expand } from "../../../public/icons/expand";
-import { tagsData } from "../../hooks/tags";
+import { tagsData } from "../../data/tags";
 import { useRouter } from "next/navigation";
 import Checkbox from "react-custom-checkbox";
 import { BsCheckLg } from "react-icons/bs";

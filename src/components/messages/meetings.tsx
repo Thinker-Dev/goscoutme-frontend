@@ -1,8 +1,13 @@
 import { meetingsData } from "@/data/meetingsData";
 import React, { FC } from "react";
 import { MessagesMeetingIcon } from "../../../public/icons/messages";
+import { privateInstance } from "@/lib/axios";
 
-export const Meetings: FC = () => {
+interface Props {
+  data: UserAppointments[] | undefined;
+}
+
+export const Meetings: FC<Props> = ({ data }: Props) => {
   return (
     <div>
       <span className="font-extralight text-4xl text-primary font-lexenda_deca">
@@ -11,7 +16,7 @@ export const Meetings: FC = () => {
       <div className="bg-light-blue rounded-b-[10px] border-gray-200 mt-4 p-4 h-80 styled-meetings-scroll-bar overflow-x-hidden overflow-auto">
         <table className="min-w-full ">
           <tbody className="text-sm font-semibold">
-            {meetingsData.map((meetings, index) => (
+            {/* {meetingsData.map((meetings, index) => (
               <tr key={index}>
                 <td className="border-b border-separator w-[270px] flex space-x-2 cursor-pointer justify-between">
                   <div className="w-full">
@@ -30,7 +35,19 @@ export const Meetings: FC = () => {
                   <MessagesMeetingIcon />
                 </td>
               </tr>
-            ))}
+            ))} */}
+            {data ? (
+              data.map((item, index) => (
+                <div key={index} className="mb-2 space-x-2">
+                  <span>{item.title}</span>
+                  <span>{item.description}</span>
+                  <span>{item.scheduled}</span>
+                  <button>Delete</button>
+                </div>
+              ))
+            ) : (
+              <div>Loading...</div>
+            )}
           </tbody>
         </table>
       </div>

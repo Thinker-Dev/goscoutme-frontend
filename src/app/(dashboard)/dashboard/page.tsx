@@ -2,7 +2,7 @@
 
 import { Athletes } from "@/components/athletes";
 import { Filter } from "@/components/filter";
-import useGetAthletes from "../../../hooks/useGetAthletes";
+import useGetAthletes from "../../../hooks/athletes/useGetAthletes";
 import useGetSportsPositions from "../../../hooks/useGetSport";
 import { useUserStorage } from "../../../hooks/useUserStorage";
 import { ageCategoryState, filterState, searchQueryState } from "@/lib/recoil";

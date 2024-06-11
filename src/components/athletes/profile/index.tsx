@@ -10,7 +10,7 @@ import { AppointmentScheduler } from "./appointmentScheduler";
 import { CameraIcon } from "../../../../public/icons/camera";
 import Link from "next/link";
 import { useUserStorage } from "../../../hooks/useUserStorage";
-import useGetAthleteById from "../../../hooks/useGetAthleteById";
+import useGetAthleteById from "../../../hooks/athletes/useGetAthleteById";
 import { usePathname } from "next/navigation";
 
 export const Profile: FC = () => {
@@ -52,7 +52,7 @@ export const Profile: FC = () => {
       <div className="flex space-x-10">
         <div className="w-[25%] ">
           <div className="w-64 flex justify-center">
-            <AppointmentScheduler currentUser={currentUser} />
+            <AppointmentScheduler currentUser={currentUser} athlete={athlete} />
           </div>
         </div>
         <div className="space-y-5 w-[70%]">

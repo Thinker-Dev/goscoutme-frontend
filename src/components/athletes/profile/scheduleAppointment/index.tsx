@@ -9,6 +9,10 @@ import SelectDate from "./selectDate";
 import SelectTime from "./selectTime";
 import { SubmitButton } from "@/components/buttons/submit";
 import { toast } from "@/components/ui/use-toast";
+import { useUserStorage } from "@/hooks/useUserStorage";
+import { privateInstance } from "@/lib/axios";
+import useGetAthleteById from "@/hooks/athletes/useGetAthleteById";
+import { usePathname } from "next/navigation";
 
 type ValuePiece = Date | null;
 
@@ -21,6 +25,12 @@ export const ScheduleAppointment: FC = () => {
   const [value, onChange] = useState<Value>(new Date());
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>();
+  const { profile } = useUserStorage();
+  const pathname = usePathname();
+  const pathSegments = pathname.split("/");
+  const lastSegment = pathSegments[pathSegments.length - 1];
+  const { data: athlete, isLoading } = useGetAthleteById(lastSegment);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const formatDate = (date: Date | null) => {
     if (!date) return "Date";
@@ -92,16 +102,31 @@ export const ScheduleAppointment: FC = () => {
   };
 
   const submitAppointmentData = async (date: Date, time: string) => {
-    // Mock API call or any asynchronous operation to submit appointment data
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log("Appointment data submitted:", date, time);
-    setSuccess(true);
-    setSelectedTime(null);
-    setSelectedDate(new Date());
-    // toast({
-    //   title: "Appointment data submitted",
-    //   description: `${formatDate(selectedDate)} at ${selectedTime}.`,
-    // });
+    setLoading(true);
+    await privateInstance
+      .post("/appointments/create", {
+        scout_id: profile.public_id,
+        athlete_id: athlete?.profile.public_id,
+        scheduled: selectedDate,
+        description: "name scheduled a meeting with sport athlete name",
+        duration: "-",
+        title: "name meeting",
+      })
+      .then((res) => {
+        setSuccess(true);
+        setSelectedTime(null);
+        setSelectedDate(new Date());
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast({
+            title: "Error ",
+            description: err.response.data.message,
+            variant: "destructive",
+          });
+        }
+      });
+    setLoading(false);
   };
 
   return (
@@ -152,6 +177,7 @@ export const ScheduleAppointment: FC = () => {
                 label="confirm appointment"
                 className="bg-redish w-[250px] hover:bg-redish/70"
                 onClick={handleConfirmAppointment}
+                loading={loading}
               />
             )}
           </div>

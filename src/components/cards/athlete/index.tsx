@@ -3,7 +3,7 @@ import { Profile } from "../../../../public/icons/profile";
 import { Button } from "@/components/buttons";
 import { Expand } from "../../../../public/icons/expand";
 // import filterData from "@/data/filterData";
-import { tagsData } from "../../../hooks/tags";
+import { tagsData } from "../../../data/tags";
 import { Athlete } from "@/types/auth";
 import useTextUtils from "../../../hooks/useTextUtils";
 

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { CheckBoxType } from "@/types/checkBox";
 import { genderData } from "@/data/genderData";
 import Checkbox from "react-custom-checkbox";
@@ -10,6 +10,7 @@ interface Props {
   data: CheckBoxType[];
   onChange: (value: string) => void;
   required?: boolean;
+  defaultSelected?: string; // New prop for default selection
 }
 
 export const RadioGroupInput: FC<Props> = ({
@@ -18,8 +19,16 @@ export const RadioGroupInput: FC<Props> = ({
   data,
   required,
   onChange,
+  defaultSelected, // Receive defaultSelected prop
 }: Props) => {
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string | null>(
+    defaultSelected || null
+  );
+
+  useEffect(() => {
+    // Update selected value when defaultSelected prop changes
+    setSelectedValue(defaultSelected || null);
+  }, [defaultSelected]);
 
   const handleCheckboxChange = (value: string) => {
     setSelectedValue(value);

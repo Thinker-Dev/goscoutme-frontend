@@ -1,18 +1,31 @@
 import { Button } from "@/components/buttons";
 import { SubmitButton } from "@/components/buttons/submit";
 import { appointmentState } from "@/lib/recoil";
-import Link from "next/link";
-import React, { FC, useState } from "react";
+import { Athlete } from "@/types/auth";
+import { usePathname } from "next/navigation";
+import React, { FC, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
 interface Props {
   currentUser: boolean;
+  athlete: Athlete | undefined;
 }
 
-export const AppointmentScheduler: FC<Props> = ({ currentUser }: Props) => {
+export const AppointmentScheduler: FC<Props> = ({
+  currentUser,
+  athlete,
+}: Props) => {
   const [appointment, setAppointment] = useRecoilState(appointmentState);
   const [scheduledAppointment, setScheduledAppointment] =
     useState<boolean>(false);
+  const pathname = usePathname();
+  const pathSegments = pathname.split("/");
+  const lastSegment = pathSegments[pathSegments.length - 1];
+
+  useEffect(() => {
+    setAppointment(false);
+  }, [lastSegment]);
+
   return (
     <div>
       {scheduledAppointment ? (
@@ -34,16 +47,20 @@ export const AppointmentScheduler: FC<Props> = ({ currentUser }: Props) => {
         <>
           {currentUser ? (
             <Button
-              to="/dashboard/profile/HI3304/update-profile"
+              to={`/dashboard/profile/${athlete?.profile.public_id}/update-profile`}
               label="update profile"
               className="bg-secondary hover:bg-secondary/70"
             />
           ) : (
-            <SubmitButton
-              label="make appointment"
-              className="bg-redish hover:bg-redish/70"
-              onClick={() => setAppointment(!appointment)}
-            />
+            <div>
+              {!appointment && (
+                <SubmitButton
+                  label="make appointment"
+                  className="bg-redish hover:bg-redish/70"
+                  onClick={() => setAppointment(!appointment)}
+                />
+              )}
+            </div>
           )}
         </>
       )}

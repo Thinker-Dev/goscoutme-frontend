@@ -12,7 +12,6 @@ import { useState, useEffect } from "react";
 const defaultAppMetadata: Appmetadata = {
   provider: "",
   providers: [],
-  // Add other fields if they exist
 };
 
 const defaultSport: Sport = {
@@ -32,9 +31,11 @@ const defaultProfile: Profile = {
   account_status: "",
   nationality: "",
   sport: defaultSport,
-  phone: null,
-  mobile: null,
+  phone: "",
+  mobile: "",
   address: "",
+  affiliations: "",
+  athlete: null as unknown as Athlete,
 };
 
 const defaultUser: User = {
