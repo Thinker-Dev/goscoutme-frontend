@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { appointmentState } from "@/lib/recoil";
 import { ScheduleAppointment } from "./scheduleAppointment";
 import { UploadVideoCard } from "./video/uploadVideoCard";
-import { Athlete, Position } from "@/types/auth";
+import { Athlete } from "@/types/auth";
 import useTextUtils from "../../../hooks/useTextUtils";
 import useMetricConversion from "../../../hooks/useMetricConversion";
 

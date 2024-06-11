@@ -7,15 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  CreditCard,
-  LogOut,
-  Settings,
-  Settings2Icon,
-  SettingsIcon,
-  User,
-} from "lucide-react";
-import { useUserStorage } from "../../hooks/useUserStorage";
+import { CreditCard, LogOut, SettingsIcon, User } from "lucide-react";
 import Link from "next/link";
 import { Profile } from "@/types/auth";
 

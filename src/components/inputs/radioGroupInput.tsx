@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
 import { CheckBoxType } from "@/types/checkBox";
-import { genderData } from "@/data/genderData";
 import Checkbox from "react-custom-checkbox";
 import { XIcon } from "lucide-react";
 
@@ -10,7 +9,7 @@ interface Props {
   data: CheckBoxType[];
   onChange: (value: string) => void;
   required?: boolean;
-  defaultSelected?: string; // New prop for default selection
+  defaultSelected?: string;
 }
 
 export const RadioGroupInput: FC<Props> = ({

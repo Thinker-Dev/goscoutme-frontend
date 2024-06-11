@@ -29,7 +29,6 @@ import { IUserResponse } from "@/types/auth";
 import { toast } from "@/components/ui/use-toast";
 import { SelectPositionsInput } from "@/components/inputs/select/positions";
 import { SelectCoutriesInput } from "@/components/inputs/select/countries";
-import { MultiSelectInput } from "@/components/inputs/select/multi";
 import { useUserStorage } from "../../../hooks/useUserStorage";
 import { createCookie } from "@/api/cookies";
 

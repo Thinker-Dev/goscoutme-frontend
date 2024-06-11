@@ -1,5 +1,5 @@
 import { selectedtimeState } from "@/lib/recoil";
-import React, { useState } from "react";
+import React from "react";
 import { useRecoilState } from "recoil";
 
 interface Time {

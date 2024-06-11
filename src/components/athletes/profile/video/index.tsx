@@ -1,9 +1,6 @@
 import { videoData } from "@/data/videoData";
 import React, { FC, useState } from "react";
-import { PlayIcon } from "../../../../../public/icons/play";
 import { Button } from "@/components/buttons";
-import { SubmitButton } from "@/components/buttons/submit";
-import { ArrowUp } from "lucide-react";
 import { Tabs } from "./tabs";
 
 interface Props {

@@ -4,7 +4,6 @@ import React, { FC, useState, useEffect } from "react";
 import { PlayIconPrimary } from "../../../../../public/icons/play";
 import { SubmitButton } from "@/components/buttons/submit";
 import { useRouter, useSearchParams } from "next/navigation";
-import { toast } from "@/components/ui/use-toast";
 import { privateInstance } from "@/lib/axios";
 import axios from "axios";
 
@@ -51,27 +50,36 @@ export const UploadVideo: FC = () => {
   };
 
   const handleUpload = async () => {
-    const presignedUrl = await privateInstance.post('/media/create_presigned_url', {
-      file_name: selectedFiles[0].name,
-      file_type: selectedFiles[0].type
-    })
-    console.log(presignedUrl)
-    const formData = new FormData();
-    console.log(selectedFiles[0].name)
-    formData.append("file", selectedFiles[0].name);
-    await axios.put(presignedUrl.data.url, formData, {
-      headers: {
-        'Content-Type': selectedFiles[0].type
+    const presignedUrl = await privateInstance.post(
+      "/media/create_presigned_url",
+      {
+        file_name: selectedFiles[0].name,
+        file_type: selectedFiles[0].type,
       }
-    }).then(async (res) => {
-      await privateInstance.post('/media/storeMedia', {
-        type: 'VIDEO',
-        name: selectedFiles[0].name
-      }).then((res)=> console.log(res.data)).catch((err)=> console.log(err))
-      console.log(res.data);
-    }).catch((err) => {
-      console.log(err);
-    });
+    );
+    console.log(presignedUrl);
+    const formData = new FormData();
+    console.log(selectedFiles[0].name);
+    formData.append("file", selectedFiles[0].name);
+    await axios
+      .put(presignedUrl.data.url, formData, {
+        headers: {
+          "Content-Type": selectedFiles[0].type,
+        },
+      })
+      .then(async (res) => {
+        await privateInstance
+          .post("/media/storeMedia", {
+            type: "VIDEO",
+            name: selectedFiles[0].name,
+          })
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     //   const reader = new FileReader();
     //   reader.onprogress = (e) => {

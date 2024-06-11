@@ -1,4 +1,3 @@
-import { quickStatsData } from "@/data/quickStatsData";
 import { appointmentState } from "@/lib/recoil";
 import React, { FC } from "react";
 import { useRecoilState } from "recoil";

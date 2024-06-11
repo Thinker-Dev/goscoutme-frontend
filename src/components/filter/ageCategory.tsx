@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BsCheckLg } from "react-icons/bs";
 import Checkbox from "react-custom-checkbox";
 import { useRecoilState } from "recoil";
