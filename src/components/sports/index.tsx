@@ -11,12 +11,14 @@ import { useRouter } from "next/navigation";
 import {
   AlertDialog,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
 } from "@/components/ui/alert-dialog";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 import { useRecoilState } from "recoil";
-import { signUpState } from "@/lib/recoil";
+import { completeRegState, signUpState } from "@/lib/recoil";
+import { useUserStorage } from "@/hooks/useUserStorage";
 
 export const ChooseSport: FC = () => {
   const router = useRouter();
@@ -24,7 +26,9 @@ export const ChooseSport: FC = () => {
   const [open, setOpen] = useState<boolean>();
   const ref = useRef<LoadingBarRef>(null);
   const [signUp, setSignUp] = useRecoilState(signUpState);
+  const [completeReg, setCompleteReg] = useRecoilState(completeRegState);
   const [loading, setLoading] = useState<boolean>(false);
+  const { session } = useUserStorage();
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -122,6 +126,25 @@ export const ChooseSport: FC = () => {
           <AlertDialogFooter>
             <SubmitButton
               onClick={() => setOpen(false)}
+              label="continue"
+              className="w-32 xs:text-sm"
+            />
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <AlertDialog open={completeReg}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <span>Complete registration</span>
+          </AlertDialogHeader>
+          <AlertDialogDescription>
+            You have already created a account with {session.user.email} but you
+            didn&apos;t complete registration yet. You need to complete
+            registration to continue.
+          </AlertDialogDescription>
+          <AlertDialogFooter>
+            <SubmitButton
+              onClick={() => setCompleteReg(false)}
               label="continue"
               className="w-32 xs:text-sm"
             />

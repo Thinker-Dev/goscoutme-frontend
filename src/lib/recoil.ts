@@ -6,6 +6,11 @@ export const appointmentState = atom({
   default: false,
 });
 
+export const completeRegState = atom({
+  key: "completeRegState",
+  default: false,
+});
+
 export const searchQueryState = atom({
   key: "searchQueryState",
   default: "",

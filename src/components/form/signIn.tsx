@@ -21,10 +21,13 @@ import { privateInstance } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { toast } from "../ui/use-toast";
 import { createCookie } from "@/cookies";
+import { useRecoilState } from "recoil";
+import { completeRegState } from "@/lib/recoil";
 
 export const SignInForm: FC = () => {
-  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [completeReg, setCompleteReg] = useRecoilState(completeRegState);
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
   });
@@ -42,9 +45,16 @@ export const SignInForm: FC = () => {
           JSON.stringify(res.data.session),
           JSON.stringify(res.data.profile)
         );
-        res.data.profile.athlete
-          ? router.push(`/${res.data.profile.public_id}`)
-          : router.push("/dashboard");
+        if (res.data.profile) {
+          if (res.data.profile.athlete) {
+            router.push(`/${res.data.profile.public_id}`);
+          } else {
+            router.push("/dashboard");
+          }
+        } else {
+          router.push("/auth/create-account/sport");
+          setCompleteReg(true);
+        }
       })
       .catch((err) => {
         if (err.response) {
