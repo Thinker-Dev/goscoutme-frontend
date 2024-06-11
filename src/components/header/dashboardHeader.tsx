@@ -13,9 +13,9 @@ import { MenuIcon } from "lucide-react";
 import { Notifications } from "../../../public/icons/notifications";
 import { Messages } from "../../../public/icons/messages";
 import { menuData } from "@/data/navData";
-import { deleteCookie } from "../../api/cookies";
 import { useUserStorage } from "@/hooks/useUserStorage";
 import { ProfileDropdow } from "./profileDropdown";
+import { deleteCookie } from "@/cookies";
 
 export const DashboardHeader: FC = () => {
   const router = useRouter();

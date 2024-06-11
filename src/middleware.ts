@@ -6,6 +6,13 @@ export function middleware(request: NextRequest) {
   const profile = request.cookies.get("profile")?.value;
   const { pathname } = request.nextUrl;
 
+  console.log("====================================");
+  console.log("session", session);
+  console.log("====================================");
+  console.log("====================================");
+  console.log("profile", profile);
+  console.log("====================================");
+
   if (pathname.startsWith("/dashboard")) {
     if (!session) {
       return NextResponse.redirect(new URL("/auth/login", request.url));

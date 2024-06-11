@@ -30,7 +30,7 @@ import { toast } from "@/components/ui/use-toast";
 import { SelectPositionsInput } from "@/components/inputs/select/positions";
 import { SelectCoutriesInput } from "@/components/inputs/select/countries";
 import { useUserStorage } from "../../../hooks/useUserStorage";
-import { createCookie } from "@/api/cookies";
+import { createProfileCookie } from "@/cookies/profile";
 
 export const AthleteRegistrationForm: FC = () => {
   const router = useRouter();
@@ -117,7 +117,7 @@ export const AthleteRegistrationForm: FC = () => {
       .then((res) => {
         localStorage.setItem("profile", JSON.stringify(res.data.profile));
         localStorage.setItem("athlete", JSON.stringify(res.data.athlete));
-        createCookie(JSON.stringify(res.data.profile));
+        createProfileCookie(JSON.stringify(res.data.profile));
         router.push(`/${res.data.profile.public_id}`);
       })
       .catch((err) => {

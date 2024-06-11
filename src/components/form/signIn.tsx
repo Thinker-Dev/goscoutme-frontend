@@ -20,7 +20,7 @@ import { IUserResponse } from "@/types/auth";
 import { privateInstance } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { toast } from "../ui/use-toast";
-import { createCookie } from "../../api/cookies";
+import { createCookie } from "@/cookies";
 
 export const SignInForm: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -43,7 +43,7 @@ export const SignInForm: FC = () => {
           JSON.stringify(res.data.profile)
         );
         res.data.profile.athlete
-          ? router.push(`${res.data.profile.public_id}`)
+          ? router.push(`/${res.data.profile.public_id}`)
           : router.push("/dashboard");
       })
       .catch((err) => {

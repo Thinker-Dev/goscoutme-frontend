@@ -26,7 +26,7 @@ import { privateInstance } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
 import { IUserResponse } from "@/types/auth";
 import { useUserStorage } from "../../../hooks/useUserStorage";
-import { createCookie } from "@/api/cookies";
+import { createProfileCookie } from "@/cookies/profile";
 
 export const ScoutRegistrationForm: FC = () => {
   const router = useRouter();
@@ -68,7 +68,7 @@ export const ScoutRegistrationForm: FC = () => {
       })
       .then((res) => {
         localStorage.setItem("profile", JSON.stringify(res.data.profile));
-        createCookie(JSON.stringify(res.data.profile));
+        createProfileCookie(JSON.stringify(res.data.profile));
         router.push("/dashboard");
         toast({
           title: "Sucesso",

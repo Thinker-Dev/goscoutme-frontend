@@ -22,7 +22,7 @@ import { PasswordInput } from "../ui/PasswordInput";
 import { privateInstance } from "@/lib/axios";
 import { toast } from "../ui/use-toast";
 import { IUserResponse } from "@/types/auth";
-import { createCookie } from "../../api/cookies";
+import { createSessionCookie } from "../../cookies/session";
 
 export const SignUpForm: FC = () => {
   const pathname = usePathname();
@@ -42,13 +42,13 @@ export const SignUpForm: FC = () => {
       .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data.user));
         localStorage.setItem("session", JSON.stringify(res.data.session));
-        createCookie(JSON.stringify(res.data.session));
+        createSessionCookie(JSON.stringify(res.data.session));
         router.push(`${lastSegment}/sport`);
       })
       .catch((err) => {
         if (err.response) {
           toast({
-            title: "Error ",
+            title: "Error",
             description: err.response.data.message,
             variant: "destructive",
           });
