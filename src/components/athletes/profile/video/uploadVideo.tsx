@@ -3,32 +3,42 @@
 import React, { FC, useState, useEffect } from "react";
 import { PlayIconPrimary } from "../../../../../public/icons/play";
 import { SubmitButton } from "@/components/buttons/submit";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { privateInstance } from "@/lib/axios";
 import axios from "axios";
+import { Athlete } from "@/types/auth";
+import { useUserStorage } from "@/hooks/useUserStorage";
+import { toast } from "@/components/ui/use-toast";
+import useGetAthleteById from "@/hooks/athletes/useGetAthleteById";
+
+// interface Props {
+//   athlete: Athlete | undefined;
+// }
 
 export const UploadVideo: FC = () => {
-  const [uploadingFiles, setUploadingFiles] = useState<
-    { file: File; progress: number; title: string }[]
-  >([]);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploadComplete, setUploadComplete] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
-  const params = searchParams.get("params");
+  const params = searchParams.get("p");
+  const { profile } = useUserStorage();
+  const [uploadingFiles, setUploadingFiles] = useState<
+    { file: File; progress: number; title: string }[]
+  >([]);
 
   useEffect(() => {
-    // Check if all files are uploaded
     if (
       uploadingFiles.length > 0 &&
       uploadingFiles.every((file) => file.progress === 100)
     ) {
       setUploadComplete(true);
 
-      console.log("Video(s) uploaded successfully!");
+      toast({
+        description: "Video(s) uploaded successfully!",
+      });
       setTimeout(() => {
         if (params === "complete-registration") {
-          router.push("/dashboard/profile/HI3304");
+          router.push(`/athlete/${profile.public_id}?p=registration-complete`);
         }
       }, 3000);
     } else {
@@ -57,14 +67,29 @@ export const UploadVideo: FC = () => {
         file_type: selectedFiles[0].type,
       }
     );
-    console.log(presignedUrl);
+
     const formData = new FormData();
-    console.log(selectedFiles[0].name);
     formData.append("file", selectedFiles[0].name);
+
     await axios
       .put(presignedUrl.data.url, formData, {
         headers: {
           "Content-Type": selectedFiles[0].type,
+        },
+        onUploadProgress: (progressEvent) => {
+          if (progressEvent.lengthComputable) {
+            // Calculate progress percentage
+            const progress = Math.round(
+              (progressEvent.loaded / progressEvent.total!) * 100
+            );
+
+            // Update progress for the current file
+            setUploadingFiles((prevFiles) => {
+              const newFiles = [...prevFiles];
+              newFiles[0].progress = progress;
+              return newFiles;
+            });
+          }
         },
       })
       .then(async (res) => {
@@ -75,33 +100,34 @@ export const UploadVideo: FC = () => {
           })
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err));
+
         console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-
-    //   const reader = new FileReader();
-    //   reader.onprogress = (e) => {
-    //     if (e.lengthComputable) {
-    //       const progress = (e.loaded / e.total) * 100;
-    //       setUploadingFiles((prevFiles) => {
-    //         const newFiles = [...prevFiles];
-    //         newFiles[index].progress = progress;
-    //         return newFiles;
-    //       });
-    //     }
-    //   };
-    //   reader.onloadend = () => {
-    //     setUploadingFiles((prevFiles) => {
-    //       const newFiles = [...prevFiles];
-    //       newFiles[index].progress = 100;
-    //       return newFiles;
-    //     });
-    //   };
-    //   reader.readAsDataURL(file);
-    // });
   };
+
+  //   const reader = new FileReader();
+  //   reader.onprogress = (e) => {
+  //     if (e.lengthComputable) {
+  //       const progress = (e.loaded / e.total) * 100;
+  //       setUploadingFiles((prevFiles) => {
+  //         const newFiles = [...prevFiles];
+  //         newFiles[index].progress = progress;
+  //         return newFiles;
+  //       });
+  //     }
+  //   };
+  //   reader.onloadend = () => {
+  //     setUploadingFiles((prevFiles) => {
+  //       const newFiles = [...prevFiles];
+  //       newFiles[index].progress = 100;
+  //       return newFiles;
+  //     });
+  //   };
+  //   reader.readAsDataURL(file);
+  // });
 
   const formatTitle = (title: string) => {
     const words = title.split(" ");
@@ -134,7 +160,7 @@ export const UploadVideo: FC = () => {
               </span>
             </div>
             <div className="w-full bg-gray-200 h-2">
-              <div
+              <progress
                 className="bg-primary h-2"
                 style={{ width: `${file.progress}%` }}
               />

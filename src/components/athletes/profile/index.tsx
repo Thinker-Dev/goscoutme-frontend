@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Profile as ProfileIcon } from "../../../../public/icons/profile";
 import { Description } from "./description";
 import { PersonalNotes } from "./personalNotes";
@@ -11,15 +11,20 @@ import { CameraIcon } from "../../../../public/icons/camera";
 import Link from "next/link";
 import { useUserStorage } from "../../../hooks/useUserStorage";
 import useGetAthleteById from "../../../hooks/athletes/useGetAthleteById";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { ScheduleAppointment } from "./scheduleAppointment";
+import { UploadVideoCard } from "./video/uploadVideoCard";
 
 export const Profile: FC = () => {
-  const { currentUser } = useUserStorage();
-
   const pathname = usePathname();
+  const { currentUser } = useUserStorage();
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
-  const { data: athlete, isLoading } = useGetAthleteById(lastSegment);
+  const { data: athlete, isLoading, refetch } = useGetAthleteById(lastSegment);
+
+  useEffect(() => {
+    refetch();
+  }, [pathname]);
 
   if (isLoading)
     return (
@@ -31,35 +36,39 @@ export const Profile: FC = () => {
     );
 
   return (
-    <div className="flex space-y-5 flex-col">
-      <div className="flex space-x-10">
-        <div className="relative w-[25%] ">
+    <div className="flex space-x-10 pb-10">
+      <div className="space-y-[175px]">
+        <div className="relative">
           <ProfileIcon className="h-64 w-full" />
           {currentUser && (
             <Link
-              href={`/dashboard/profile/${athlete?.profile.public_id}/update-profile`}
+              href={`/athlete/${athlete?.profile.public_id}/update-profile`}
             >
               <CameraIcon className="absolute top-48 right-0" />
             </Link>
           )}
         </div>
+        <div className="w-64 flex justify-center">
+          <AppointmentScheduler currentUser={currentUser} athlete={athlete} />
+        </div>
+      </div>
+      <div className="space-y-10">
         <Description
           currentUser={currentUser}
           athlete={athlete}
           isLoading={isLoading}
         />
-      </div>
-      <div className="flex space-x-10">
-        <div className="w-[25%] ">
-          <div className="w-64 flex justify-center">
-            <AppointmentScheduler currentUser={currentUser} athlete={athlete} />
-          </div>
-        </div>
-        <div className="space-y-5 w-[70%]">
-          {!currentUser && <PersonalNotes />}
-          <QuickStats />
-          <Videos currentUser={currentUser} />
-        </div>
+        <ScheduleAppointment />
+        {currentUser && (
+          <>
+            {athlete && athlete?.media.length <= 0 && (
+              <UploadVideoCard athlete={athlete} />
+            )}
+          </>
+        )}
+        {!currentUser && <PersonalNotes />}
+        <QuickStats />
+        <Videos currentUser={currentUser} athlete={athlete} />
       </div>
     </div>
   );

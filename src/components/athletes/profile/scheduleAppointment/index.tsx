@@ -13,6 +13,7 @@ import { useUserStorage } from "@/hooks/useUserStorage";
 import { privateInstance } from "@/lib/axios";
 import useGetAthleteById from "@/hooks/athletes/useGetAthleteById";
 import { usePathname } from "next/navigation";
+import useTimeUtils from "@/hooks/useTimeUtils";
 
 type ValuePiece = Date | null;
 
@@ -32,37 +33,7 @@ export const ScheduleAppointment: FC = () => {
   const { data: athlete, isLoading } = useGetAthleteById(lastSegment);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const formatDate = (date: Date | null) => {
-    if (!date) return "Date";
-    const options: Intl.DateTimeFormatOptions = {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    };
-    const formattedDate = date.toLocaleDateString("en-GB", options);
-    return formattedDate.replace(/ /g, " ").split(",").join("");
-  };
-
-  const getDayOfWeek = (date: Date | null) => {
-    if (!date) return "Day";
-    return date.toLocaleDateString("en-US", { weekday: "long" });
-  };
-
-  const getTimeZoneString = (date: Date | null) => {
-    if (!date) return "";
-    const timeZoneOffset = -date.getTimezoneOffset();
-    const sign = timeZoneOffset >= 0 ? "+" : "-";
-    const hours = String(Math.floor(Math.abs(timeZoneOffset) / 60)).padStart(
-      2,
-      "0"
-    );
-    const minutes = String(Math.abs(timeZoneOffset) % 60).padStart(2, "0");
-    const timeZoneName = date
-      .toLocaleDateString("en-US", { timeZoneName: "long" })
-      .split(", ")
-      .pop();
-    return `GMT${sign}${hours}${minutes} (${timeZoneName})`;
-  };
+  const { formatDate, getDayOfWeek, getTimeZoneString } = useTimeUtils();
 
   useEffect(() => {
     if (selectedDate) {
@@ -90,8 +61,12 @@ export const ScheduleAppointment: FC = () => {
       return;
     }
 
+    const [hours, minutes] = selectedTime.split(":").map(Number);
+
+    selectedDate.setHours(hours);
+
     try {
-      await submitAppointmentData(selectedDate, selectedTime);
+      await submitAppointmentData();
     } catch (error) {
       toast({
         title: "Error",
@@ -101,7 +76,7 @@ export const ScheduleAppointment: FC = () => {
     }
   };
 
-  const submitAppointmentData = async (date: Date, time: string) => {
+  const submitAppointmentData = async () => {
     setLoading(true);
     await privateInstance
       .post("/appointments/create", {
@@ -132,7 +107,7 @@ export const ScheduleAppointment: FC = () => {
   return (
     <>
       {appointment && (
-        <div className="bg-light-blue rounded-b-md w-full pt-12 pb-12 px-16">
+        <div className="bg-light-blue rounded-b-md  pt-12 pb-12 px-16">
           {success ? (
             <div className="w-full flex justify-center mt-16">
               <span className="font-extralight text-7xl text-center text-secondary">
@@ -140,7 +115,7 @@ export const ScheduleAppointment: FC = () => {
               </span>
             </div>
           ) : (
-            <div className="space-x-10 flex">
+            <div className="space-x-10 flex basis-2/3">
               <div className="w-[60%] flex flex-col pr-9 items-center">
                 <span className="uppercase text-center font-lexenda_exa font-extrabold text-2xl text-secondary">
                   select date

@@ -1,7 +1,12 @@
 import { Button } from "@/components/buttons";
+import { Athlete, Profile } from "@/types/auth";
 import React, { FC } from "react";
 
-export const UploadVideoCard: FC = () => {
+interface Props {
+  athlete: Athlete | undefined;
+}
+
+export const UploadVideoCard: FC<Props> = ({ athlete }: Props) => {
   return (
     <div className="bg-light-blue rounded-b-md w-full pt-12 pb-12 px-16">
       <div className="w-full flex  my-10 flex-col items-center">
@@ -12,7 +17,7 @@ export const UploadVideoCard: FC = () => {
           This is important to completing your Athlete Profile
         </span>
         <Button
-          to="/dashboard/profile/HI3304/upload-video?params=complete-registration"
+          to={`/athlete/${athlete?.profile.public_id}/upload-video?p=complete-registration`}
           label="upload video"
           className="bg-redish hover:bg-redish/70 mt-7"
         />

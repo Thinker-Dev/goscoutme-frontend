@@ -1,13 +1,21 @@
+import useTextUtils from "@/hooks/useTextUtils";
+import { Profile } from "@/types/auth";
 import React, { FC } from "react";
 
-export const MessagesHeader: FC = () => {
+interface Props {
+  profile: Profile;
+}
+
+export const MessagesHeader: FC<Props> = ({ profile }: Props) => {
+  const { getFirstSixWords } = useTextUtils();
   return (
     <div className="flex flex-col">
       <span className="font-bold  text-2xl font-lexenda">
-        MP3412 Juventus FC
+        <span className="uppercase">{getFirstSixWords(profile.public_id)}</span>{" "}
+        Juventus FC
       </span>
       <span className="font-extralight text-5xl text-secondary font-lexenda_deca">
-        Hi Scout
+        Hi {profile.athlete ? "Athlete" : "Scout"}
       </span>
     </div>
   );

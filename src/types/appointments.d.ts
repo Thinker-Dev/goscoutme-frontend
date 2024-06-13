@@ -1,3 +1,5 @@
+import { Athlete } from "./auth";
+
 interface CreateAppointmentsDto {
   athlete_id: string | number;
   scheduled: string;
@@ -29,8 +31,11 @@ interface UserAthleteProfile {
 
 interface UserAppointments {
   id: string;
-  scout_id: string;
-  athlete_id: string;
+  scout: {
+    id: string;
+    profile_id: string;
+  };
+  athlete: Athlete;
   scheduled: string;
   description: string;
   duration: number;

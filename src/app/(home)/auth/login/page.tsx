@@ -23,7 +23,7 @@ export default function Page() {
       </div>
       <span className="text-sm max-xs:text-xs">
         Dont have an account?{" "}
-        <Link href={"/auth/sport"} className="underline">
+        <Link href={"/auth/create-account"} className="underline">
           Sign up
         </Link>
       </span>

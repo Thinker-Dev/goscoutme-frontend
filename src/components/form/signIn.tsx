@@ -47,7 +47,7 @@ export const SignInForm: FC = () => {
         );
         if (res.data.profile) {
           if (res.data.profile.athlete) {
-            router.push(`/${res.data.profile.public_id}`);
+            router.push(`/athlete/${res.data.profile.public_id}`);
           } else {
             router.push("/dashboard");
           }

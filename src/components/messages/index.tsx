@@ -23,10 +23,10 @@ export const MessagesAndMeetings = () => {
         </div>
       ) : (
         <>
-          <MessagesHeader />
+          <MessagesHeader profile={profile} />
           <div className="flex space-x-16">
             <Messages />
-            <Meetings data={data} />
+            <Meetings data={data} profile={profile} />
           </div>
         </>
       )}

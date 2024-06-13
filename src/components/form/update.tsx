@@ -31,6 +31,8 @@ import { SelectPositionsInput } from "@/components/inputs/select/positions";
 import { SelectCoutriesInput } from "@/components/inputs/select/countries";
 import { useUserStorage } from "../../hooks/useUserStorage";
 import { UpdateSchema } from "./schema/update";
+import { Profile } from "../../../public/icons/profile";
+import { CameraIcon } from "../../../public/icons/camera";
 
 interface Props {
   athlete: Athlete | undefined;
@@ -159,7 +161,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
       .catch((err) => {
         if (err.response) {
           toast({
-            title: "Erro",
+            title: "Error",
             description: err.response.data.message,
             variant: "destructive",
           });
@@ -182,6 +184,13 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 w-[544px] max-sm:w-full max-xs:px-10"
       >
+        <div className="relative items-center flex justify-center">
+          <Profile className="" />
+          <label htmlFor="image">
+            <CameraIcon className="absolute w-10 top-[88px] right-[205px] cursor-pointer" />
+          </label>
+          <input type="file" id="image" name="image" accept="image/*" hidden />
+        </div>
         <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
           <FormField
             control={form.control}
@@ -193,7 +202,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                     label="First Name"
                     autoComplete="name"
                     {...field}
-                    required
                   />
                 </FormControl>
                 <FormMessage />
@@ -210,7 +218,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                     label="Last Name"
                     autoComplete="family-name"
                     {...field}
-                    required
                   />
                 </FormControl>
                 <FormMessage />
@@ -228,7 +235,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                 <FormControl>
                   <RadioGroupInput
                     label="sex"
-                    required
                     defaultSelected={`${athlete?.profile.sex}`}
                     {...field}
                     data={genderData}
@@ -249,7 +255,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                     {...field}
                     className="sm:w-[113px] px-2"
                     type="date"
-                    required
                   />
                 </FormControl>
                 <FormMessage />
@@ -265,7 +270,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                   <SelectCoutriesInput
                     label="Country of Birth"
                     className="w-full"
-                    required
                     {...field}
                   />
                 </FormControl>
@@ -283,7 +287,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                 <SelectCoutriesInput
                   label="Country of Birth"
                   className="w-full"
-                  required
                   {...field}
                 />
               </FormControl>
@@ -301,7 +304,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                   <SelectCoutriesInput
                     label="Nationality"
                     className="sm:w-[140px]"
-                    required
                     {...field}
                   />
                 </FormControl>
@@ -318,7 +320,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                   <FormControl>
                     <SelectCoutriesInput
                       label="Citizenship"
-                      required
+                      
                       {...field}
                     />
                   </FormControl>
@@ -341,7 +343,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                       type="number"
                       className="w-[70px]"
                       {...field}
-                      required
+                      
                       onChange={(e) => field.onChange(e.target.valueAsNumber)}
                     />
                   </FormControl>
@@ -379,7 +381,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                       type="number"
                       className="w-[70px]"
                       {...field}
-                      required
+                      
                       onChange={(e) => field.onChange(e.target.valueAsNumber)}
                     />
                   </FormControl>
@@ -415,7 +417,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                 <FormControl>
                   <TextInput
                     label="Name of Parent or Guardian 1"
-                    required
+                    
                     {...field}
                   />
                 </FormControl>
@@ -432,7 +434,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                   <TextInput
                     label="Relationship"
                     className="sm:w-[130px] "
-                    required
+                    
                     {...field}
                   />
                 </FormControl>
@@ -451,7 +453,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                   <TextInput
                     label="Name of Parent or Guardian 2"
                     {...field}
-                    required
+                    
                   />
                 </FormControl>
                 <FormMessage />
@@ -468,7 +470,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                     label="Relationship"
                     className="sm:w-[130px]"
                     {...field}
-                    required
+                    
                   />
                 </FormControl>
                 <FormMessage />
@@ -483,7 +485,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <TextAreaInput label="Home Address" required {...field} />
+                  <TextAreaInput label="Home Address" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -496,12 +498,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput
-                      type="number"
-                      label="Home Phone"
-                      required
-                      {...field}
-                    />
+                    <TextInput type="number" label="Home Phone" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -516,7 +513,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                     <TextInput
                       type="number"
                       label="Personal Mobile"
-                      required
                       {...field}
                     />
                   </FormControl>
@@ -600,7 +596,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                       label="Athlete Status"
                       {...field}
                       defaultSelected={`${athlete?.status}`}
-                      required
+                      
                       data={athleteStatusData}
                     />
                   </FormControl>
@@ -618,7 +614,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                       label="Position Played"
                       className="w-full"
                       sport_id={signUp.sport_id}
-                      required
+                      
                       {...field}
                     />
                   </FormControl>
@@ -746,7 +742,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                 <TextAreaInput
                   label="Leagues Played"
                   className="h-16"
-                  required
+                  
                   {...field}
                 />
               </FormControl>
@@ -785,7 +781,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                       <TextInput
                         label="Date Updated"
                         {...field}
-                        required
+                        
                         className="w-[113px] px-2"
                         type="date"
                       />
@@ -803,7 +799,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                       <TextInput
                         label="Game Appearences"
                         type="number"
-                        required
+                        
                         className="w-[70px]"
                         {...field}
                         onChange={(e) => field.onChange(e.target.valueAsNumber)}
@@ -826,7 +822,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                         className="w-[70px]"
                         {...field}
                         onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                        required
+                        
                         itemCenter
                       />
                     </FormControl>
@@ -848,7 +844,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                         className="w-[70px]"
                         {...field}
                         onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                        required
+                        
                       />
                     </FormControl>
                     <FormMessage />
@@ -864,7 +860,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                       <TextInput
                         label="Field Goals"
                         type="number"
-                        required
+                        
                         className="w-[70px]"
                         {...field}
                         onChange={(e) => field.onChange(e.target.valueAsNumber)}

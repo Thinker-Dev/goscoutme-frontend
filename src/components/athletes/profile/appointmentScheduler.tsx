@@ -47,7 +47,7 @@ export const AppointmentScheduler: FC<Props> = ({
         <>
           {currentUser ? (
             <Button
-              to={`/dashboard/profile/${athlete?.profile.public_id}/update-profile`}
+              to={`/athlete/${athlete?.profile.public_id}/update-profile`}
               label="update profile"
               className="bg-secondary hover:bg-secondary/70"
             />

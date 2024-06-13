@@ -64,8 +64,16 @@ export interface Athlete {
   status: string;
   leagues_played: string;
   sport_position: Position;
+  media: Media[];
 }
 
+export interface Media {
+  id: number;
+  athlete_id: number;
+  name: string;
+  type: string;
+  media_url: string;
+}
 export interface Position {
   id: number;
   sportId: number;

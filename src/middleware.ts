@@ -6,13 +6,6 @@ export function middleware(request: NextRequest) {
   const profile = request.cookies.get("profile")?.value;
   const { pathname } = request.nextUrl;
 
-  console.log("====================================");
-  console.log("session", session);
-  console.log("====================================");
-  console.log("====================================");
-  console.log("profile", profile);
-  console.log("====================================");
-
   if (pathname.startsWith("/dashboard")) {
     if (!session) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
@@ -22,7 +15,7 @@ export function middleware(request: NextRequest) {
       try {
         if (profileData.athlete) {
           return NextResponse.redirect(
-            new URL(`/${profileData.public_id}`, request.url)
+            new URL(`/athlete/${profileData.public_id}`, request.url)
           );
         }
       } catch (error) {
@@ -36,7 +29,7 @@ export function middleware(request: NextRequest) {
         try {
           if (profileData.athlete) {
             return NextResponse.redirect(
-              new URL(`/${profileData.public_id}`, request.url)
+              new URL(`/athlete/${profileData.public_id}`, request.url)
             );
           } else {
             return NextResponse.redirect(new URL("/dashboard", request.url));
@@ -52,5 +45,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/auth/:path*", "/"],
+  matcher: ["/dashboard/:path*", "/auth/:path*", "/", "/athlete/:path*"],
 };

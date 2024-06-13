@@ -133,13 +133,6 @@ export const Filter: FC<Props> = ({ positions }: Props) => {
             )}
           </div>
         ))}
-
-        <div>
-          <h1 className="uppercase font-bold font-lexenda_exa text-sm">
-            age category
-          </h1>
-          <AgeCategory />
-        </div>
         <div>
           <form onSubmit={handleFormSubmit}>
             <h1 className="uppercase font-bold font-lexenda_exa text-sm">

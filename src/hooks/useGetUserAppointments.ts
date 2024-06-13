@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { privateInstance } from "../lib/axios";
+import { UserAppointments } from "@/types/appointments";
 
 const fetchUserAppointments = async (
   id: string

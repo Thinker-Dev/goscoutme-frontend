@@ -1,24 +1,12 @@
 import { z } from "zod";
 
 export const UpdateSchema = z.object({
-  first_name: z.string({
-    required_error: "This field is required",
-  }),
-  last_name: z.string({
-    required_error: "This field is required",
-  }),
-  sex: z.string({
-    required_error: "Required",
-  }),
-  birth_date: z.string({
-    required_error: "This field is required",
-  }),
-  country_of_birth: z.string({
-    required_error: "This field is required",
-  }),
-  nationality: z.string({
-    required_error: "This field is required",
-  }),
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
+  sex: z.string(),
+  birth_date: z.string(),
+  country_of_birth: z.string().optional(),
+  nationality: z.string().optional(),
   // citzenship: z.string({
   //   required_error: "This field is required",
   // }),
@@ -69,13 +57,7 @@ export const UpdateSchema = z.object({
   // org_phone: z.string().optional(),
   // org_mobile: z.string().optional(),
   // affiliations: z.string().optional(),
-  address: z.string({
-    required_error: "This field is required",
-  }),
-  phone: z.string({
-    required_error: "This field is required",
-  }),
-  mobile: z.string({
-    required_error: "This field is required",
-  }),
+  address: z.string().optional(),
+  phone: z.string().optional(),
+  mobile: z.string().optional(),
 });

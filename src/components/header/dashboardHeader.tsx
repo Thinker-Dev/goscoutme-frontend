@@ -10,12 +10,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
-import { Notifications } from "../../../public/icons/notifications";
 import { Messages } from "../../../public/icons/messages";
 import { menuData } from "@/data/navData";
 import { useUserStorage } from "@/hooks/useUserStorage";
 import { ProfileDropdow } from "./profileDropdown";
 import { deleteCookie } from "@/cookies";
+import { NotificationDropdown } from "./notification";
 
 export const DashboardHeader: FC = () => {
   const router = useRouter();
@@ -27,7 +27,7 @@ export const DashboardHeader: FC = () => {
     localStorage.removeItem("profile");
     localStorage.removeItem("session");
     deleteCookie();
-    router.push("/auth/login");
+    setTimeout(() => router.push("/auth/login"), 2000);
   };
 
   const filteredMenuData = menuData.filter(
@@ -71,7 +71,7 @@ export const DashboardHeader: FC = () => {
         <Link href={"/dashboard/messages"}>
           <Messages />
         </Link>
-        <Notifications />
+        <NotificationDropdown profile={profile} />
         <ProfileDropdow profile={profile} handleSignOut={handleSignOut} />
       </div>
       <DropdownMenu>

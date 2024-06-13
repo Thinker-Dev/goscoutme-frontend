@@ -7,6 +7,7 @@ import useGetSportsPositions from "../../../hooks/useGetSport";
 import { useUserStorage } from "../../../hooks/useUserStorage";
 import { ageCategoryState, filterState, searchQueryState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
+import { useSearchParams } from "next/navigation";
 
 export default function Page() {
   const { profile } = useUserStorage();
@@ -25,7 +26,7 @@ export default function Page() {
     ageMax: selectedAge.ageMax,
     ageMin: selectedAge.ageMin,
     page: 0,
-    items: 5,
+    items: 12,
   });
 
   return (

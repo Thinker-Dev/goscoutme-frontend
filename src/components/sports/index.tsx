@@ -138,8 +138,8 @@ export const ChooseSport: FC = () => {
             <span>Complete registration</span>
           </AlertDialogHeader>
           <AlertDialogDescription>
-            You have already created a account with {session.user.email} but you
-            didn&apos;t complete registration yet. You need to complete
+            You have already created an account with {session.user.email} but
+            you didn&apos;t complete registration yet. You need to complete
             registration to continue.
           </AlertDialogDescription>
           <AlertDialogFooter>

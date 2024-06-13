@@ -16,6 +16,7 @@ import { menuData } from "@/data/navData";
 import { useUserStorage } from "@/hooks/useUserStorage";
 import { ProfileDropdow } from "./profileDropdown";
 import { deleteCookie } from "@/cookies";
+import { NotificationDropdown } from "./notification";
 
 export const AthleteHeader: FC = () => {
   const router = useRouter();
@@ -27,7 +28,7 @@ export const AthleteHeader: FC = () => {
     localStorage.removeItem("profile");
     localStorage.removeItem("session");
     deleteCookie();
-    router.push("/auth/login");
+    setTimeout(() => router.push("/auth/login"), 2000);
   };
 
   const filteredMenuData = menuData.filter(
@@ -46,7 +47,7 @@ export const AthleteHeader: FC = () => {
       <nav>
         <ul className="md:flex space-x-10 hidden">
           <Link
-            href={`/${profile?.public_id}`}
+            href={`/athlete/${profile?.public_id}`}
             className="text-primary font-black text-2xl -mt-1"
           >
             <span className="text-secondary">Go</span>Scout
@@ -78,7 +79,7 @@ export const AthleteHeader: FC = () => {
         <Link href={"/messages"}>
           <Messages />
         </Link>
-        <Notifications />
+        <NotificationDropdown profile={profile} />
         <ProfileDropdow
           profile={profile}
           handleSignOut={handleSignOut}

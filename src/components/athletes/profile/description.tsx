@@ -42,7 +42,7 @@ export const Description: FC<Props> = ({
   });
 
   return (
-    <div className="flex flex-col text-sm w-[70%]">
+    <div className="flex flex-col text-sm">
       {!currentUser && (
         <div className="flex space-x-1 items-center mt-1 mb-3">
           <Expand className={`${expandedFilters[0] && "rotate-180"}`} />
@@ -58,7 +58,7 @@ export const Description: FC<Props> = ({
         <span className="uppercase">
           {getFirstSixWords(athlete?.profile.public_id)}
         </span>{" "}
-        {/* <span>{athlete?.sport_position.name}</span> */}
+        <span>{athlete?.sport_position.name}</span>
       </span>
 
       <span className="font-extralight text-5xl text-secondary font-lexenda_deca">
@@ -141,8 +141,6 @@ export const Description: FC<Props> = ({
             </div>
           </>
         )}
-        <ScheduleAppointment />
-        {currentUser && <UploadVideoCard />}
       </div>
     </div>
   );

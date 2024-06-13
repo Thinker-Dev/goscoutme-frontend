@@ -118,7 +118,7 @@ export const AthleteRegistrationForm: FC = () => {
         localStorage.setItem("profile", JSON.stringify(res.data.profile));
         localStorage.setItem("athlete", JSON.stringify(res.data.athlete));
         createProfileCookie(JSON.stringify(res.data.profile));
-        router.push(`/${res.data.profile.public_id}`);
+        router.push(`/athlete/${res.data.profile.public_id}`);
       })
       .catch((err) => {
         if (err.response) {
