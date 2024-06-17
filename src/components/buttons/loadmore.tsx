@@ -10,7 +10,7 @@ export const LoadmoreButton = ({ className, result, ...rest }: Props) => {
   return (
     <div
       className={cn(
-        "uppercase flex items-center space-x-2 font-lexenda_exa font-bold xs:text-[14px] leading-[17px] text-sm",
+        "uppercase flex items-center space-x-2 font-lexenda_exa font-bold xs:text-[14px] leading-[17px] text-smd",
         className
       )}
     >

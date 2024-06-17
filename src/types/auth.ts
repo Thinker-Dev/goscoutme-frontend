@@ -39,6 +39,7 @@ export interface Profile {
   public_id: string;
   first_name: string;
   last_name: string;
+  photo_url?: string;
   email: string;
   sex: string;
   birth_date: string;

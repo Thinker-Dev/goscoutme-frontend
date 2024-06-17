@@ -37,6 +37,7 @@
     "react-phone-number-input": "^3.4.1",
     "react-top-loading-bar": "^2.3.1",
     "recoil": "^0.7.7",
+    "socket.io": "^4.7.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "thinker-cli": "^1.0.1",

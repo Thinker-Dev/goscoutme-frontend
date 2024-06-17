@@ -95,7 +95,7 @@ export const ScheduleAppointment: FC = () => {
       .catch((err) => {
         if (err.response) {
           toast({
-            title: "Error ",
+            title: "Error",
             description: err.response.data.message,
             variant: "destructive",
           });

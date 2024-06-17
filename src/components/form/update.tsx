@@ -44,6 +44,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
   const [fileChosen, setFileChosen] = useState<boolean>(false);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [signUp, setSignUp] = useRecoilState(signUpState);
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useUserStorage();
@@ -81,8 +82,8 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
       // org_mobile: athlete?.org_mobile,
       // affiliations: athlete?.profile.affiliations,
       // address: athlete?.address,
-      phone: athlete?.profile.phone,
-      mobile: athlete?.profile.mobile,
+      phone: "",
+      mobile: "",
     },
   });
 
@@ -108,9 +109,42 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
       setNewAge(age);
     }
   }, [watchBirthDate]);
+  const handleUpload = async (file: File): Promise<string | null> => {
+    console.log(file)
+    if (!file) return null;
+    let url: string = ""
+    const presignedUrl = await privateInstance.post(
+      "/media/create_presigned_url",
+      {
+        file_name: file.name,
+        file_type: file.type,
+      }
+    );
 
+    const formData = new FormData();
+    formData.append("file", selectedFiles[0].name);
+
+    await privateInstance
+      .put(presignedUrl.data.url, formData, {
+        headers: {
+          "Content-Type": file.type,
+        },
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    return `https://goscoutmee.s3.af-south-1.amazonaws.com/${athlete?.profile.public_id}/${file.name.replace(
+      / /g,
+      '+',
+    )}`
+
+  };
   async function onSubmit(values: z.infer<typeof UpdateSchema>) {
     setLoading(true);
+
+    const photo = await handleUpload(selectedFiles[0])
+
     await privateInstance
       .put<IUserResponse>("/profile/update_profile", {
         // sport_id: signUp.sport_id,
@@ -122,6 +156,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
         first_name: values.first_name,
         last_name: values.last_name,
         sex: values.sex,
+        photo_url: photo,
         birth_date: values.birth_date,
         country_of_birth: values.country_of_birth,
         nationality: values.nationality,
@@ -172,6 +207,8 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
+      const filesArray = Array.from(event.target.files);
+      setSelectedFiles(filesArray)
       setFileChosen(true);
     } else {
       setFileChosen(false);
@@ -189,7 +226,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
           <label htmlFor="image">
             <CameraIcon className="absolute w-10 top-[88px] right-[205px] cursor-pointer" />
           </label>
-          <input type="file" id="image" name="image" accept="image/*" hidden />
+          <input type="file" id="image" name="image" accept="image/*" hidden onChange={handleChange} />
         </div>
         <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
           <FormField
