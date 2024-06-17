@@ -33,6 +33,7 @@ import { useUserStorage } from "../../hooks/useUserStorage";
 import { UpdateSchema } from "./schema/update";
 import { Profile } from "../../../public/icons/profile";
 import { CameraIcon } from "../../../public/icons/camera";
+import axios from "axios";
 
 interface Props {
   athlete: Athlete | undefined;
@@ -124,7 +125,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
     const formData = new FormData();
     formData.append("file", selectedFiles[0].name);
 
-    await privateInstance
+    await axios
       .put(presignedUrl.data.url, formData, {
         headers: {
           "Content-Type": file.type,
@@ -150,7 +151,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
         // sport_id: signUp.sport_id,
         // email: user.email,
         // userType: "ATHLETE",
-        id: athlete?.profile.id,
         public_id: athlete?.profile.public_id,
         // age: newAge,
         first_name: values.first_name,
