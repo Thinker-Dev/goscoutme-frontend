@@ -22,7 +22,7 @@ export default function Page() {
         <SignInForm />
       </div>
       <span className="text-sm max-xs:text-xs">
-        Dont have an account?{" "}
+        Don't have an account?{" "}
         <Link href={"/auth/create-account"} className="underline">
           Sign up
         </Link>

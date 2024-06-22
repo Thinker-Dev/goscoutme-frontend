@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import Checkbox from "react-custom-checkbox";
 import { useRecoilState } from "recoil";
 import { ageCategoryState } from "@/lib/recoil";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const AgeCategory = () => {
-  const [selectedAge, setSelectedAge] = useRecoilState(ageCategoryState);
+  const [selectedAge, setSelectedAge] = useState({ ageMin: 0, ageMax: 0 });
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const ageMax = searchParams.get("age_max");
+  const ageMin = searchParams.get("age_min");
+
+  useEffect(() => {
+    if (ageMin && ageMax) {
+      setSelectedAge({ ageMin: Number(ageMin), ageMax: Number(ageMax) });
+    }
+  }, [ageMin, ageMax, setSelectedAge]);
 
   const handleCheckboxChange = (value: string) => {
     const [min, max] = value.split("-").map(Number);
+    router.push(`/dashboard?age_min=${min}&age_max=${max}`);
     setSelectedAge({ ageMin: min, ageMax: max });
   };
 

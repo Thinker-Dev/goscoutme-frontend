@@ -12,6 +12,9 @@ export function middleware(request: NextRequest) {
     }
     if (profile) {
       const profileData = JSON.parse(profile);
+      console.log("====================================");
+      console.log(profileData.athlete);
+      console.log("====================================");
       try {
         if (profileData.athlete) {
           return NextResponse.redirect(
