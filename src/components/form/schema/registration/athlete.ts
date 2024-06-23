@@ -48,21 +48,11 @@ export const AthleteRegistrationSchema = z.object({
   leagues_played: z.string({
     required_error: "This field is required",
   }),
-  date_updated: z.string({
-    required_error: "Required",
-  }),
-  game_appearances: z.number({
-    required_error: "Required",
-  }),
-  game_started: z.number({
-    required_error: "Required",
-  }),
-  minutes_played: z.number({
-    required_error: "Required",
-  }),
-  field_goals: z.number({
-    required_error: "Required",
-  }),
+  date_updated: z.string().optional(),
+  game_appearances: z.number().optional(),
+  game_started: z.number().optional(),
+  minutes_played: z.number().optional(),
+  field_goals: z.number().optional(),
   org_name: z.string().optional(),
   org_email: z.string().optional(),
   office: z.string().optional(),

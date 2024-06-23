@@ -21,6 +21,11 @@ export const photoDialogClose = atom({
   default: false,
 });
 
+export const pageState = atom({
+  key: "pageState",
+  default: 0,
+});
+
 export const searchQueryState = atom({
   key: "searchQueryState",
   default: "",

@@ -5,15 +5,20 @@ import { Filter } from "@/components/filter";
 import useGetAthletes from "../../../hooks/athletes/useGetAthletes";
 import useGetSportsPositions from "../../../hooks/useGetSport";
 import { useUserStorage } from "../../../hooks/useUserStorage";
-import { ageCategoryState, filterState, searchQueryState } from "@/lib/recoil";
+import {
+  ageCategoryState,
+  filterState,
+  pageState,
+  searchQueryState,
+} from "@/lib/recoil";
 import { useRecoilState } from "recoil";
-import { useSearchParams } from "next/navigation";
 
 export default function Page() {
   const { profile } = useUserStorage();
-  const [checkedItems, setCheckedItems] = useRecoilState(filterState);
-  const [selectedAge, setSelectedAge] = useRecoilState(ageCategoryState);
-  const [searchQuery, setSearchQuery] = useRecoilState(searchQueryState);
+  const [checkedItems] = useRecoilState(filterState);
+  const [selectedAge] = useRecoilState(ageCategoryState);
+  const [searchQuery] = useRecoilState(searchQueryState);
+  const [page] = useRecoilState(pageState);
   const { data: positions, isLoading: positionsLoading } =
     useGetSportsPositions(profile.sport.id);
 
@@ -22,11 +27,11 @@ export default function Page() {
     country: checkedItems.country,
     status: checkedItems.career,
     sex: checkedItems.sex,
-    id: searchQuery,
+    id: searchQuery.toLowerCase(),
     ageMax: selectedAge.ageMax,
     ageMin: selectedAge.ageMin,
-    page: 0,
-    items: 12,
+    page: page,
+    items: 9,
   });
 
   return (

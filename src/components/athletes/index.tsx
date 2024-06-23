@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 import { Profile } from "@/types/auth";
 import { AthleteSearchCard } from "../cards/athlete/search";
-import { searchQueryState } from "@/lib/recoil";
+import { pageState, searchQueryState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
 
 interface Props {
@@ -23,9 +23,11 @@ export const Athletes: FC<Props> = ({ profile, athletes }: Props) => {
   const sportSegment = pathSegments[pathSegments.length - 2];
   const ref = useRef<LoadingBarRef>(null);
   const [searchQuery, setSearchQuery] = useRecoilState(searchQueryState);
+  const [page, setPage] = useRecoilState(pageState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
+    setPage(0);
   };
 
   return (

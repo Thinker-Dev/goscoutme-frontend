@@ -753,8 +753,7 @@ export const AthleteRegistrationForm: FC = () => {
                       <TextInput
                         label="Date Updated"
                         {...field}
-                        required
-                        className="w-[113px] px-2"
+                        className="w-[140px] px-2"
                         type="date"
                       />
                     </FormControl>
@@ -771,7 +770,6 @@ export const AthleteRegistrationForm: FC = () => {
                       <TextInput
                         label="Game Appearences"
                         type="number"
-                        required
                         className="w-[70px]"
                         {...field}
                         onChange={(e) => field.onChange(e.target.valueAsNumber)}
@@ -794,7 +792,6 @@ export const AthleteRegistrationForm: FC = () => {
                         className="w-[70px]"
                         {...field}
                         onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                        required
                         itemCenter
                       />
                     </FormControl>
@@ -816,7 +813,6 @@ export const AthleteRegistrationForm: FC = () => {
                         className="w-[70px]"
                         {...field}
                         onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                        required
                       />
                     </FormControl>
                     <FormMessage />
@@ -832,7 +828,6 @@ export const AthleteRegistrationForm: FC = () => {
                       <TextInput
                         label="Field Goals"
                         type="number"
-                        required
                         className="w-[70px]"
                         {...field}
                         onChange={(e) => field.onChange(e.target.valueAsNumber)}

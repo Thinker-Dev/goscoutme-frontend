@@ -30,60 +30,64 @@ export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
       {data ? (
         <>
           <div className="mt-10 grid grid-cols-3 gap-7">
-            {data.map((athlete, index) => (
-              <div className="" key={index}>
-                <div className="flex space-x-4 ">
-                  <div className="relative">
-                    <Profile />
-                    <div className="absolute top-[11px] right-[11px]">
-                      {/* {tagsData[item.tag].tag[1]} */}
+            {data.map((athlete, index) =>
+              index < data.length - 1 ? (
+                <div className="" key={index}>
+                  <div className="flex space-x-4 ">
+                    <div className="relative">
+                      <Profile />
+                      <div className="absolute top-[11px] right-[11px]">
+                        {/* {tagsData[item.tag].tag[1]} */}
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col text-sm">
-                    <span className="font-bold text-xl font-lexenda">
-                      <span className="uppercase">
-                        {getFirstSixWords(athlete.profile.public_id)}
+                    <div className="flex flex-col text-sm">
+                      <span className="font-bold text-xl font-lexenda">
+                        <span className="uppercase">
+                          {getFirstSixWords(athlete.profile.public_id)}
+                        </span>
+                        <br />
+                        {athlete.sport_position.name}
                       </span>
-                      <br />
-                      {athlete.sport_position.name}
-                    </span>
-                    {/* <span className="font-extralight text-[40px] leading-[40px] text-secondary font-lexenda_deca">
+                      {/* <span className="font-extralight text-[40px] leading-[40px] text-secondary font-lexenda_deca">
                   {item.name}
                 </span> */}
-                    <span className="font-lexenda">
-                      {capitalizeFirstLetter(athlete.status)}
-                    </span>
-                    <div className="space-x-2 font-lexenda_deca">
-                      <span>{capitalizeFirstLetter(athlete.profile.sex)}</span>
-                      <span>{athlete.age}yo</span>
-                    </div>
-
-                    <div className="">
-                      <div className="flex space-x-1 items-center mt-1 mb-2">
-                        <Expand
-                          className={`${
-                            expandedFilters[index] && "rotate-180"
-                          }`}
-                        />
-                        <span
-                          className="uppercase text-[8px] leading-3 font-lexenda_exa font-bold cursor-pointer"
-                          onClick={() => toggleExpand(index)}
-                        >
-                          {/* {item.tag !== 6 ? "edit" : "Add"} color tag */}
+                      <span className="font-lexenda">
+                        {capitalizeFirstLetter(athlete.status)}
+                      </span>
+                      <div className="space-x-2 font-lexenda_deca">
+                        <span>
+                          {capitalizeFirstLetter(athlete.profile.sex)}
                         </span>
+                        <span>{athlete.age}yo</span>
                       </div>
-                      <Button
-                        to={`/dashboard/profile/${athlete?.profile.public_id}`}
-                        label="view profile"
-                        className="text-[10px] w-28 h-7 xs:text-[10px]"
-                      />
+
+                      <div className="">
+                        <div className="flex space-x-1 items-center mt-1 mb-2">
+                          <Expand
+                            className={`${
+                              expandedFilters[index] && "rotate-180"
+                            }`}
+                          />
+                          <span
+                            className="uppercase text-[8px] leading-3 font-lexenda_exa font-bold cursor-pointer"
+                            onClick={() => toggleExpand(index)}
+                          >
+                            {/* {item.tag !== 6 ? "edit" : "Add"} color tag */}
+                          </span>
+                        </div>
+                        <Button
+                          to={`/dashboard/profile/${athlete?.profile.public_id}`}
+                          label="view profile"
+                          className="text-[10px] w-28 h-7 xs:text-[10px]"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ) : null
+            )}
           </div>
-          <LoadmoreButton result="10" />
+          <LoadmoreButton data={data} />
         </>
       ) : (
         <div className="w-full min-h-[calc(100vh-236px)] items-center justify-center flex space-x-1">
