@@ -68,10 +68,6 @@ export const SignInForm: FC = () => {
     setLoading(false);
   }
 
-  // console.log("====================================");
-  // console.log(localStorage.getItem("session"));
-  // console.log("====================================");
-
   return (
     <Form {...form}>
       <form

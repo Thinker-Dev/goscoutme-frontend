@@ -39,18 +39,20 @@ export interface Profile {
   public_id: string;
   first_name: string;
   last_name: string;
-  photo_url?: string;
   email: string;
   sex: string;
   birth_date: string;
   account_status: string;
   nationality: string;
-  sport: Sport;
+  sport_id: number;
   phone: string;
   mobile: string;
-  address: string;
   affiliations: string;
+  address: string;
+  sport: Sport;
   athlete: Athlete;
+  scout: Scout;
+  organization: Organization;
 }
 
 export interface Athlete {
@@ -85,4 +87,19 @@ export interface Sport {
   id: number;
   public_id: number;
   name: string;
+}
+
+export interface Organization {
+  id: number;
+  org_name: null;
+  org_email: string;
+  org_phone: string;
+  org_mobile: string;
+  org_document_url: null;
+  profile_id: number;
+}
+
+export interface Scout {
+  id: number;
+  profile_id: number;
 }

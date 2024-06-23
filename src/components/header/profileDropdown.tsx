@@ -25,8 +25,17 @@ export const ProfileDropdow = ({ handleSignOut, athlete, profile }: Props) => {
           <ProfileMini />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-10">
-          {athlete && (
+          {athlete ? (
             <Link href={`/athlete/${profile?.public_id}`}>
+              <DropdownMenuItem className="space-x-3 cursor-pointer">
+                <User className="w-[18px]" />
+                <span>
+                  {profile?.first_name} {profile?.last_name}
+                </span>
+              </DropdownMenuItem>
+            </Link>
+          ) : (
+            <Link href={`/dashboard/scout`}>
               <DropdownMenuItem className="space-x-3 cursor-pointer">
                 <User className="w-[18px]" />
                 <span>

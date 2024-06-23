@@ -16,9 +16,6 @@ export const Meetings: FC<Props> = ({ data, profile }: Props) => {
   const { getFirstSixWords } = useTextUtils();
   const { formatStringDate } = useTimeUtils();
 
-  console.log("====================================");
-  console.log(profile);
-  console.log("====================================");
   return (
     <div>
       <span className="font-extralight text-4xl text-primary font-lexenda_deca">

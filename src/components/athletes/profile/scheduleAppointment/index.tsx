@@ -9,28 +9,26 @@ import SelectDate from "./selectDate";
 import SelectTime from "./selectTime";
 import { SubmitButton } from "@/components/buttons/submit";
 import { toast } from "@/components/ui/use-toast";
-import { useUserStorage } from "@/hooks/useUserStorage";
 import { privateInstance } from "@/lib/axios";
-import useGetAthleteById from "@/hooks/athletes/useGetAthleteById";
-import { usePathname } from "next/navigation";
 import useTimeUtils from "@/hooks/useTimeUtils";
+import { Athlete, Profile } from "@/types/auth";
 
-type ValuePiece = Date | null;
+interface Props {
+  athlete: Athlete | undefined;
+  appointmentsRefetch: any;
+  profile: Profile;
+}
 
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-export const ScheduleAppointment: FC = () => {
+export const ScheduleAppointment: FC<Props> = ({
+  athlete,
+  appointmentsRefetch,
+  profile,
+}: Props) => {
   const [appointment, setAppointment] = useRecoilState(appointmentState);
   const [selectedTime, setSelectedTime] = useRecoilState(selectedtimeState);
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
-  const [value, onChange] = useState<Value>(new Date());
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>();
-  const { profile } = useUserStorage();
-  const pathname = usePathname();
-  const pathSegments = pathname.split("/");
-  const lastSegment = pathSegments[pathSegments.length - 1];
-  const { data: athlete, isLoading } = useGetAthleteById(lastSegment);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { formatDate, getDayOfWeek, getTimeZoneString } = useTimeUtils();
@@ -61,9 +59,17 @@ export const ScheduleAppointment: FC = () => {
       return;
     }
 
-    const [hours, minutes] = selectedTime.split(":").map(Number);
+    // Parse the selected time and convert it to 24-hour format
+    const [time, period] = selectedTime.split(" ");
+    let [hours, minutes] = time.split(":").map(Number);
 
-    selectedDate.setHours(hours);
+    if (period === "PM" && hours < 12) {
+      hours += 12;
+    } else if (period === "AM" && hours === 12) {
+      hours = 0;
+    }
+
+    selectedDate.setHours(hours, minutes);
 
     try {
       await submitAppointmentData();
@@ -89,8 +95,7 @@ export const ScheduleAppointment: FC = () => {
       })
       .then((res) => {
         setSuccess(true);
-        setSelectedTime(null);
-        setSelectedDate(new Date());
+        appointmentsRefetch();
       })
       .catch((err) => {
         if (err.response) {
@@ -104,10 +109,18 @@ export const ScheduleAppointment: FC = () => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    if (!success) {
+      setAppointment(false);
+      setSelectedTime(null);
+      setSelectedDate(new Date());
+    }
+  }, [success]);
+
   return (
     <>
       {appointment && (
-        <div className="bg-light-blue rounded-b-md  pt-12 pb-12 px-16">
+        <div className="bg-light-blue rounded-b-md pt-12 pb-12 px-16">
           {success ? (
             <div className="w-full flex justify-center mt-16">
               <span className="font-extralight text-7xl text-center text-secondary">
@@ -136,7 +149,6 @@ export const ScheduleAppointment: FC = () => {
                 {formatDate(selectedDate)} / {selectedTime || "Time"} /{" "}
                 {selectedDay || "Day"}
               </span>
-              <span>8 August 2024 / 03:00 AM / Thursday</span>
               <span className="text-xs">{getTimeZoneString(selectedDate)}</span>
             </div>
             {success ? (
@@ -144,7 +156,7 @@ export const ScheduleAppointment: FC = () => {
                 label="close"
                 className="bg-primary w-[100px] hover:bg-primary/70"
                 onClick={() => {
-                  setAppointment(false), setSuccess(false);
+                  setSuccess(false);
                 }}
               />
             ) : (

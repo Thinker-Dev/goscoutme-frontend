@@ -5,6 +5,8 @@ import {
   Athlete,
   Sport,
   Appmetadata,
+  Organization,
+  Scout,
 } from "@/types/auth";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -36,6 +38,9 @@ const defaultProfile: Profile = {
   address: "",
   affiliations: "",
   athlete: null as unknown as Athlete,
+  organization: null as unknown as Organization,
+  scout: null as unknown as Scout,
+  sport_id: 0,
 };
 
 const defaultUser: User = {

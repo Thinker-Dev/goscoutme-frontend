@@ -1,4 +1,4 @@
-import { Profile } from "@/components/athletes/profile";
+import { ScoutProfile } from "@/components/scout/profile";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="flex px-20  min-h-[calc(100vh-116px)]">
-      <Profile />
+      <ScoutProfile />
     </main>
   );
 }

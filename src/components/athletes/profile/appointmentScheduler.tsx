@@ -1,7 +1,10 @@
 import { Button } from "@/components/buttons";
 import { SubmitButton } from "@/components/buttons/submit";
+import { useGetUserAppointments } from "@/hooks/useGetUserAppointments";
+import useTimeUtils from "@/hooks/useTimeUtils";
 import { appointmentState } from "@/lib/recoil";
-import { Athlete } from "@/types/auth";
+import { UserAppointments } from "@/types/appointments";
+import { Athlete, Profile } from "@/types/auth";
 import { usePathname } from "next/navigation";
 import React, { FC, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
@@ -9,15 +12,15 @@ import { useRecoilState } from "recoil";
 interface Props {
   currentUser: boolean;
   athlete: Athlete | undefined;
+  userAppointment: UserAppointments | undefined;
 }
 
 export const AppointmentScheduler: FC<Props> = ({
   currentUser,
   athlete,
+  userAppointment,
 }: Props) => {
   const [appointment, setAppointment] = useRecoilState(appointmentState);
-  const [scheduledAppointment, setScheduledAppointment] =
-    useState<boolean>(false);
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
@@ -26,33 +29,44 @@ export const AppointmentScheduler: FC<Props> = ({
     setAppointment(false);
   }, [lastSegment]);
 
+  const { formatDate, getDayOfWeek, getTimeZoneString, formatTime } =
+    useTimeUtils();
+
+  const scheduledDate = userAppointment
+    ? new Date(userAppointment.scheduled)
+    : null;
+
   return (
     <div>
-      {scheduledAppointment ? (
-        <>
-          <div className="flex flex-col items-center mb-5">
-            <span className="text-lg text-secondary font-semibold">
-              Date / Time / Fay
-            </span>
-            <span className="text-xs">8 August 2024 / 03:00 AM / Thursday</span>
-            <span className="text-xs">Timezone</span>
-          </div>
-          <SubmitButton
-            label="appointment"
-            className="bg-primary hover:bg-primary/70 w-full"
-            onClick={() => setAppointment(!appointment)}
-          />
-        </>
+      {currentUser ? (
+        <Button
+          to={`/athlete/${athlete?.profile.public_id}/update-profile`}
+          label="update profile"
+          className="bg-secondary hover:bg-secondary/70"
+        />
       ) : (
         <>
-          {currentUser ? (
-            <Button
-              to={`/athlete/${athlete?.profile.public_id}/update-profile`}
-              label="update profile"
-              className="bg-secondary hover:bg-secondary/70"
-            />
+          {userAppointment ? (
+            <>
+              <div className="flex flex-col items-center mb-5">
+                <span className="text-lg text-secondary font-semibold">
+                  {formatDate(scheduledDate)}
+                </span>
+                <span className="text-lg text-secondary font-semibold">
+                  {formatTime(scheduledDate)} / {getDayOfWeek(scheduledDate)}
+                </span>
+                <span className="text-xs mt-2 text-center">
+                  {getTimeZoneString(scheduledDate)}
+                </span>
+              </div>
+              <Button
+                label="appointment"
+                className="bg-primary hover:bg-primary/70 w-full"
+                to="/dashboard/messages"
+              />
+            </>
           ) : (
-            <div>
+            <>
               {!appointment && (
                 <SubmitButton
                   label="make appointment"
@@ -60,7 +74,7 @@ export const AppointmentScheduler: FC<Props> = ({
                   onClick={() => setAppointment(!appointment)}
                 />
               )}
-            </div>
+            </>
           )}
         </>
       )}

@@ -32,7 +32,7 @@ interface UserAthleteProfile {
 interface UserAppointments {
   id: string;
   scout: {
-    id: string;
+    id: number;
     profile_id: string;
   };
   athlete: Athlete;
