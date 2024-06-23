@@ -84,6 +84,7 @@ export const useUserStorage = () => {
   const [user, setUser] = useState<User>(defaultUser);
   const [profile, setProfile] = useState<Profile>(defaultProfile);
   const [session, setSession] = useState<Session>(defaultSession);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
@@ -93,6 +94,7 @@ export const useUserStorage = () => {
     setUser(storedUser);
     setProfile(storedProfile);
     setSession(storedSession);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -103,5 +105,5 @@ export const useUserStorage = () => {
     }
   }, [pathname, profile?.public_id]);
 
-  return { user, profile, session, currentUser };
+  return { user, profile, session, currentUser, isLoading };
 };

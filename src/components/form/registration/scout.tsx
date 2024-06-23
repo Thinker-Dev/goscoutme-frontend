@@ -166,7 +166,7 @@ export const ScoutRegistrationForm: FC = () => {
                     <TextInput
                       label="Date of Birth"
                       {...field}
-                      className=" px-2 "
+                      className="px-2"
                       type="date"
                       required
                       placeholder="aa"
@@ -190,7 +190,7 @@ export const ScoutRegistrationForm: FC = () => {
                         label="Date of Birth"
                         {...field}
                         required
-                        className="w-[113px] px-2 "
+                        className="px-2 "
                         type="date"
                         placeholder="aa"
                       />
@@ -203,11 +203,11 @@ export const ScoutRegistrationForm: FC = () => {
                 control={form.control}
                 name="nationality"
                 render={({ field }) => (
-                  <FormItem className="w-full">
+                  <FormItem>
                     <FormControl>
                       <SelectCoutriesInput
                         label="Nationality"
-                        className="sm:w-[206px]"
+                        className="w-full"
                         {...field}
                         required
                       />
