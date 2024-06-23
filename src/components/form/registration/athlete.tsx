@@ -210,7 +210,7 @@ export const AthleteRegistrationForm: FC = () => {
                   <TextInput
                     label="Date of Birth"
                     {...field}
-                    className="sm:w-[113px] px-2"
+                    className=" px-2"
                     type="date"
                     required
                   />

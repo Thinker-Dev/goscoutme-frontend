@@ -44,6 +44,7 @@ const defaultProfile: Profile = {
   nationality: "",
   sport: defaultSport,
   phone: "",
+  photo_url: "",
   mobile: "",
   address: "",
   affiliations: "",

@@ -94,7 +94,6 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
                         label="close"
                         className="bg-primary hover:bg-primary/80 mt-7 w-32"
                         onClick={() => {
-                          router.push("/");
                           setClose(false);
                         }}
                       />

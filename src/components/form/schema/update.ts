@@ -5,7 +5,7 @@ export const UpdateSchema = z.object({
   last_name: z.string().optional(),
   sex: z.string(),
   birth_date: z.string(),
-  country_of_birth: z.string().optional(),
+  // country_of_birth: z.string().optional(),
   nationality: z.string().optional(),
   // citzenship: z.string({
   //   required_error: "This field is required",

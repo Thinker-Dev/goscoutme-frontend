@@ -46,6 +46,7 @@ export interface Profile {
   nationality: string;
   sport_id: number;
   phone: string;
+  photo_url: string;
   mobile: string;
   affiliations: string;
   address: string;

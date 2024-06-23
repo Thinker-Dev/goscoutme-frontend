@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import Checkbox from "react-custom-checkbox";
-import { XIcon } from "lucide-react";
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -23,7 +23,7 @@ export const CheckboxInput: FC<Props> = ({
       <Checkbox
         icon={
           <div>
-            <XIcon color="black" size={35} fontWeight={800} />
+            <Check color="black" size={35} fontWeight={800} />
           </div>
         }
         borderWidth={5}

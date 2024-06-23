@@ -57,7 +57,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
       first_name: athlete?.profile.first_name,
       last_name: athlete?.profile.last_name,
       birth_date: athlete?.profile.birth_date,
-      country_of_birth: athlete?.profile.nationality,
       nationality: athlete?.profile.nationality,
       sex: athlete?.profile.sex,
       // citzenship: athlete?.citzenship,
@@ -111,9 +110,9 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
     }
   }, [watchBirthDate]);
   const handleUpload = async (file: File): Promise<string | null> => {
-    console.log(file)
+    console.log(file);
     if (!file) return null;
-    let url: string = ""
+    let url: string = "";
     const presignedUrl = await privateInstance.post(
       "/media/create_presigned_url",
       {
@@ -135,16 +134,14 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
         console.log(err);
       });
 
-    return `https://goscoutmee.s3.af-south-1.amazonaws.com/${athlete?.profile.public_id}/${file.name.replace(
-      / /g,
-      '+',
-    )}`
-
+    return `https://goscoutmee.s3.af-south-1.amazonaws.com/${
+      athlete?.profile.public_id
+    }/${file.name.replace(/ /g, "+")}`;
   };
   async function onSubmit(values: z.infer<typeof UpdateSchema>) {
     setLoading(true);
 
-    const photo = await handleUpload(selectedFiles[0])
+    const photo = await handleUpload(selectedFiles[0]);
 
     await privateInstance
       .put<IUserResponse>("/profile/update_profile", {
@@ -156,9 +153,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
         first_name: values.first_name,
         last_name: values.last_name,
         sex: values.sex,
-        photo_url: photo,
         birth_date: values.birth_date,
-        country_of_birth: values.country_of_birth,
         nationality: values.nationality,
         // citzenship: [values.citzenship],
         // height: values.height,
@@ -208,7 +203,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const filesArray = Array.from(event.target.files);
-      setSelectedFiles(filesArray)
+      setSelectedFiles(filesArray);
       setFileChosen(true);
     } else {
       setFileChosen(false);
@@ -221,13 +216,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 w-[544px] max-sm:w-full max-xs:px-10"
       >
-        <div className="relative items-center flex justify-center">
-          <Profile className="" />
-          <label htmlFor="image">
-            <CameraIcon className="absolute w-10 top-[88px] right-[205px] cursor-pointer" />
-          </label>
-          <input type="file" id="image" name="image" accept="image/*" hidden onChange={handleChange} />
-        </div>
         <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
           <FormField
             control={form.control}
@@ -300,12 +288,12 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
           />
           <FormField
             control={form.control}
-            name="country_of_birth"
+            name="nationality"
             render={({ field }) => (
               <FormItem className="max-sm:hidden ">
                 <FormControl>
                   <SelectCoutriesInput
-                    label="Country of Birth"
+                    label="Nationality"
                     className="w-full"
                     {...field}
                   />
@@ -317,12 +305,12 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
         </div>
         <FormField
           control={form.control}
-          name="country_of_birth"
+          name="nationality"
           render={({ field }) => (
             <FormItem className="sm:hidden pt-2">
               <FormControl>
                 <SelectCoutriesInput
-                  label="Country of Birth"
+                  label="Nationality"
                   className="w-full"
                   {...field}
                 />
@@ -332,7 +320,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
           )}
         />
         <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
-          <FormField
+          {/* <FormField
             control={form.control}
             name="nationality"
             render={({ field }) => (
@@ -347,7 +335,7 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
           {/* <FormField
             control={form.control}
             name="citzenship"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,11 +12,23 @@ import { Profile as ProfileIcon } from "../../../../public/icons/profile";
 import { toast } from "@/components/ui/use-toast";
 import { privateInstance } from "@/lib/axios";
 import Image from "next/image";
+import axios from "axios";
+import { Athlete } from "@/types/auth";
+import { useRecoilState } from "recoil";
+import { photoDialogClose } from "@/lib/recoil";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { X } from "lucide-react";
 
-const EditPhoto = () => {
+interface Props {
+  athlete: Athlete | undefined;
+  refetch: any;
+}
+
+const EditPhoto: FC<Props> = ({ athlete, refetch }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [sucess, setSucess] = useRecoilState(photoDialogClose);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -24,6 +36,36 @@ const EditPhoto = () => {
       setSelectedFile(file);
       setPreviewUrl(URL.createObjectURL(file));
     }
+  };
+
+  const handleUpload = async (file: File): Promise<string | null> => {
+    console.log(file);
+    if (!file) return null;
+    let url: string = "";
+    const presignedUrl = await privateInstance.post(
+      "/media/create_presigned_url",
+      {
+        file_name: file.name,
+        file_type: file.type,
+      }
+    );
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    await axios
+      .put(presignedUrl.data.url, formData, {
+        headers: {
+          "Content-Type": file.type,
+        },
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    return `https://goscoutmee.s3.af-south-1.amazonaws.com/${
+      athlete?.profile.public_id
+    }/${file.name.replace(/ /g, "+")}`;
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,12 +81,19 @@ const EditPhoto = () => {
 
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append("photo_url", selectedFile);
+    const photo = await handleUpload(selectedFile);
 
     await privateInstance
-      .post("/profile/update_profile", formData)
-      .then()
+      .put("/profile/update_profile", {
+        photo_url: photo,
+      })
+      .then(() => {
+        refetch();
+        setSucess(false);
+        toast({
+          title: "Profile picture updated successfully!",
+        });
+      })
       .catch((err) => {
         toast({
           title: "Error",
@@ -59,11 +108,18 @@ const EditPhoto = () => {
 
   return (
     <div>
-      <Dialog>
-        <DialogTrigger>
+      <Dialog open={sucess}>
+        <DialogTrigger onClick={() => setSucess(true)}>
           <CameraIcon className="absolute top-48 right-0" />
         </DialogTrigger>
         <DialogContent className="px-5">
+          <DialogClose
+            onClick={() => setSucess(false)}
+            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+          >
+            {" "}
+            <X className="h-4 w-4" />
+          </DialogClose>
           <DialogHeader>
             <DialogTitle className="text-base">Edit Photo</DialogTitle>
           </DialogHeader>

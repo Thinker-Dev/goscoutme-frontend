@@ -15,6 +15,7 @@ import { UploadVideoCard } from "./video/uploadVideoCard";
 import { useGetUserAppointments } from "@/hooks/useGetUserAppointments";
 import EditPhoto from "./editPhoto";
 import { useGetScoutsNotes } from "@/hooks/useGetScoutNotes";
+import Image from "next/image";
 
 export const Profile: FC = () => {
   const pathname = usePathname();
@@ -54,8 +55,20 @@ export const Profile: FC = () => {
     <div className="flex space-x-10 pb-10">
       <div className="space-y-[175px]">
         <div className="relative">
-          <ProfileIcon className="h-64 w-full" />
-          {currentUser && <EditPhoto />}
+          {athlete?.profile.photo_url ? (
+            <div className="h-64 w-6 rounded-full">
+              <Image
+                width={1000}
+                height={1000}
+                alt="profile-photo"
+                src={athlete?.profile.photo_url}
+                className="rounded-full"
+              ></Image>
+            </div>
+          ) : (
+            <ProfileIcon className="h-64 w-full" />
+          )}
+          {currentUser && <EditPhoto athlete={athlete} refetch={refetch} />}
         </div>
         <div className="w-64 flex justify-center">
           <AppointmentScheduler

@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import { CheckBoxType } from "@/types/checkBox";
 import Checkbox from "react-custom-checkbox";
-import { XIcon } from "lucide-react";
+import { Check, XIcon } from "lucide-react";
 
 interface Props {
   label: string;
@@ -47,7 +47,7 @@ export const RadioGroupInput: FC<Props> = ({
               onChange={() => handleCheckboxChange(item.id)}
               icon={
                 <div>
-                  <XIcon color="black" size={35} fontWeight={800} />
+                  <Check color="black" size={35} fontWeight={800} />
                 </div>
               }
               borderWidth={5}
