@@ -11,6 +11,11 @@ export const completeRegState = atom({
   default: false,
 });
 
+export const notesDialogClose = atom({
+  key: "notesDialogClose",
+  default: false,
+});
+
 export const searchQueryState = atom({
   key: "searchQueryState",
   default: "",

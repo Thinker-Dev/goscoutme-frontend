@@ -23,8 +23,11 @@ export const Profile: FC = () => {
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
   const { data: athlete, isLoading, refetch } = useGetAthleteById(lastSegment);
-  const { data: personalNotesData, isLoading: personalNotesLoading } =
-    useGetScoutsNotes(lastSegment);
+  const {
+    data: personalNotesData,
+    isLoading: personalNotesLoading,
+    refetch: personalNotesRefetch,
+  } = useGetScoutsNotes(lastSegment);
   const { data: appointmentsData, refetch: appointmentsRefetch } =
     useGetUserAppointments(profile.public_id);
 
@@ -84,6 +87,7 @@ export const Profile: FC = () => {
           <PersonalNotes
             athlete={athlete}
             personalNotesData={personalNotesData}
+            personalNotesRefetch={personalNotesRefetch}
           />
         )}
         <QuickStats />

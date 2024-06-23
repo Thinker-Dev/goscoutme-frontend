@@ -18,9 +18,6 @@ export const ScoutProfile = () => {
             <CameraIcon className="absolute top-48 right-0" />
           </Link>
         </div>
-        {/* <div className="w-64 flex justify-center">
-      <AppointmentScheduler currentUser={currentUser} athlete={athlete} />
-    </div> */}
       </div>
       <div className="space-y-10">
         <Description profile={profile} />

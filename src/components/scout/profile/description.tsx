@@ -48,28 +48,22 @@ export const Description: FC<Props> = ({ profile }: Props) => {
         <div className="flex space-x-8">
           <div className="flex-col flex">
             <span className="font-bold text-lg leading-5">Office Address</span>
-            <span className="font-extralight text-2xl">{profile?.address}</span>
+            <span className="font-extralight text-2xl">{profile.address}</span>
           </div>
-          <div className="flex-col flex">
-            <span className="font-bold text-lg leading-5">Organization</span>
-            <span className="font-extralight text-2xl">
-              {profile?.organization.org_document_url}
-            </span>
-          </div>
-        </div>
-        <div className="flex space-x-8">
           <div className="flex-col flex">
             <span className="font-bold text-lg leading-5">
               Organization Email
             </span>
             <span className="font-extralight text-2xl">
-              {profile?.organization.org_email}
+              {profile.organization.org_email}
             </span>
           </div>
+        </div>
+        <div className="flex space-x-8">
           <div className="flex-col flex">
             <span className="font-bold text-lg leading-5">Affiliations</span>
             <span className="font-extralight text-2xl">
-              {profile?.affiliations}
+              {profile.affiliations}
             </span>
           </div>
         </div>

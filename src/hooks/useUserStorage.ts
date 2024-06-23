@@ -22,6 +22,16 @@ const defaultSport: Sport = {
   public_id: 0,
 };
 
+const defaultOrganization: Organization = {
+  id: 0,
+  org_name: "",
+  org_email: "",
+  org_phone: "",
+  org_mobile: "",
+  org_document_url: "",
+  profile_id: 0,
+};
+
 const defaultProfile: Profile = {
   id: 0,
   public_id: "",
@@ -38,7 +48,7 @@ const defaultProfile: Profile = {
   address: "",
   affiliations: "",
   athlete: null as unknown as Athlete,
-  organization: null as unknown as Organization,
+  organization: defaultOrganization,
   scout: null as unknown as Scout,
   sport_id: 0,
 };

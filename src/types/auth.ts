@@ -91,11 +91,11 @@ export interface Sport {
 
 export interface Organization {
   id: number;
-  org_name: null;
+  org_name: string;
   org_email: string;
   org_phone: string;
   org_mobile: string;
-  org_document_url: null;
+  org_document_url: string;
   profile_id: number;
 }
 

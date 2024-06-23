@@ -16,6 +16,8 @@ import { Athlete, IUserResponse, Profile } from "@/types/auth";
 import { privateInstance } from "@/lib/axios";
 import { toast } from "../ui/use-toast";
 import { TextAreaInput } from "../inputs/textAreaInput";
+import { notesDialogClose } from "@/lib/recoil";
+import { useRecoilState } from "recoil";
 
 export const schema = z.object({
   scout_notes: z.string({ required_error: "This field is required" }),
@@ -24,13 +26,16 @@ export const schema = z.object({
 interface Props {
   athlete: Athlete | undefined;
   personalNotesData: ScoutslNote | undefined;
+  personalNotesRefetch: any;
 }
 
 export const PersonalNoteForm: FC<Props> = ({
   athlete,
   personalNotesData,
+  personalNotesRefetch,
 }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [notesClose, setNotesClose] = useRecoilState(notesDialogClose);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -46,7 +51,15 @@ export const PersonalNoteForm: FC<Props> = ({
         athlete_id: athlete?.profile.public_id,
         scout_notes: values.scout_notes,
       })
-      .then((res) => {})
+      .then(() => {
+        personalNotesRefetch();
+        setNotesClose(false);
+        toast({
+          title: `Personal notes ${
+            personalNotesData ? "edited" : "added"
+          } successfully!`,
+        });
+      })
       .catch((err) => {
         if (err.response) {
           toast({
