@@ -47,7 +47,7 @@ export const PersonalNoteForm: FC<Props> = ({
     console.log(athlete?.profile.public_id);
     setLoading(true);
     await privateInstance
-      .post<IUserResponse>("/scoutsnotes/create", {
+      .post("/scoutsnotes/create", {
         athlete_id: athlete?.profile.public_id,
         scout_notes: values.scout_notes,
       })

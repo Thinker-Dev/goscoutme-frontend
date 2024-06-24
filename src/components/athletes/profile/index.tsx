@@ -16,10 +16,10 @@ import { useGetUserAppointments } from "@/hooks/useGetUserAppointments";
 import EditPhoto from "./editPhoto";
 import { useGetScoutsNotes } from "@/hooks/useGetScoutNotes";
 import Image from "next/image";
+import { tagsData } from "@/data/tags";
 
 export const Profile: FC = () => {
   const pathname = usePathname();
-  const [open, setOpen] = useState<boolean>();
   const { currentUser, profile } = useUserStorage();
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
@@ -38,9 +38,17 @@ export const Profile: FC = () => {
     );
   });
 
+  const scoutTag = tagsData?.find((item) => {
+    return item.name === personalNotesData?.color_tag.toLowerCase();
+  });
+
   useEffect(() => {
     refetch();
   }, [pathname, refetch]);
+
+  useEffect(() => {
+    personalNotesRefetch();
+  }, [refetch]);
 
   if (isLoading && personalNotesLoading)
     return (
@@ -68,6 +76,9 @@ export const Profile: FC = () => {
           ) : (
             <ProfileIcon className="h-64 w-full" />
           )}
+          <span className="absolute right-[43px] top-[11px]">
+            {scoutTag?.tag[2]}
+          </span>
           {currentUser && <EditPhoto athlete={athlete} refetch={refetch} />}
         </div>
         <div className="w-64 flex justify-center">
@@ -83,6 +94,9 @@ export const Profile: FC = () => {
           currentUser={currentUser}
           athlete={athlete}
           isLoading={isLoading}
+          personalNotesData={personalNotesData}
+          personalNotesRefetch={personalNotesRefetch}
+          refetch={refetch}
         />
         <ScheduleAppointment
           appointmentsRefetch={appointmentsRefetch}

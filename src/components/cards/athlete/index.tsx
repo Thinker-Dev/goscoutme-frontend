@@ -6,6 +6,7 @@ import useTextUtils from "../../../hooks/useTextUtils";
 import { useRecoilState } from "recoil";
 import { pageState } from "@/lib/recoil";
 import { Pagination } from "./pagination";
+import { tagsData } from "@/data/tags";
 
 interface Props {
   data: Athlete[];
@@ -13,6 +14,15 @@ interface Props {
 
 export const AthleteCard: FC<Props> = ({ data }: Props) => {
   const { getFirstSixWords, capitalizeFirstLetter } = useTextUtils();
+  // const scoutTag = tagsData?.find((item) => {
+  //   return item.name === personalNotesData?.color_tag.toLowerCase();
+  // });
+
+  // const {
+  //   data: personalNotesData,
+  //   isLoading: personalNotesLoading,
+  //   refetch: personalNotesRefetch,
+  // } = useGetScoutsNotes(lastSegment);
 
   return (
     <div className="space-y-10 mt-10">
@@ -23,9 +33,9 @@ export const AthleteCard: FC<Props> = ({ data }: Props) => {
               <div className="flex space-x-4 ">
                 <div className="relative">
                   <Profile />
-                  <div className="absolute top-[11px] right-[11px]">
-                    {/* {tagsData[athlete.tag].tag[1]} */}
-                  </div>
+                  <span className="absolute top-[11px] right-[11px]">
+                    {/* {scoutTag?.tag[2]} */}
+                  </span>
                 </div>
                 <div className="flex flex-col text-sm">
                   <span className="font-bold text-xl font-lexenda">

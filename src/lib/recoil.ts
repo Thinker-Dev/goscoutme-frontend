@@ -21,6 +21,11 @@ export const photoDialogClose = atom({
   default: false,
 });
 
+export const colorTagDropdowClose = atom({
+  key: "colorTagDropdowCloses",
+  default: false,
+});
+
 export const pageState = atom({
   key: "pageState",
   default: 0,

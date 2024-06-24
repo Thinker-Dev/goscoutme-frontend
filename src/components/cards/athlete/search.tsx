@@ -7,6 +7,7 @@ import { LoadmoreButton } from "@/components/buttons/loadmore";
 import { Profile } from "../../../../public/icons/profile";
 import { Athlete } from "@/types/auth";
 import useTextUtils from "@/hooks/useTextUtils";
+import { useGetScoutsNotes } from "@/hooks/useGetScoutNotes";
 
 interface Props {
   data: Athlete[];
@@ -25,6 +26,16 @@ export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
 
   const { getFirstSixWords, capitalizeFirstLetter } = useTextUtils();
 
+  // const {
+  //   data: personalNotesData,
+  //   isLoading: personalNotesLoading,
+  //   refetch: personalNotesRefetch,
+  // } = useGetScoutsNotes(lastSegment);
+
+  // const scoutTag = tagsData?.find((item) => {
+  //   return item.name === personalNotesData?.color_tag.toLowerCase();
+  // });
+
   return (
     <div className="space-y-10">
       {data ? (
@@ -37,7 +48,9 @@ export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
                     <div className="relative">
                       <Profile />
                       <div className="absolute top-[11px] right-[11px]">
-                        {/* {tagsData[item.tag].tag[1]} */}
+                        <span className="absolute top-[11px] right-[11px]">
+                          {/* {scoutTag?.tag[2]} */}
+                        </span>
                       </div>
                     </div>
                     <div className="flex flex-col text-sm">

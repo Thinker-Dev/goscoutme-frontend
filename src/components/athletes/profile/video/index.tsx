@@ -1,4 +1,3 @@
-import { videoData } from "@/data/videoData";
 import React, { FC, useEffect, useState } from "react";
 import { Button } from "@/components/buttons";
 import { Tabs } from "./tabs";

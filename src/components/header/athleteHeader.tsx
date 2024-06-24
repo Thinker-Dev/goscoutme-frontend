@@ -43,7 +43,7 @@ export const AthleteHeader: FC = () => {
   );
 
   return (
-    <div className={` flex justify-between items-center h-28 max-xs-sm:h-16`}>
+    <div className={`flex justify-between items-center h-28 max-xs-sm:h-16`}>
       <nav>
         <ul className="md:flex space-x-10 hidden">
           <Link

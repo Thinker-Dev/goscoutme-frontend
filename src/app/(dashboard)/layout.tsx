@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const Layout = (props: Props) => {
   return (
-    <div>
+    <div className="mx-10">
       <DashboardHeader />
       {props.children}
     </div>

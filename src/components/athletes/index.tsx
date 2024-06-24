@@ -10,6 +10,7 @@ import { Profile } from "@/types/auth";
 import { AthleteSearchCard } from "../cards/athlete/search";
 import { pageState, searchQueryState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
+import { useGetScoutsNotes } from "@/hooks/useGetScoutNotes";
 
 interface Props {
   profile: Profile | undefined;
@@ -48,9 +49,7 @@ export const Athletes: FC<Props> = ({ profile, athletes }: Props) => {
       </Title>
       <SearchInput value={searchQuery} onChange={handleChange} />
       {searchQuery ? (
-        <>
-          <AthleteSearchCard data={athletes} />
-        </>
+        <AthleteSearchCard data={athletes} />
       ) : (
         <AthleteCard data={athletes} />
       )}

@@ -38,7 +38,7 @@ export const DashboardHeader: FC = () => {
   );
 
   return (
-    <div className={` flex justify-between items-center h-28 max-xs-sm:h-16`}>
+    <div className={`flex justify-between items-center h-28 max-xs-sm:h-16`}>
       <nav>
         <ul className="md:flex space-x-10 hidden">
           <Link href={"/"} className="text-primary font-black text-2xl -mt-1">

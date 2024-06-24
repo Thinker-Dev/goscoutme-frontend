@@ -8,28 +8,26 @@ import { UploadVideoCard } from "./video/uploadVideoCard";
 import { Athlete } from "@/types/auth";
 import useTextUtils from "../../../hooks/useTextUtils";
 import useMetricConversion from "../../../hooks/useMetricConversion";
+import { ColorTag } from "./colorTag";
 
 interface Props {
   currentUser: boolean;
   athlete: Athlete | undefined;
   isLoading: boolean;
+  personalNotesData: ScoutslNote | undefined;
+  refetch: any;
+  personalNotesRefetch: any;
 }
 
 export const Description: FC<Props> = ({
   currentUser,
   athlete,
   isLoading,
+  personalNotesData,
+  personalNotesRefetch,
+  refetch,
 }: Props) => {
   const [appointment, setAppointment] = useRecoilState(appointmentState);
-  const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
-    Array(filterData.length).fill(false)
-  );
-
-  const toggleExpand = (index: number) => {
-    const newExpandedFilters = [...expandedFilters];
-    newExpandedFilters[index] = !newExpandedFilters[index];
-    setExpandedFilters(newExpandedFilters);
-  };
 
   const { getFirstSixWords, formatDate, capitalizeFirstLetter } =
     useTextUtils();
@@ -45,13 +43,12 @@ export const Description: FC<Props> = ({
     <div className="flex flex-col text-sm">
       {!currentUser && (
         <div className="flex space-x-1 items-center mt-1 mb-3">
-          <Expand className={`${expandedFilters[0] && "rotate-180"}`} />
-          <span
-            className="uppercase text-[10px] leading-3 font-lexenda_exa font-bold cursor-pointer"
-            onClick={() => toggleExpand(0)}
-          >
-            {/* {athleteData[0].tag ? "edit" : "Add"} color tag */}
-          </span>
+          <ColorTag
+            refetch={refetch}
+            personalNotesData={personalNotesData}
+            athlete={athlete}
+            personalNotesRefetch={personalNotesRefetch}
+          />
         </div>
       )}
       <span className="font-bold  text-2xl font-lexenda">
