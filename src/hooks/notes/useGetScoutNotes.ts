@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { privateInstance } from "../lib/axios";
+import { privateInstance } from "../../lib/axios";
 
 const fetchScoutsNotes = async (athlete_id: string): Promise<ScoutslNote> => {
   const response = await privateInstance.get("/scoutsnotes/get_scout_note", {

@@ -32,9 +32,14 @@ export const DashboardHeader: FC = () => {
 
   const filteredMenuData = menuData.filter(
     (item) =>
-      !["home", "create account", "login", "subscription plan"].includes(
-        item.title.toLowerCase()
-      )
+      ![
+        "home",
+        "create account",
+        "login",
+        "subscription plan",
+        "about us",
+        "reach out to us",
+      ].includes(item.title.toLowerCase())
   );
 
   return (

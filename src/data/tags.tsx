@@ -269,16 +269,6 @@ export const tagsData: TagsTypes[] = [
         <circle cx="8" cy="8" r="7.5" stroke="#B2B2B2" />
         <path d="M3 3L13 13" stroke="#B2B2B2" />
       </svg>,
-      <svg
-        key={1}
-        width="26"
-        height="25"
-        viewBox="0 0 26 25"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="12.9103" cy="12.5353" r="12.172" fill="#B2B2B2" />
-      </svg>,
     ],
   },
 ];

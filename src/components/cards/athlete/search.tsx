@@ -7,7 +7,7 @@ import { LoadmoreButton } from "@/components/buttons/loadmore";
 import { Profile } from "../../../../public/icons/profile";
 import { Athlete } from "@/types/auth";
 import useTextUtils from "@/hooks/useTextUtils";
-import { useGetScoutsNotes } from "@/hooks/useGetScoutNotes";
+import { useGetScoutsNotes } from "@/hooks/notes/useGetScoutNotes";
 
 interface Props {
   data: Athlete[];

@@ -2,12 +2,11 @@
 
 import { useUserStorage } from "@/hooks/useUserStorage";
 import React from "react";
-import { CameraIcon } from "../../../../public/icons/camera";
 import { Profile as ProfileIcon } from "../../../../public/icons/profile";
-import Link from "next/link";
 import { Description } from "./description";
 import EditPhoto from "./editPhoto";
 import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const ScoutProfile = () => {
   const { profile, isLoading } = useUserStorage();
@@ -25,15 +24,13 @@ export const ScoutProfile = () => {
       <div className="space-y-[175px]">
         <div className="relative">
           {profile.photo_url ? (
-            <div className="h-64 w-6 rounded-full">
-              <Image
-                width={1000}
-                height={1000}
-                alt="profile-photo"
-                src={profile.photo_url}
-                className="rounded-full"
-              ></Image>
-            </div>
+            <Avatar className="h-64 w-64">
+              <AvatarImage src={profile.photo_url} />
+              <AvatarFallback className="text-4xl font-light">
+                {profile.first_name[0]}
+                {profile.last_name[0]}
+              </AvatarFallback>
+            </Avatar>
           ) : (
             <ProfileIcon className="h-64 w-full" />
           )}

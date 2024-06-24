@@ -1,28 +1,42 @@
-import React, { FC } from "react";
-import { Profile } from "../../../../public/icons/profile";
+import React, { FC, useEffect } from "react";
+import { Profile as ProfileIcon } from "../../../../public/icons/profile";
 import { Button } from "@/components/buttons";
 import { Athlete } from "@/types/auth";
 import useTextUtils from "../../../hooks/useTextUtils";
-import { useRecoilState } from "recoil";
-import { pageState } from "@/lib/recoil";
 import { Pagination } from "./pagination";
 import { tagsData } from "@/data/tags";
+import { usePathname } from "next/navigation";
+import { ColorTag } from "@/components/athletes/profile/colorTag";
 
 interface Props {
   data: Athlete[];
+  scoutsNotes: ScoutslNote[] | undefined;
+  personalNotesRefetch: any;
 }
 
-export const AthleteCard: FC<Props> = ({ data }: Props) => {
+export const AthleteCard: FC<Props> = ({
+  data,
+  scoutsNotes,
+  personalNotesRefetch,
+}) => {
+  const pathname = usePathname();
   const { getFirstSixWords, capitalizeFirstLetter } = useTextUtils();
-  // const scoutTag = tagsData?.find((item) => {
-  //   return item.name === personalNotesData?.color_tag.toLowerCase();
-  // });
 
-  // const {
-  //   data: personalNotesData,
-  //   isLoading: personalNotesLoading,
-  //   refetch: personalNotesRefetch,
-  // } = useGetScoutsNotes(lastSegment);
+  const getTagForAthlete = (athleteId: number): string | null => {
+    const scoutNote = scoutsNotes?.find(
+      (note) => note.athlete_id === athleteId
+    );
+    return scoutNote ? scoutNote.color_tag.toLowerCase() : null;
+  };
+
+  const getTagSVG = (tagName: string): JSX.Element | null => {
+    const tagData = tagsData.find((tag) => tag.name === tagName);
+    return tagData && tagData.tag[1] ? (tagData.tag[1] as JSX.Element) : null;
+  };
+
+  useEffect(() => {
+    personalNotesRefetch();
+  }, [pathname, personalNotesRefetch]);
 
   return (
     <div className="space-y-10 mt-10">
@@ -32,9 +46,9 @@ export const AthleteCard: FC<Props> = ({ data }: Props) => {
             <div className="flex justify-between" key={index}>
               <div className="flex space-x-4 ">
                 <div className="relative">
-                  <Profile />
+                  <ProfileIcon />
                   <span className="absolute top-[11px] right-[11px]">
-                    {/* {scoutTag?.tag[2]} */}
+                    {getTagSVG(getTagForAthlete(athlete.id) || "none")}
                   </span>
                 </div>
                 <div className="flex flex-col text-sm">
@@ -59,8 +73,7 @@ export const AthleteCard: FC<Props> = ({ data }: Props) => {
                     <span>{athlete?.weight}kg</span>
                     <span>
                       <span className="text-paragraph">Country:</span>{" "}
-                      {/* {athlete.profile.nationality} */}
-                      null
+                      {athlete.profile.nationality}
                     </span>
                     <span>
                       <span className="text-paragraph">Region:</span>
@@ -106,15 +119,12 @@ export const AthleteCard: FC<Props> = ({ data }: Props) => {
                   label="view profile"
                   className="w-[139px] h-[30px] xs:text-sm"
                 />
-                <div className="flex space-x-1 athletes-center mt-1">
-                  {/* <Expand className={`${expandedFilters[index] && "rotate-180"}`} /> */}
-                  <span
-                    className="uppercase text-[10px] leading-3 font-lexenda_exa font-bold cursor-pointer"
-                    // onClick={() => toggleExpand(index)}
-                  >
-                    {/* {athlete.tag ? "edit" : "Add"} color tag */}
-                  </span>
-                </div>
+                {/* <ColorTag
+                  refetch={refetch}
+                  personalNotesData={personalNotesData}
+                  athlete={athlete}
+                  personalNotesRefetch={personalNotesRefetch}
+                /> */}
               </div>
             </div>
           ) : null
