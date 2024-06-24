@@ -17,7 +17,7 @@ interface Props {
 
 export const Pagination = ({ data }: Props) => {
   const [page, setPage] = useRecoilState(pageState);
-  const totalPages = data[data.length - 1]._count / 9;
+  const totalPages = Math.ceil(data[data.length - 1]._count / 9);
 
   const handlePrevious = () => {
     if (page > 0) {

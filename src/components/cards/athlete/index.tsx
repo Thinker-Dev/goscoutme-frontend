@@ -116,9 +116,7 @@ export const AthleteCard: FC<Props> = ({ data }: Props) => {
           <div className="h-5 w-5 bg-primary rounded-full animate-bounce"></div>
         </div>
       )}
-      {/* {data && data.length > 9 && */}
-      <Pagination data={data} />
-      {/* } */}
+      {data && <Pagination data={data} />}
     </div>
   );
 };
