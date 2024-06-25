@@ -9,13 +9,15 @@ import { usePathname } from "next/navigation";
 import { ColorTag } from "@/components/athletes/profile/colorTag";
 
 interface Props {
+  refetch: any;
   data: Athlete[];
-  scoutsNotes: ScoutslNote[] | undefined;
   personalNotesRefetch: any;
+  scoutsNotes: ScoutslNote[] | undefined;
 }
 
 export const AthleteCard: FC<Props> = ({
   data,
+  refetch,
   scoutsNotes,
   personalNotesRefetch,
 }) => {
@@ -119,12 +121,14 @@ export const AthleteCard: FC<Props> = ({
                   label="view profile"
                   className="w-[139px] h-[30px] xs:text-sm"
                 />
-                {/* <ColorTag
+                <ColorTag
+                  personalNotesData={scoutsNotes?.find(
+                    (note) => note.athlete_id === athlete.id
+                  )}
                   refetch={refetch}
-                  personalNotesData={personalNotesData}
                   athlete={athlete}
                   personalNotesRefetch={personalNotesRefetch}
-                /> */}
+                />
               </div>
             </div>
           ) : null

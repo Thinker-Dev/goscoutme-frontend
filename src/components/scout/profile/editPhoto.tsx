@@ -38,7 +38,6 @@ const EditPhoto: FC<Props> = ({ profile }: Props) => {
   };
 
   const handleUpload = async (file: File): Promise<string | null> => {
-    console.log(file);
     if (!file) return null;
     let url: string = "";
     const presignedUrl = await privateInstance.post(

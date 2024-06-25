@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Button } from "@/components/buttons";
 import { Expand } from "../../../../public/icons/expand";
 import filterData from "../../../hooks/useFilterData";
@@ -8,33 +8,41 @@ import { Profile } from "../../../../public/icons/profile";
 import { Athlete } from "@/types/auth";
 import useTextUtils from "@/hooks/useTextUtils";
 import { useGetScoutsNotes } from "@/hooks/notes/useGetScoutNotes";
+import { ColorTag } from "@/components/athletes/profile/colorTag";
+import { usePathname } from "next/navigation";
 
 interface Props {
+  refetch: any;
   data: Athlete[];
+  personalNotesRefetch: any;
+  scoutsNotes: ScoutslNote[] | undefined;
 }
 
-export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
-  const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
-    Array(filterData.length).fill(false)
-  );
-
-  const toggleExpand = (index: number) => {
-    const newExpandedFilters = [...expandedFilters];
-    newExpandedFilters[index] = !newExpandedFilters[index];
-    setExpandedFilters(newExpandedFilters);
-  };
+export const AthleteSearchCard: FC<Props> = ({
+  data,
+  refetch,
+  personalNotesRefetch,
+  scoutsNotes,
+}: Props) => {
+  const pathname = usePathname();
 
   const { getFirstSixWords, capitalizeFirstLetter } = useTextUtils();
 
-  // const {
-  //   data: personalNotesData,
-  //   isLoading: personalNotesLoading,
-  //   refetch: personalNotesRefetch,
-  // } = useGetScoutsNotes(lastSegment);
+  const getTagForAthlete = (athleteId: number): string | null => {
+    const scoutNote = scoutsNotes?.find(
+      (note) => note.athlete_id === athleteId
+    );
+    return scoutNote ? scoutNote.color_tag.toLowerCase() : null;
+  };
 
-  // const scoutTag = tagsData?.find((item) => {
-  //   return item.name === personalNotesData?.color_tag.toLowerCase();
-  // });
+  const getTagSVG = (tagName: string): JSX.Element | null => {
+    const tagData = tagsData.find((tag) => tag.name === tagName);
+    return tagData && tagData.tag[1] ? (tagData.tag[1] as JSX.Element) : null;
+  };
+
+  // useEffect(() => {
+  //   personalNotesRefetch();
+  // }, [pathname, personalNotesRefetch]);
 
   return (
     <div className="space-y-10">
@@ -47,11 +55,9 @@ export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
                   <div className="flex space-x-4 ">
                     <div className="relative">
                       <Profile />
-                      <div className="absolute top-[11px] right-[11px]">
-                        <span className="absolute top-[11px] right-[11px]">
-                          {/* {scoutTag?.tag[2]} */}
-                        </span>
-                      </div>
+                      <span className="absolute top-[11px] right-[11px]">
+                        {getTagSVG(getTagForAthlete(athlete.id) || "none")}
+                      </span>
                     </div>
                     <div className="flex flex-col text-sm">
                       <span className="font-bold text-xl font-lexenda">
@@ -59,7 +65,9 @@ export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
                           {getFirstSixWords(athlete.profile.public_id)}
                         </span>
                         <br />
-                        {athlete.sport_position.name}
+                        <span className="line-clamp-1">
+                          {athlete.sport_position.name}
+                        </span>
                       </span>
                       {/* <span className="font-extralight text-[40px] leading-[40px] text-secondary font-lexenda_deca">
                   {item.name}
@@ -74,24 +82,19 @@ export const AthleteSearchCard: FC<Props> = ({ data }: Props) => {
                         <span>{athlete.age}yo</span>
                       </div>
 
-                      <div className="">
-                        <div className="flex space-x-1 items-center mt-1 mb-2">
-                          <Expand
-                            className={`${
-                              expandedFilters[index] && "rotate-180"
-                            }`}
-                          />
-                          <span
-                            className="uppercase text-[8px] leading-3 font-lexenda_exa font-bold cursor-pointer"
-                            onClick={() => toggleExpand(index)}
-                          >
-                            {/* {item.tag !== 6 ? "edit" : "Add"} color tag */}
-                          </span>
-                        </div>
+                      <div>
+                        <ColorTag
+                          personalNotesData={scoutsNotes?.find(
+                            (note) => note.athlete_id === athlete.id
+                          )}
+                          refetch={refetch}
+                          athlete={athlete}
+                          personalNotesRefetch={personalNotesRefetch}
+                        />
                         <Button
                           to={`/dashboard/profile/${athlete?.profile.public_id}`}
                           label="view profile"
-                          className="text-[10px] w-28 h-7 xs:text-[10px]"
+                          className="text-[10px] mt-2 w-28 h-7 xs:text-[10px]"
                         />
                       </div>
                     </div>

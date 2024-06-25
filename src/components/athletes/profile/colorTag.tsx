@@ -27,7 +27,7 @@ export const ColorTag = ({
 }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedTag, setSelectedTag] = useState(
-    personalNotesData?.color_tag.toLowerCase() || ""
+    personalNotesData?.color_tag.toLowerCase()
   );
   const [expandedFilters, setExpandedFilters] = useState<boolean[]>(
     Array(filterData.length).fill(false)
@@ -45,7 +45,7 @@ export const ColorTag = ({
     await privateInstance
       .post("/scoutsnotes/create", {
         athlete_id: athlete?.profile.public_id,
-        color_tag: selectedTag.toUpperCase(),
+        color_tag: selectedTag?.toUpperCase(),
       })
       .then(() => {
         refetch();
@@ -110,7 +110,7 @@ export const ColorTag = ({
           <SubmitButton
             label={`${personalNotesData ? "Save" : "Add"} Tag`}
             loading={loading}
-            className="w-32 xs:text-sm"
+            className="w-full h-[30px] xs:text-sm"
           />
         </form>
       </DropdownMenuContent>

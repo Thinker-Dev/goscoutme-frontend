@@ -13,12 +13,6 @@ export const VideoUpload: FC = () => {
 
   const handleUpload = () => {
     if (selectedFile && videoTitle && videoDuration) {
-      // Handle the video upload logic here
-      console.log("Video Title:", videoTitle);
-      console.log("Video Duration:", videoDuration);
-      console.log("Selected File:", selectedFile);
-
-      // Reset the input fields after upload
       setSelectedFile(null);
       setVideoTitle("");
       setVideoDuration("");

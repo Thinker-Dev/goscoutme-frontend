@@ -56,13 +56,12 @@ export const AthleteHeader: FC = () => {
           {filteredMenuData.map((item, index) => (
             <li key={index} className="flex flex-col items-center ">
               <Link
-                href={item.path}
+                href={`/athlete${item.path}`}
                 className="font-semibold  font-lexenda_exa text-lg transition-all"
               >
                 {item.title}
               </Link>
-              <div
-                onClick={() => console.log("item.path", item.path)}
+              {/* <div
                 className={` transition-all w-1 h-1 bg-black rounded-full mt-1 
                 ${
                   pathname === `${item.path}` ||
@@ -70,7 +69,7 @@ export const AthleteHeader: FC = () => {
                     ? "opacity-1 "
                     : "opacity-0"
                 }`}
-              />
+              /> */}
             </li>
           ))}
         </ul>
@@ -96,13 +95,12 @@ export const AthleteHeader: FC = () => {
               {menuData.map((item, index) => (
                 <li key={index}>
                   <Link
-                    href={item.path}
+                    href={`/athlete${item.path}`}
                     className="font-medium font-lexenda_exa text-sm transition-all"
                   >
                     <DropdownMenuItem className="cursor-pointer flex justify-between">
                       <span>{item.title}</span>
-                      <div
-                        onClick={() => console.log("item.path", item.path)}
+                      {/* <div
                         className={` transition-all w-1 h-1 bg-black rounded-full mt-1 
                     ${
                       pathname === `${item.path}` ||
@@ -110,7 +108,7 @@ export const AthleteHeader: FC = () => {
                         ? "opacity-1 "
                         : "opacity-0"
                     }`}
-                      />
+                      /> */}
                     </DropdownMenuItem>
                   </Link>
                 </li>

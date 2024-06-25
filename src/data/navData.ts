@@ -7,7 +7,7 @@ export const menuData: Menu[] = [
   },
   {
     title: "Dashboard",
-    path: "/dashboard",
+    path: "/",
   },
   {
     title: "About Us",

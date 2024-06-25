@@ -42,7 +42,6 @@ export const Filter: FC<Props> = ({ positions }: Props) => {
         ...prev,
         [category]: newCategoryItems.join("-"),
       };
-      console.log(newCheckedItems);
       return newCheckedItems;
     });
   };

@@ -31,8 +31,7 @@ export const Header: FC = () => {
               >
                 {item.title}
               </Link>
-              <div
-                onClick={() => console.log("item.path", item.path)}
+              {/* <div
                 className={` transition-all w-1 h-1 bg-black rounded-full mt-1 
                 ${
                   pathname === `${item.path}` ||
@@ -40,7 +39,7 @@ export const Header: FC = () => {
                     ? "opacity-1 "
                     : "opacity-0"
                 }`}
-              />
+              /> */}
             </li>
           ))}
         </ul>
@@ -61,8 +60,7 @@ export const Header: FC = () => {
                   >
                     <DropdownMenuItem className="cursor-pointer flex justify-between">
                       <span>{item.title}</span>
-                      <div
-                        onClick={() => console.log("item.path", item.path)}
+                      {/* <div
                         className={` transition-all w-1 h-1 bg-black rounded-full mt-1 
                     ${
                       pathname === `${item.path}` ||
@@ -70,7 +68,7 @@ export const Header: FC = () => {
                         ? "opacity-1 "
                         : "opacity-0"
                     }`}
-                      />
+                      /> */}
                     </DropdownMenuItem>
                   </Link>
                 </li>

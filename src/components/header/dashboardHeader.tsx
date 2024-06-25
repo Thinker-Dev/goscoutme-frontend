@@ -21,6 +21,8 @@ export const DashboardHeader: FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { profile } = useUserStorage();
+  const pathSegments = pathname.split("/");
+  const lastSegment = pathSegments[pathSegments.length - 1];
 
   const handleSignOut = () => {
     localStorage.removeItem("user");
@@ -32,14 +34,9 @@ export const DashboardHeader: FC = () => {
 
   const filteredMenuData = menuData.filter(
     (item) =>
-      ![
-        "home",
-        "create account",
-        "login",
-        "subscription plan",
-        "about us",
-        "reach out to us",
-      ].includes(item.title.toLowerCase())
+      !["home", "create account", "login", "subscription plan"].includes(
+        item.title.toLowerCase()
+      )
   );
 
   return (
@@ -53,21 +50,20 @@ export const DashboardHeader: FC = () => {
           {filteredMenuData.map((item, index) => (
             <li key={index} className="flex flex-col items-center ">
               <Link
-                href={item.path}
+                href={`/dashboard${item.path}`}
                 className="font-semibold  font-lexenda_exa text-lg transition-all"
               >
                 {item.title}
               </Link>
-              <div
-                onClick={() => console.log("item.path", item.path)}
+              {/* <div
                 className={` transition-all w-1 h-1 bg-black rounded-full mt-1 
                 ${
-                  pathname === `${item.path}` ||
-                  pathname.includes(`${item.path}`)
+                  `${lastSegment}` === "dashboard" ||
+                  `/${lastSegment}` === `${item.path}`
                     ? "opacity-1 "
                     : "opacity-0"
                 }`}
-              />
+              /> */}
             </li>
           ))}
         </ul>
@@ -89,13 +85,12 @@ export const DashboardHeader: FC = () => {
               {menuData.map((item, index) => (
                 <li key={index}>
                   <Link
-                    href={item.path}
+                    href={`/dashboard${item.path}`}
                     className="font-medium font-lexenda_exa text-sm transition-all"
                   >
                     <DropdownMenuItem className="cursor-pointer flex justify-between">
                       <span>{item.title}</span>
                       <div
-                        onClick={() => console.log("item.path", item.path)}
                         className={` transition-all w-1 h-1 bg-black rounded-full mt-1 
                     ${
                       pathname === `${item.path}` ||

@@ -33,7 +33,6 @@ export const SignInForm: FC = () => {
   });
 
   async function onSubmit(values: z.infer<typeof SignInSchema>) {
-    console.log(values);
     setLoading(true);
     await privateInstance
       .post<IUserResponse>("/auth/sign_in", values)

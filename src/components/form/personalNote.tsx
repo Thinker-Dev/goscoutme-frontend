@@ -44,7 +44,6 @@ export const PersonalNoteForm: FC<Props> = ({
   });
 
   async function onSubmit(values: z.infer<typeof schema>) {
-    console.log(athlete?.profile.public_id);
     setLoading(true);
     await privateInstance
       .post("/scoutsnotes/create", {

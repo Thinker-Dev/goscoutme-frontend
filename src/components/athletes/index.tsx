@@ -11,6 +11,7 @@ import { pageState, searchQueryState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
 
 interface Props {
+  refetch: any;
   athletes: any;
   scoutsNotesRefetch: any;
   profile: Profile | undefined;
@@ -19,6 +20,7 @@ interface Props {
 
 export const Athletes: FC<Props> = ({
   profile,
+  refetch,
   athletes,
   scoutsNotes,
   scoutsNotesRefetch,
@@ -52,10 +54,16 @@ export const Athletes: FC<Props> = ({
       </Title>
       <SearchInput value={searchQuery} onChange={handleChange} />
       {searchQuery ? (
-        <AthleteSearchCard data={athletes} />
+        <AthleteSearchCard
+          data={athletes}
+          refetch={refetch}
+          scoutsNotes={scoutsNotes}
+          personalNotesRefetch={scoutsNotesRefetch}
+        />
       ) : (
         <AthleteCard
           data={athletes}
+          refetch={refetch}
           scoutsNotes={scoutsNotes}
           personalNotesRefetch={scoutsNotesRefetch}
         />

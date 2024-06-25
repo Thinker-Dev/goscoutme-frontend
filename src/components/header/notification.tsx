@@ -24,7 +24,6 @@ export const NotificationDropdown = ({ profile }: Props) => {
     isLoading: loading,
   } = useGetNotifications(profile.id);
   const handleCloseNotifications = async () => {
-    console.log("here");
     if (!profile.id) return;
     if (notifications && notifications?.length <= 0) return;
     await privateInstance.put(`/notifications/${profile.id}`);
@@ -53,7 +52,10 @@ export const NotificationDropdown = ({ profile }: Props) => {
         >
           {notifications && notifications?.length > 0 ? (
             notifications?.map((notification, key) => (
-              <DropdownMenuItem key={key} className="space-x-3 cursor-pointer">
+              <DropdownMenuItem
+                key={key}
+                className="flex items-center cursor-pointer justify-between"
+              >
                 <div className="flex items-start space-x-3 ">
                   <div>
                     <CircleUser className="w-[20px]" />
@@ -67,7 +69,6 @@ export const NotificationDropdown = ({ profile }: Props) => {
                     <div className="bg-red-500 w-1.5 h-1.5 rounded-full"></div>
                   )}
                 </div>
-                <DropdownMenuSeparator />
               </DropdownMenuItem>
             ))
           ) : (

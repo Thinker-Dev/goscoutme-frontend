@@ -110,7 +110,6 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
     }
   }, [watchBirthDate]);
   const handleUpload = async (file: File): Promise<string | null> => {
-    console.log(file);
     if (!file) return null;
     let url: string = "";
     const presignedUrl = await privateInstance.post(

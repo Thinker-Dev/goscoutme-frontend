@@ -29,7 +29,11 @@ export default function Page() {
   const { data: positions, isLoading: positionsLoading } =
     useGetSportsPositions(profile.sport.id);
 
-  const { data: athletes, isLoading } = useGetAthletes({
+  const {
+    data: athletes,
+    isLoading,
+    refetch,
+  } = useGetAthletes({
     position: checkedItems.position,
     country: checkedItems.country,
     status: checkedItems.career,
@@ -56,6 +60,7 @@ export default function Page() {
             athletes={athletes}
             scoutsNotes={scoutsNotes}
             scoutsNotesRefetch={scoutsNotesRefetch}
+            refetch={refetch}
           />
           <Filter positions={positions} />
         </>
