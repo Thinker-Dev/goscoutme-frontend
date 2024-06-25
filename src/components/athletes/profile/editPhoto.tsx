@@ -40,7 +40,6 @@ const EditPhoto: FC<Props> = ({ athlete, refetch }: Props) => {
 
   const handleUpload = async (file: File): Promise<string | null> => {
     if (!file) return null;
-    let url: string = "";
     const presignedUrl = await privateInstance.post(
       "/media/create_presigned_url",
       {
@@ -77,6 +76,10 @@ const EditPhoto: FC<Props> = ({ athlete, refetch }: Props) => {
       });
       return;
     }
+
+    console.log("====================================");
+    console.log(selectedFile);
+    console.log("====================================");
 
     setLoading(true);
 

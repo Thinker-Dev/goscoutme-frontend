@@ -96,6 +96,14 @@ export const ScoutRegistrationForm: FC = () => {
     }
   };
 
+  const getMinDate = () => {
+    const currentDate = new Date();
+    currentDate.setFullYear(currentDate.getFullYear() - 12);
+    return currentDate.toISOString().split("T")[0];
+  };
+
+  const miDate = getMinDate();
+
   return (
     <Form {...form}>
       <form
@@ -170,6 +178,7 @@ export const ScoutRegistrationForm: FC = () => {
                       type="date"
                       required
                       placeholder="aa"
+                      max={miDate}
                     />
                   </FormControl>
                   <FormMessage />

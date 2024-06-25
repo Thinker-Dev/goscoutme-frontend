@@ -140,6 +140,14 @@ export const AthleteRegistrationForm: FC = () => {
     }
   };
 
+  const getMinDate = () => {
+    const currentDate = new Date();
+    currentDate.setFullYear(currentDate.getFullYear() - 12);
+    return currentDate.toISOString().split("T")[0];
+  };
+
+  const miDate = getMinDate();
+
   return (
     <Form {...form}>
       <form
@@ -213,6 +221,7 @@ export const AthleteRegistrationForm: FC = () => {
                     className=" px-2"
                     type="date"
                     required
+                    max={miDate}
                   />
                 </FormControl>
                 <FormMessage />
