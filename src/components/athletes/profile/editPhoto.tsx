@@ -48,6 +48,10 @@ const EditPhoto: FC<Props> = ({ athlete, refetch }: Props) => {
       }
     );
 
+    console.log("====================================");
+    console.log(file.type);
+    console.log("====================================");
+
     const formData = new FormData();
     formData.append("file", file);
 

@@ -186,7 +186,6 @@ export const ScoutRegistrationForm: FC = () => {
               )}
             />
           </div>
-
           <div className="space-y-4">
             <div className="flex flex-row sm:space-x-5 max-sm:mt-4">
               <FormField
@@ -226,7 +225,6 @@ export const ScoutRegistrationForm: FC = () => {
                 )}
               />
             </div>
-
             <FormField
               control={form.control}
               name="citzenship"
@@ -241,7 +239,6 @@ export const ScoutRegistrationForm: FC = () => {
             />
           </div>
         </div>
-
         {/* <FormField
             control={form.control}
             name="organization"
@@ -339,7 +336,6 @@ export const ScoutRegistrationForm: FC = () => {
             />
           </div>
         </div>
-
         <FormField
           control={form.control}
           name="org_email"
@@ -352,7 +348,6 @@ export const ScoutRegistrationForm: FC = () => {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="affiliations"

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { Profile as ProfileIcon } from "../../../../public/icons/profile";
 import { Description } from "./description";
 import { PersonalNotes } from "./personalNotes";
@@ -15,7 +15,6 @@ import { UploadVideoCard } from "./video/uploadVideoCard";
 import { useGetUserAppointments } from "@/hooks/useGetUserAppointments";
 import EditPhoto from "./editPhoto";
 import { useGetScoutsNotes } from "@/hooks/notes/useGetScoutNotes";
-import Image from "next/image";
 import { tagsData } from "@/data/tags";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 

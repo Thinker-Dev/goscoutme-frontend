@@ -172,6 +172,7 @@ export const UploadVideo: FC = () => {
           multiple
           onChange={handleFileChange}
           className="hidden"
+          accept="video/mp4"
         />
         <label htmlFor="upload-video" className="mt-7 mb-4 cursor-pointer">
           Choose files
