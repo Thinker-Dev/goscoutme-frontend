@@ -1,4 +1,3 @@
-import { CheckBoxType } from "@/types/checkBox";
 import { MeeetingTypes } from "@/types/meetings";
 
 export const meetingsData: MeeetingTypes[] = [

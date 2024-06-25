@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/pagination";
 import { pageState } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
-import { Athlete } from "@/types/auth";
 
 interface Props {
   data: any;

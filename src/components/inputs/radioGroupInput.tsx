@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import { CheckBoxType } from "@/types/checkBox";
 import Checkbox from "react-custom-checkbox";
-import { Check, XIcon } from "lucide-react";
+import { Check } from "lucide-react";
 
 interface Props {
   label: string;

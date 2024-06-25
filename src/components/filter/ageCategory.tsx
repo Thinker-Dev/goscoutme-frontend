@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import Checkbox from "react-custom-checkbox";
-import { useRecoilState } from "recoil";
-import { ageCategoryState } from "@/lib/recoil";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export const AgeCategory = () => {

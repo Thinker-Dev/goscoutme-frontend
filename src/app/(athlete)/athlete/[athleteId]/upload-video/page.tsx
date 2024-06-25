@@ -1,5 +1,4 @@
 import { UploadVideo } from "@/components/athletes/profile/video/uploadVideo";
-import { TitleTypes } from "@/types/title";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

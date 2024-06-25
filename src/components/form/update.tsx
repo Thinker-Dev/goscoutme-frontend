@@ -14,25 +14,17 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { AthleteRegistrationSchema } from "./schema/registration/athlete";
 import { genderData } from "@/data/genderData";
 import { RadioGroupInput } from "../inputs/radioGroupInput";
 import { TextAreaInput } from "../inputs/textAreaInput";
-import { CheckboxInput } from "../inputs/checkBoxInput";
-import { weightData } from "@/data/weightData";
-import { heightData } from "@/data/heightData";
-import { athleteStatusData } from "@/data/athleteStatusData";
 import { useRecoilState } from "recoil";
 import { signUpState } from "@/lib/recoil";
 import { privateInstance } from "@/lib/axios";
 import { Athlete, IUserResponse } from "@/types/auth";
 import { toast } from "@/components/ui/use-toast";
-import { SelectPositionsInput } from "@/components/inputs/select/positions";
 import { SelectCoutriesInput } from "@/components/inputs/select/countries";
 import { useUserStorage } from "../../hooks/useUserStorage";
 import { UpdateSchema } from "./schema/update";
-import { Profile } from "../../../public/icons/profile";
-import { CameraIcon } from "../../../public/icons/camera";
 import axios from "axios";
 
 interface Props {

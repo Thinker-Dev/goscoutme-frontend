@@ -1,6 +1,4 @@
 import { Profile } from "@/components/athletes/profile";
-import { Title } from "@/components/auth/createAccount";
-import { ChooseSport } from "@/components/sports";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

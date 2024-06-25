@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
-import React, { FC, forwardRef, useState } from "react";
+import React, { FC, forwardRef } from "react";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;

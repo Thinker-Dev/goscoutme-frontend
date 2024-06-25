@@ -12,7 +12,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Athlete, IUserResponse, Profile } from "@/types/auth";
+import { Athlete } from "@/types/auth";
 import { privateInstance } from "@/lib/axios";
 import { toast } from "../ui/use-toast";
 import { TextAreaInput } from "../inputs/textAreaInput";

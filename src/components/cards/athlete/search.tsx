@@ -1,13 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { Button } from "@/components/buttons";
-import { Expand } from "../../../../public/icons/expand";
-import filterData from "../../../hooks/useFilterData";
 import { tagsData } from "../../../data/tags";
 import { LoadmoreButton } from "@/components/buttons/loadmore";
 import { Profile } from "../../../../public/icons/profile";
 import { Athlete } from "@/types/auth";
 import useTextUtils from "@/hooks/useTextUtils";
-import { useGetScoutsNotes } from "@/hooks/notes/useGetScoutNotes";
 import { ColorTag } from "@/components/athletes/profile/colorTag";
 import { usePathname } from "next/navigation";
 
