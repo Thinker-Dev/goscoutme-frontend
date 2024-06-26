@@ -7,6 +7,7 @@ import { Description } from "./description";
 import EditPhoto from "./editPhoto";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/buttons";
 
 export const ScoutProfile = () => {
   const { profile, isLoading } = useUserStorage();
@@ -40,6 +41,11 @@ export const ScoutProfile = () => {
       <div className="space-y-10">
         <Description profile={profile} />
       </div>
+      <Button
+        to={`/dashboard/scout/update-profile`}
+        label="update profile"
+        className="bg-secondary hover:bg-secondary/70"
+      />
     </div>
   );
 };

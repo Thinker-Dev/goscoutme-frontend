@@ -17,6 +17,7 @@ import EditPhoto from "./editPhoto";
 import { useGetScoutsNotes } from "@/hooks/notes/useGetScoutNotes";
 import { tagsData } from "@/data/tags";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/buttons";
 
 export const Profile: FC = () => {
   const pathname = usePathname();

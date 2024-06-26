@@ -97,6 +97,17 @@ export const useUserStorage = () => {
     setIsLoading(false);
   }, []);
 
+  // Function to fetch and update user data from localStorage
+  const refetch = () => {
+    const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+    const storedProfile = JSON.parse(localStorage.getItem("profile") || "{}");
+    const storedSession = JSON.parse(localStorage.getItem("session") || "{}");
+
+    setUser(storedUser);
+    setProfile(storedProfile);
+    setSession(storedSession);
+  };
+
   useEffect(() => {
     if (pathname.includes(`${profile?.public_id}`)) {
       setCurrentUser(true);
@@ -105,5 +116,5 @@ export const useUserStorage = () => {
     }
   }, [pathname, profile?.public_id]);
 
-  return { user, profile, session, currentUser, isLoading };
+  return { user, profile, session, currentUser, isLoading, refetch };
 };

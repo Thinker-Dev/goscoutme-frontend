@@ -30,10 +30,6 @@ export const AthleteHeader: FC = () => {
     setTimeout(() => router.push("/auth/login"), 2000);
   };
 
-  useEffect(() => {
-    handleSignOut();
-  }, []);
-
   const filteredMenuData = menuData.filter(
     (item) =>
       ![
