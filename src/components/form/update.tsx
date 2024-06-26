@@ -29,9 +29,10 @@ import axios from "axios";
 
 interface Props {
   athlete: Athlete | undefined;
+  refetch: any;
 }
 
-export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
+export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
@@ -132,6 +133,10 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
   async function onSubmit(values: z.infer<typeof UpdateSchema>) {
     setLoading(true);
 
+    console.log("====================================");
+    console.log(values);
+    console.log("====================================");
+
     const photo = await handleUpload(selectedFiles[0]);
 
     await privateInstance
@@ -175,9 +180,8 @@ export const UpdateForm: FC<Props> = ({ athlete }: Props) => {
         mobile: values.mobile,
       })
       .then((res) => {
-        localStorage.setItem("profile", JSON.stringify(res.data.profile));
-        localStorage.setItem("athlete", JSON.stringify(res.data.athlete));
-        router.push("/dashboard/profile");
+        refetch();
+        router.push(`/athlete/${athlete?.profile.public_id}`);
       })
       .catch((err) => {
         if (err.response) {

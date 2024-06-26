@@ -44,6 +44,10 @@ export const SignInForm: FC = () => {
           JSON.stringify(res.data.session),
           JSON.stringify(res.data.profile)
         );
+
+        console.log("====================================");
+        console.log(res.data.session);
+        console.log("====================================");
         if (res.data.profile) {
           if (res.data.profile.athlete) {
             router.push(`/athlete/${res.data.profile.public_id}`);

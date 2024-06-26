@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
-import { Notifications } from "../../../public/icons/notifications";
 import { Messages } from "../../../public/icons/messages";
 import { menuData } from "@/data/navData";
 import { useUserStorage } from "@/hooks/useUserStorage";
@@ -30,6 +29,10 @@ export const AthleteHeader: FC = () => {
     deleteCookie();
     setTimeout(() => router.push("/auth/login"), 2000);
   };
+
+  useEffect(() => {
+    handleSignOut();
+  }, []);
 
   const filteredMenuData = menuData.filter(
     (item) =>

@@ -10,7 +10,7 @@ export const EditProfile = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 2];
-  const { data: athlete, isLoading } = useGetAthleteById(lastSegment);
+  const { data: athlete, isLoading, refetch } = useGetAthleteById(lastSegment);
   return (
     <div>
       {isLoading ? (
@@ -22,7 +22,7 @@ export const EditProfile = () => {
       ) : (
         <>
           <Title className="font-extralight text-center mx-10"></Title>
-          <UpdateForm athlete={athlete} />
+          <UpdateForm athlete={athlete} refetch={refetch} />
         </>
       )}
     </div>
