@@ -133,12 +133,6 @@ export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
   async function onSubmit(values: z.infer<typeof UpdateSchema>) {
     setLoading(true);
 
-    console.log("====================================");
-    console.log(values);
-    console.log("====================================");
-
-    const photo = await handleUpload(selectedFiles[0]);
-
     await privateInstance
       .put<IUserResponse>("/profile/update_profile", {
         // sport_id: signUp.sport_id,
@@ -181,7 +175,10 @@ export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
       })
       .then((res) => {
         refetch();
-        router.push(`/athlete/${athlete?.profile.public_id}`);
+        toast({
+          title: "Profile updated successfully!",
+        });
+        // router.push(`/athlete/${athlete?.profile.public_id}`);
       })
       .catch((err) => {
         if (err.response) {
@@ -195,15 +192,13 @@ export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
     setLoading(false);
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const filesArray = Array.from(event.target.files);
-      setSelectedFiles(filesArray);
-      setFileChosen(true);
-    } else {
-      setFileChosen(false);
-    }
+  const getMinDate = () => {
+    const currentDate = new Date();
+    currentDate.setFullYear(currentDate.getFullYear() - 12);
+    return currentDate.toISOString().split("T")[0];
   };
+
+  const miDate = getMinDate();
 
   return (
     <Form {...form}>
@@ -273,8 +268,9 @@ export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
                   <TextInput
                     label="Date of Birth"
                     {...field}
-                    className="sm:w-[113px] px-2"
+                    className="sm:w-[140px] px-2"
                     type="date"
+                    max={miDate}
                   />
                 </FormControl>
                 <FormMessage />

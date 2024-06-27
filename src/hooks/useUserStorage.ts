@@ -87,25 +87,28 @@ export const useUserStorage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
-    const storedProfile = JSON.parse(localStorage.getItem("profile") || "{}");
-    const storedSession = JSON.parse(localStorage.getItem("session") || "{}");
-
-    setUser(storedUser);
-    setProfile(storedProfile);
-    setSession(storedSession);
+    refetch();
     setIsLoading(false);
   }, []);
 
-  // Function to fetch and update user data from localStorage
   const refetch = () => {
-    const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
-    const storedProfile = JSON.parse(localStorage.getItem("profile") || "{}");
-    const storedSession = JSON.parse(localStorage.getItem("session") || "{}");
+    const storedUser = localStorage.getItem("user");
+    const storedProfile = localStorage.getItem("profile");
+    const storedSession = localStorage.getItem("session");
 
-    setUser(storedUser);
-    setProfile(storedProfile);
-    setSession(storedSession);
+    try {
+      setUser(storedUser ? JSON.parse(storedUser) : defaultUser);
+      setProfile(storedProfile ? JSON.parse(storedProfile) : defaultProfile);
+      setSession(storedSession ? JSON.parse(storedSession) : defaultSession);
+      console.log("====================================");
+      console.log(storedProfile);
+      console.log("====================================");
+    } catch (error) {
+      console.error("Error parsing localStorage data:", error);
+      setUser(defaultUser);
+      setProfile(defaultProfile);
+      setSession(defaultSession);
+    }
   };
 
   useEffect(() => {

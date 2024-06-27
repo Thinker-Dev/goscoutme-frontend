@@ -1,4 +1,5 @@
 import { EditProfile } from "@/components/editProfile";
+import { EditScoutProfile } from "@/components/editProfile/editScout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="flex items-center justify-center flex-col space-y-10 min-h-[calc(100vh-116px)] pb-10">
-      <EditProfile />
+      <EditScoutProfile />
     </main>
   );
 }

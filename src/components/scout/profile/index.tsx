@@ -22,7 +22,7 @@ export const ScoutProfile = () => {
     );
   return (
     <div className="flex space-x-10 pb-10">
-      <div className="space-y-[175px]">
+      <div className="space-y-[100px]">
         <div className="relative">
           {profile.photo_url ? (
             <Avatar className="h-64 w-64">
@@ -37,15 +37,17 @@ export const ScoutProfile = () => {
           )}
           <EditPhoto profile={profile} />
         </div>
+        <div className="w-64 flex justify-center">
+          <Button
+            to={`/dashboard/scout/update-profile`}
+            label="update profile"
+            className="bg-secondary hover:bg-secondary/70"
+          />
+        </div>
       </div>
       <div className="space-y-10">
         <Description profile={profile} />
       </div>
-      <Button
-        to={`/dashboard/scout/update-profile`}
-        label="update profile"
-        className="bg-secondary hover:bg-secondary/70"
-      />
     </div>
   );
 };

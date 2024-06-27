@@ -80,6 +80,14 @@ export const UpdateScoutForm: FC<Props> = ({ profile, refetch }: Props) => {
     },
   });
 
+  const getMinDate = () => {
+    const currentDate = new Date();
+    currentDate.setFullYear(currentDate.getFullYear() - 12);
+    return currentDate.toISOString().split("T")[0];
+  };
+
+  const miDate = getMinDate();
+
   const calculateAge = (birthDate: string) => {
     const birth = new Date(birthDate);
     const today = new Date();
@@ -106,12 +114,8 @@ export const UpdateScoutForm: FC<Props> = ({ profile, refetch }: Props) => {
   async function onSubmit(values: z.infer<typeof UpdateSchema>) {
     setLoading(true);
 
-    console.log("====================================");
-    console.log(values);
-    console.log("====================================");
-
     await privateInstance
-      .put<IUserResponse>("/profile/update_profile", {
+      .patch<IUserResponse>("/profile/update_profile", {
         // sport_id: signUp.sport_id,
         // email: user.email,
         // userType: "ATHLETE",
@@ -151,8 +155,11 @@ export const UpdateScoutForm: FC<Props> = ({ profile, refetch }: Props) => {
         mobile: values.mobile,
       })
       .then((res) => {
+        localStorage.setItem("profile", JSON.stringify(res.data));
         refetch();
-        router.push(`/dashboard/scout`);
+        toast({
+          title: "Profile updated successfully!",
+        });
       })
       .catch((err) => {
         if (err.response) {
@@ -244,8 +251,9 @@ export const UpdateScoutForm: FC<Props> = ({ profile, refetch }: Props) => {
                   <TextInput
                     label="Date of Birth"
                     {...field}
-                    className="sm:w-[113px] px-2"
+                    className="sm:w-[140px] px-2"
                     type="date"
+                    max={miDate}
                   />
                 </FormControl>
                 <FormMessage />
