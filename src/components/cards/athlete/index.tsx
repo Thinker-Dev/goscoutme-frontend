@@ -37,6 +37,10 @@ export const AthleteCard: FC<Props> = ({
   };
 
   useEffect(() => {
+    refetch();
+  }, [pathname, refetch]);
+
+  useEffect(() => {
     personalNotesRefetch();
   }, [pathname, personalNotesRefetch]);
 

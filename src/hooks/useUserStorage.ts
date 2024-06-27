@@ -100,9 +100,6 @@ export const useUserStorage = () => {
       setUser(storedUser ? JSON.parse(storedUser) : defaultUser);
       setProfile(storedProfile ? JSON.parse(storedProfile) : defaultProfile);
       setSession(storedSession ? JSON.parse(storedSession) : defaultSession);
-      console.log("====================================");
-      console.log(storedProfile);
-      console.log("====================================");
     } catch (error) {
       console.error("Error parsing localStorage data:", error);
       setUser(defaultUser);

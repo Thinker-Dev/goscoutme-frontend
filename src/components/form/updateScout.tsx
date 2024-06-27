@@ -155,7 +155,12 @@ export const UpdateScoutForm: FC<Props> = ({ profile, refetch }: Props) => {
         mobile: values.mobile,
       })
       .then((res) => {
-        localStorage.setItem("profile", JSON.stringify(res.data));
+        const existingProfile = JSON.parse(
+          localStorage.getItem("profile") || "{}"
+        );
+        const updatedProfile = { ...existingProfile, ...res.data };
+        localStorage.setItem("profile", JSON.stringify(updatedProfile));
+
         refetch();
         toast({
           title: "Profile updated successfully!",

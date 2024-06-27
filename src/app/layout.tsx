@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <RecoilContextProvider>
         <body
-          className={`${lexenda.className} ${lexenda_exa.className} ${lexenda_deca.className} max-w-screen-xl mx-auto min-h-screen`}
+          className={`${lexenda.className} ${lexenda_exa.className} ${lexenda_deca.className} `}
           suppressHydrationWarning
         >
           <QueryProvider>{children}</QueryProvider>

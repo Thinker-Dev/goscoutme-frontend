@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +11,7 @@ import { privateInstance } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
 import { Athlete } from "@/types/auth";
 import { SubmitButton } from "@/components/buttons/submit";
+import { usePathname } from "next/navigation";
 
 interface Props {
   personalNotesData: ScoutslNote | undefined;

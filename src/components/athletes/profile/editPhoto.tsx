@@ -77,10 +77,6 @@ const EditPhoto: FC<Props> = ({ athlete, refetch }: Props) => {
       return;
     }
 
-    console.log("====================================");
-    console.log(selectedFile);
-    console.log("====================================");
-
     setLoading(true);
 
     const photo = await handleUpload(selectedFile);

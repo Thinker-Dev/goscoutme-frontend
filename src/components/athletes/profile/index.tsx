@@ -49,7 +49,7 @@ export const Profile: FC = () => {
 
   useEffect(() => {
     personalNotesRefetch();
-  }, [refetch]);
+  }, [pathname, personalNotesRefetch]);
 
   if (isLoading && personalNotesLoading)
     return (
@@ -75,9 +75,12 @@ export const Profile: FC = () => {
           ) : (
             <ProfileIcon className="h-64 w-full" />
           )}
-          <span className="absolute right-[43px] top-[11px]">
-            {scoutTag?.tag[2]}
-          </span>
+
+          {!currentUser && (
+            <span className="absolute right-[43px] top-[11px]">
+              {scoutTag?.tag[2]}
+            </span>
+          )}
           {currentUser && <EditPhoto athlete={athlete} refetch={refetch} />}
         </div>
         <div className="w-64 flex justify-center">

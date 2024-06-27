@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const Layout = (props: Props) => {
   return (
-    <div className="mx-10">
+    <div className="max-w-screen-xl mx-auto min-h-screen px-10">
       <AthleteHeader />
       {props.children}
     </div>
