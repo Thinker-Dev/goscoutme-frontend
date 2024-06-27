@@ -160,7 +160,6 @@ export const UpdateScoutForm: FC<Props> = ({ profile, refetch }: Props) => {
         );
         const updatedProfile = { ...existingProfile, ...res.data };
         localStorage.setItem("profile", JSON.stringify(updatedProfile));
-
         refetch();
         toast({
           title: "Profile updated successfully!",

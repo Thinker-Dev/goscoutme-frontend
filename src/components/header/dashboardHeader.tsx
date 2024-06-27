@@ -20,7 +20,7 @@ import { NotificationDropdown } from "./notification";
 export const DashboardHeader: FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { profile } = useUserStorage();
+  const { profile, refetch } = useUserStorage();
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
 
@@ -31,6 +31,10 @@ export const DashboardHeader: FC = () => {
     deleteCookie();
     setTimeout(() => router.push("/auth/login"), 2000);
   };
+
+  console.log("====================================");
+  console.log(profile);
+  console.log("====================================");
 
   const filteredMenuData = menuData.filter(
     (item) =>
@@ -73,7 +77,11 @@ export const DashboardHeader: FC = () => {
           <Messages />
         </Link>
         <NotificationDropdown profile={profile} />
-        <ProfileDropdow profile={profile} handleSignOut={handleSignOut} />
+        <ProfileDropdow
+          profile={profile}
+          handleSignOut={handleSignOut}
+          refetch={refetch}
+        />
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger className="md:hidden" aria-disabled={true}>
