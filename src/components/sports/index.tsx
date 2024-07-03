@@ -7,7 +7,7 @@ import { Soccer } from "../../../public/icons/soccer";
 import { Bascketball } from "../../../public/icons/bascketball";
 import { Hockey } from "../../../public/icons/hockey";
 import { SubmitButton } from "../buttons/submit";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -19,6 +19,9 @@ import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 import { useRecoilState } from "recoil";
 import { completeRegState, signUpState } from "@/lib/recoil";
 import { useUserStorage } from "@/hooks/useUserStorage";
+import { privateInstance } from "@/lib/axios";
+import { IUserResponse } from "@/types/auth";
+import { toast } from "../ui/use-toast";
 
 export const ChooseSport: FC = () => {
   const router = useRouter();
@@ -29,21 +32,47 @@ export const ChooseSport: FC = () => {
   const [completeReg, setCompleteReg] = useRecoilState(completeRegState);
   const [loading, setLoading] = useState<boolean>(false);
   const { session } = useUserStorage();
+  const pathname = usePathname();
+  const { profile } = useUserStorage();
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     setLoading(true);
     event.preventDefault();
     if (selectedSport) {
-      setSignUp((prevSignUp) => ({
-        ...prevSignUp,
-        sport_id: selectedSport,
-      }));
-      router.push(`/auth/create-account/sport/user`);
+      if (pathname.includes("scout")) {
+        await privateInstance
+          .patch<IUserResponse>("/profile/update_profile", {
+            public_id: profile.public_id,
+            sport_id: selectedSport,
+          })
+          .then((res) => {
+            console.log(res.data);
+            const existingProfile = JSON.parse(
+              localStorage.getItem("profile") || "{}"
+            );
+            const updatedProfile = { ...existingProfile, ...res.data };
+            localStorage.setItem("profile", JSON.stringify(updatedProfile));
+            router.push("/dashboard");
+          })
+          .catch((err) => {
+            if (err.response) {
+              toast({
+                title: "Erro",
+                description: err.response.data.message,
+                variant: "destructive",
+              });
+            }
+          });
+      } else {
+        router.push(
+          `/auth/create-account/athlete/registration?sport=${selectedSport}`
+        );
+      }
     } else {
       setOpen(true);
     }
     setLoading(false);
-  };
+  }
 
   return (
     <div className=" flex flex-col items-center">

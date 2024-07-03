@@ -32,10 +32,6 @@ export const DashboardHeader: FC = () => {
     setTimeout(() => router.push("/auth/login"), 2000);
   };
 
-  console.log("====================================");
-  console.log(profile);
-  console.log("====================================");
-
   const filteredMenuData = menuData.filter(
     (item) =>
       !["home", "create account", "login", "subscription plan"].includes(

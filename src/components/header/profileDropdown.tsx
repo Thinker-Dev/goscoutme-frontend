@@ -15,7 +15,7 @@ interface Props {
   handleSignOut: () => void;
   athlete?: boolean;
   profile?: Profile;
-  refetch: any;
+  refetch?: any;
 }
 
 export const ProfileDropdow = ({
@@ -24,12 +24,18 @@ export const ProfileDropdow = ({
   profile,
   refetch,
 }: Props) => {
+  const handleRefetch = () => {
+    if (!athlete) {
+      refetch();
+    }
+  };
+
   return (
     <div>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger
           className="focus:border-none"
-          onClick={() => refetch()}
+          onClick={() => handleRefetch}
         >
           <ProfileMini />
         </DropdownMenuTrigger>

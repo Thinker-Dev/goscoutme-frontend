@@ -4,7 +4,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SubmitButton } from "../../buttons/submit";
 import { TextInput } from "../../inputs/textInput";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -31,6 +31,7 @@ import { SelectPositionsInput } from "@/components/inputs/select/positions";
 import { SelectCoutriesInput } from "@/components/inputs/select/countries";
 import { useUserStorage } from "../../../hooks/useUserStorage";
 import { createProfileCookie } from "@/cookies/profile";
+import { sportsData } from "@/data/sportsData";
 
 export const AthleteRegistrationForm: FC = () => {
   const router = useRouter();
@@ -38,7 +39,9 @@ export const AthleteRegistrationForm: FC = () => {
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
   const [fileChosen, setFileChosen] = useState<boolean>(false);
-  const [signUp, setSignUp] = useRecoilState(signUpState);
+  const searchparams = useSearchParams();
+  const sportPosition = searchparams.get("sport");
+
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useUserStorage();
   const [newAge, setNewAge] = useState<number | null>(null);
@@ -74,7 +77,7 @@ export const AthleteRegistrationForm: FC = () => {
     setLoading(true);
     await privateInstance
       .post<IUserResponse>("/profile/create_profile", {
-        sport_id: signUp.sport_id,
+        sport_id: Number(sportPosition),
         email: user.email,
         userType: "ATHLETE",
         public_id: user.id,
@@ -578,7 +581,7 @@ export const AthleteRegistrationForm: FC = () => {
                     <SelectPositionsInput
                       label="Position Played"
                       className="w-full"
-                      sport_id={signUp.sport_id}
+                      sport_id={Number(sportPosition)}
                       required
                       {...field}
                     />

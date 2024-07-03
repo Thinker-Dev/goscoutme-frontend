@@ -43,7 +43,12 @@ export const SignUpForm: FC = () => {
         localStorage.setItem("user", JSON.stringify(res.data.user));
         localStorage.setItem("session", JSON.stringify(res.data.session));
         createSessionCookie(JSON.stringify(res.data.session));
-        router.push(`${lastSegment}/sport`);
+
+        router.push(
+          `${lastSegment}/${
+            pathname.includes("scout") ? "registration" : "sport"
+          }`
+        );
       })
       .catch((err) => {
         if (err.response) {

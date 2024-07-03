@@ -119,8 +119,10 @@ export const Profile: FC = () => {
             personalNotesRefetch={personalNotesRefetch}
           />
         )}
-        <QuickStats />
-        <Videos currentUser={currentUser} athlete={athlete} />
+        <>
+          <QuickStats />
+          <Videos currentUser={currentUser} athlete={athlete} />
+        </>
       </div>
     </div>
   );

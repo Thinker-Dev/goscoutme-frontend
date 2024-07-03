@@ -1,5 +1,6 @@
+import { Title } from "@/components/auth/createAccount";
 import { SignUpHeader } from "@/components/auth/signUp";
-import { RegistrationForm } from "@/components/form/registration";
+import { SignUpForm } from "@/components/form/signUp";
 import { TitleTypes } from "@/types/title";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -10,15 +11,18 @@ export const metadata: Metadata = {
 };
 
 const title: TitleTypes = {
-  bold: { athlete: "Soccer Athlete", scout: "Scout" },
-  thin: { athlete: "Registration Form", scout: "Registration Form" },
+  bold: { athlete: "Athlete Sign up ", scout: "Scout Sign up" },
+  thin: {
+    athlete: "and get Discovered",
+    scout: "and find your next Superstar Athlete",
+  },
 };
 
 export default function Page() {
   return (
     <main className="flex items-center justify-center flex-col space-y-10 min-h-[calc(100vh-116px)] pb-10">
       <SignUpHeader title={title} />
-      <RegistrationForm />
+      <SignUpForm />
       <span className="text-sm max-xs:text-xs ">
         Already have an account?{" "}
         <Link href={"/auth/login"} className="underline">
