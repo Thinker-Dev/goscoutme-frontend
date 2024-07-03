@@ -178,7 +178,6 @@ export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
         toast({
           title: "Profile updated successfully!",
         });
-        // router.push(`/athlete/${athlete?.profile.public_id}`);
       })
       .catch((err) => {
         if (err.response) {
