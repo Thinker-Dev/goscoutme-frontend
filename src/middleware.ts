@@ -29,7 +29,7 @@ export function middleware(request: NextRequest) {
         new URL(`/athlete/${profileData.public_id}`, request.url)
       );
     }
-  } else if (pathname === "/" || pathname === "/auth/login") {
+  } else if (pathname === "/" || pathname.includes("/auth")) {
     if (session) {
       if (profileData?.athlete) {
         return NextResponse.redirect(
@@ -43,7 +43,6 @@ export function middleware(request: NextRequest) {
     if (!session) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
-    // Prevent redirecting to the same athlete page
     if (
       profileData?.athlete &&
       pathname !== `/athlete/${profileData.public_id}`
