@@ -8,10 +8,20 @@ import { ageCategoryState } from "@/lib/recoil";
 export const AgeCategory = () => {
   const [selectedAge, setSelectedAge] = useRecoilState(ageCategoryState);
 
+  useEffect(() => {}, [selectedAge]);
+
   const handleCheckboxChange = (value: string) => {
     const [min, max] = value.split("-").map(Number);
-    setSelectedAge({ ageMin: min, ageMax: max });
+    if (selectedAge.ageMin === min && selectedAge.ageMax === max) {
+      // If the checkbox is already selected, unselect it
+      setSelectedAge({ ageMin: 0, ageMax: 0 });
+    } else {
+      // Otherwise, select it
+      setSelectedAge({ ageMin: min, ageMax: max });
+    }
   };
+
+  console.log(selectedAge);
 
   return (
     <div className="grid grid-cols-2 gap-y-2">
