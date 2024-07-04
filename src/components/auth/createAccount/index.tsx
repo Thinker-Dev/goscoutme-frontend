@@ -1,5 +1,8 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import React, { FC, ReactNode } from "react";
 
 export const Title = ({
@@ -22,6 +25,8 @@ export const Title = ({
 };
 
 export const CreateAccount: FC = () => {
+  const searchParams = useSearchParams();
+  const param = searchParams.get("p");
   return (
     <section className="flex  max-md:justify-between md-xs:space-x-10 max-md:w-full transition-all max-xs-sm:flex-col max-xs-sm:items-center max-xs-sm:space-y-10 max-xs-sm:space-x-0 md:space-x-14">
       <div className="flex-col flex items-center  max-xs-sm:w-[90%]">
@@ -29,7 +34,11 @@ export const CreateAccount: FC = () => {
           <span>Join as a</span>
         </div>
         <Link
-          href={"/auth/create-account/scout"}
+          href={`${
+            param?.includes("complete-registration")
+              ? "/auth/create-account/scout/registration"
+              : "/auth/create-account/scout"
+          }`}
           className="font-lexenda_deca font-extralight text-primary text-[100px] transition-all hover:-translate-y-1 duration-300 max-md-xs:text-[85px] max-sm:text-[70px]"
         >
           Scout
@@ -45,7 +54,11 @@ export const CreateAccount: FC = () => {
           <span>Join as an</span>
         </div>
         <Link
-          href={"/auth/create-account/athlete"}
+          href={`${
+            param?.includes("complete-registration")
+              ? "/auth/create-account/athlete/sport"
+              : "/auth/create-account/athlete"
+          }`}
           className="font-lexenda_deca font-extralight text-secondary text-[100px] transition-all hover:-translate-y-1 duration-300 max-md-xs:text-[85px] max-sm:text-[70px]"
         >
           Athlete

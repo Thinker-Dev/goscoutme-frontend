@@ -35,6 +35,7 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
   const [count, setCount] = useState(1);
   const [close, setClose] = useState(false);
   const searchParams = useSearchParams();
+  const params = searchParams.get("p");
   const router = useRouter();
 
   useEffect(() => {
@@ -43,6 +44,15 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
       setClose(true);
     }
   }, []);
+
+  const handleClose = () => {
+    setClose(false);
+    window.history.replaceState(
+      null,
+      "",
+      `/athlete/${athlete?.profile.public_id}`
+    );
+  };
 
   return (
     <div className="space-y-3">
@@ -78,7 +88,7 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
         <>
           {athlete && athlete?.media.length > 0 ? (
             <div>
-              {close ? (
+              {close && params?.includes("registration-complete") ? (
                 <div className="pt-5">
                   <div className="bg-light-blue rounded-b-md w-full  pt-12 pb-12 px-16">
                     <div className="w-full flex  my-10 flex-col items-center">
@@ -92,9 +102,7 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
                       <SubmitButton
                         label="close"
                         className="bg-primary hover:bg-primary/80 mt-7 w-32"
-                        onClick={() => {
-                          setClose(false);
-                        }}
+                        onClick={handleClose}
                       />
                     </div>
                   </div>

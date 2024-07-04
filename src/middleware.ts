@@ -6,38 +6,51 @@ export function middleware(request: NextRequest) {
   const profile = request.cookies.get("profile")?.value;
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/dashboard")) {
-    if (!session) {
-      return NextResponse.redirect(new URL("/auth/login", request.url));
-    }
+  // Helper function to parse profile cookie
+  const getProfileData = (profile: string | undefined) => {
     if (profile) {
-      const profileData = JSON.parse(profile);
       try {
-        if (profileData.athlete) {
-          return NextResponse.redirect(
-            new URL(`/athlete/${profileData.public_id}`, request.url)
-          );
-        }
+        return JSON.parse(profile);
       } catch (error) {
         console.error("Error parsing profile cookie:", error);
       }
     }
+    return null;
+  };
+
+  const profileData = getProfileData(profile);
+
+  if (pathname.startsWith("/dashboard")) {
+    if (!session) {
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
+    if (profileData?.athlete) {
+      return NextResponse.redirect(
+        new URL(`/athlete/${profileData.public_id}`, request.url)
+      );
+    }
   } else if (pathname === "/" || pathname === "/auth/login") {
     if (session) {
-      if (profile) {
-        const profileData = JSON.parse(profile);
-        try {
-          if (profileData.athlete) {
-            return NextResponse.redirect(
-              new URL(`/athlete/${profileData.public_id}`, request.url)
-            );
-          } else {
-            return NextResponse.redirect(new URL("/dashboard", request.url));
-          }
-        } catch (error) {
-          console.error("Error parsing profile cookie:", error);
-        }
+      if (profileData?.athlete) {
+        return NextResponse.redirect(
+          new URL(`/athlete/${profileData.public_id}`, request.url)
+        );
+      } else {
+        return NextResponse.redirect(new URL("/dashboard", request.url));
       }
+    }
+  } else if (pathname.startsWith("/athlete")) {
+    if (!session) {
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
+    // Prevent redirecting to the same athlete page
+    if (
+      profileData?.athlete &&
+      pathname !== `/athlete/${profileData.public_id}`
+    ) {
+      return NextResponse.redirect(
+        new URL(`/athlete/${profileData.public_id}`, request.url)
+      );
     }
   }
 

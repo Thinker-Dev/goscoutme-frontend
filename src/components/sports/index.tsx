@@ -161,25 +161,6 @@ export const ChooseSport: FC = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <AlertDialog open={completeReg}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <span>Complete registration</span>
-          </AlertDialogHeader>
-          <AlertDialogDescription>
-            You have already created an account with {session.user.email} but
-            you didn&apos;t complete registration yet. You need to complete
-            registration to continue.
-          </AlertDialogDescription>
-          <AlertDialogFooter>
-            <SubmitButton
-              onClick={() => setCompleteReg(false)}
-              label="continue"
-              className="w-32 xs:text-sm"
-            />
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 };

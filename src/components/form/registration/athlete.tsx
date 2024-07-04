@@ -371,18 +371,14 @@ export const AthleteRegistrationForm: FC = () => {
             />
           </div>
         </div>
-        {/* <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
+        <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
           <FormField
             control={form.control}
             name="parent_one"
             render={({ field }) => (
               <FormItem className="w-full max-sm:w-[60%]">
                 <FormControl>
-                  <TextInput
-                    label="Name of Parent or Guardian 1"
-                    required
-                    {...field}
-                  />
+                  <TextInput label="Name of Parent or Guardian 1" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -397,7 +393,6 @@ export const AthleteRegistrationForm: FC = () => {
                   <TextInput
                     label="Relationship"
                     className="sm:w-[130px] "
-                    required
                     {...field}
                   />
                 </FormControl>
@@ -405,19 +400,15 @@ export const AthleteRegistrationForm: FC = () => {
               </FormItem>
             )}
           />
-        </div> */}
-        {/* <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
+        </div>
+        <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
           <FormField
             control={form.control}
             name="parent_two"
             render={({ field }) => (
               <FormItem className="w-full max-sm:w-[60%]">
                 <FormControl>
-                  <TextInput
-                    label="Name of Parent or Guardian 2"
-                    {...field}
-                    required
-                  />
+                  <TextInput label="Name of Parent or Guardian 2" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -433,14 +424,13 @@ export const AthleteRegistrationForm: FC = () => {
                     label="Relationship"
                     className="sm:w-[130px]"
                     {...field}
-                    required
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div> */}
+        </div>
         <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
@@ -492,7 +482,7 @@ export const AthleteRegistrationForm: FC = () => {
           </div>
         </div>
 
-        {/* <FormField
+        <FormField
           control={form.control}
           name="consent"
           render={({ field }) => (
@@ -548,7 +538,7 @@ export const AthleteRegistrationForm: FC = () => {
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
         <div className="pt-3 space-y-2">
           <span className="font-lexenda_exa font-extrabold text-primary uppercase">
             career information
