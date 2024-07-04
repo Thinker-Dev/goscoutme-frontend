@@ -109,7 +109,7 @@ export const ColorTag = ({
             ))}
           </div>
           <SubmitButton
-            label={`${personalNotesData ? "Save" : "Add"} Tag`}
+            label={`${personalNotesData ? "Edit" : "Add"} Tag`}
             loading={loading}
             className="w-full h-[30px] xs:text-sm"
           />

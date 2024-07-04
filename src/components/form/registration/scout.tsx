@@ -43,7 +43,6 @@ export const ScoutRegistrationForm: FC = () => {
 
   async function onSubmit(values: z.infer<typeof ScoutRegistrationSchema>) {
     setLoading(true);
-    console.log(values);
 
     await privateInstance
       .post<IUserResponse>("/profile/create_profile", {

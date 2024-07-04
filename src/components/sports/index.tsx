@@ -46,7 +46,6 @@ export const ChooseSport: FC = () => {
             sport_id: selectedSport,
           })
           .then((res) => {
-            console.log(res.data);
             const existingProfile = JSON.parse(
               localStorage.getItem("profile") || "{}"
             );
