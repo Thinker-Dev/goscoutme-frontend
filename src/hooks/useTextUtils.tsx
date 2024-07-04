@@ -21,8 +21,47 @@ const useTextUtils = () => {
   const capitalizeFirstLetter = (text?: string): string => {
     if (!text) return "";
 
-    text = text.toLowerCase().replace("_", " ");
-    return text.charAt(0).toUpperCase() + text.slice(1);
+    text = text.toLowerCase().replace(/_/g, " ");
+    const smallWords = [
+      "and",
+      "of",
+      "the",
+      "in",
+      "on",
+      "at",
+      "for",
+      "with",
+      "a",
+      "an",
+    ];
+
+    return text
+      .split(" ")
+      .map((word, index) => {
+        if (smallWords.includes(word) && index !== 0) {
+          return word;
+        }
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join(" ");
+  };
+
+  const convertHeightToCm = (height: number, height_metric: string): number => {
+    if (height_metric.toLocaleLowerCase() === "ft") {
+      const feet = Math.floor(height);
+      const inches = (height - feet) * 12;
+      const heightInCm = feet * 30.48 + inches * 2.54;
+      return parseFloat(heightInCm.toFixed(1));
+    }
+    return height;
+  };
+
+  const convertWeightToKg = (weight: number, metric: string): number => {
+    if (metric.toLocaleLowerCase() === "lb") {
+      const weightInKg = weight * 0.453592;
+      return parseFloat(weightInKg.toFixed(1));
+    }
+    return weight;
   };
 
   return useMemo(
@@ -30,6 +69,8 @@ const useTextUtils = () => {
       getFirstSixWords,
       formatDate,
       capitalizeFirstLetter,
+      convertHeightToCm,
+      convertWeightToKg,
     }),
     []
   );

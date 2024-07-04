@@ -6,7 +6,6 @@ export function middleware(request: NextRequest) {
   const profile = request.cookies.get("profile")?.value;
   const { pathname } = request.nextUrl;
 
-  // Helper function to parse profile cookie
   const getProfileData = (profile: string | undefined) => {
     if (profile) {
       try {
@@ -32,14 +31,15 @@ export function middleware(request: NextRequest) {
   } else if (
     pathname === "/" ||
     pathname === "/auth/create-account" ||
-    pathname === "/auth/login"
+    pathname === "/auth/login" ||
+    pathname === "/auth/create-account/scout/sport"
   ) {
     if (session) {
       if (profileData?.athlete) {
         return NextResponse.redirect(
           new URL(`/athlete/${profileData.public_id}`, request.url)
         );
-      } else {
+      } else if (profileData) {
         return NextResponse.redirect(new URL("/dashboard", request.url));
       }
     }
@@ -47,10 +47,7 @@ export function middleware(request: NextRequest) {
     if (!session) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
-    if (
-      profileData?.athlete &&
-      pathname !== `/athlete/${profileData.public_id}`
-    ) {
+    if (profileData?.athlete) {
       return NextResponse.redirect(
         new URL(`/athlete/${profileData.public_id}`, request.url)
       );

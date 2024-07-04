@@ -113,7 +113,7 @@ export const Description: FC<Props> = ({
                   Country/Nationality
                 </span>
                 <span className="font-extralight text-2xl">
-                  null/
+                  {capitalizeFirstLetter(athlete?.profile.nationality)}/
                   {capitalizeFirstLetter(athlete?.profile.nationality)}
                 </span>
               </div>

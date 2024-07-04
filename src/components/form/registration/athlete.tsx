@@ -145,7 +145,7 @@ export const AthleteRegistrationForm: FC = () => {
 
   const getMinDate = () => {
     const currentDate = new Date();
-    currentDate.setFullYear(currentDate.getFullYear() - 12);
+    currentDate.setFullYear(currentDate.getFullYear() - 5);
     return currentDate.toISOString().split("T")[0];
   };
 
@@ -157,7 +157,7 @@ export const AthleteRegistrationForm: FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 w-[544px] max-sm:w-full max-xs:px-10"
       >
-        <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
+        <div className="flex space-x-7 max-xs-xs:space-x-0 max-xs-xs:justify-between">
           <FormField
             control={form.control}
             name="first_name"
@@ -194,7 +194,7 @@ export const AthleteRegistrationForm: FC = () => {
           />
         </div>
 
-        <div className="flex flex-row space-x-10">
+        <div className="flex flex-row space-x-7">
           <FormField
             control={form.control}
             name="sex"
@@ -221,7 +221,7 @@ export const AthleteRegistrationForm: FC = () => {
                   <TextInput
                     label="Date of Birth"
                     {...field}
-                    className=" px-2"
+                    className="px-2"
                     type="date"
                     required
                     max={miDate}
@@ -266,7 +266,7 @@ export const AthleteRegistrationForm: FC = () => {
             </FormItem>
           )}
         />
-        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
+        <div className="flex sm:space-x-7 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
             name="nationality"
@@ -303,7 +303,7 @@ export const AthleteRegistrationForm: FC = () => {
             }}
           />
         </div>
-        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
+        <div className="flex sm:space-x-7 max-sm:flex-col max-sm:space-y-4">
           <div className="flex items-end space-x-2">
             <FormField
               control={form.control}
@@ -371,7 +371,7 @@ export const AthleteRegistrationForm: FC = () => {
             />
           </div>
         </div>
-        <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
+        <div className="flex sm:flex-row sm:space-x-7 max-sm:justify-between ">
           <FormField
             control={form.control}
             name="parent_one"
@@ -401,7 +401,7 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
         </div>
-        <div className="flex sm:flex-row sm:space-x-10 max-sm:justify-between ">
+        <div className="flex sm:flex-row sm:space-x-7 max-sm:justify-between ">
           <FormField
             control={form.control}
             name="parent_two"
@@ -431,7 +431,7 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
         </div>
-        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
+        <div className="flex sm:space-x-7 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
             name="address"
@@ -544,7 +544,7 @@ export const AthleteRegistrationForm: FC = () => {
             career information
           </span>
 
-          <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
+          <div className="flex sm:space-x-7 max-sm:flex-col max-sm:space-y-4">
             <FormField
               control={form.control}
               name="status"
@@ -639,7 +639,7 @@ export const AthleteRegistrationForm: FC = () => {
             </FormItem>
           )}
         /> */}
-        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
+        <div className="flex sm:space-x-7 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
             name="office"

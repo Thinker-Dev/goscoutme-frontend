@@ -83,8 +83,10 @@ export const ScoutRegistrationForm: FC = () => {
             variant: "destructive",
           });
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    setLoading(false);
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +99,7 @@ export const ScoutRegistrationForm: FC = () => {
 
   const getMinDate = () => {
     const currentDate = new Date();
-    currentDate.setFullYear(currentDate.getFullYear() - 12);
+    currentDate.setFullYear(currentDate.getFullYear() - 21);
     return currentDate.toISOString().split("T")[0];
   };
 
@@ -109,7 +111,7 @@ export const ScoutRegistrationForm: FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 w-[544px] max-sm:w-full max-xs:px-10"
       >
-        <div className="flex space-x-5 max-xs-xs:space-x-0 max-xs-xs:justify-between">
+        <div className="flex space-x-7 max-xs-xs:space-x-0 max-xs-xs:justify-between">
           <FormField
             control={form.control}
             name="first_name"
@@ -145,7 +147,7 @@ export const ScoutRegistrationForm: FC = () => {
             )}
           />
         </div>
-        <div className="flex sm:space-x-10 max-sm:flex-col">
+        <div className="flex sm:space-x-7 max-sm:flex-col">
           <div className="flex justify-between">
             <FormField
               control={form.control}
@@ -173,10 +175,9 @@ export const ScoutRegistrationForm: FC = () => {
                     <TextInput
                       label="Date of Birth"
                       {...field}
-                      className="px-2"
+                      className="px-2 text-sm"
                       type="date"
                       required
-                      placeholder="aa"
                       max={miDate}
                     />
                   </FormControl>
@@ -186,7 +187,7 @@ export const ScoutRegistrationForm: FC = () => {
             />
           </div>
           <div className="space-y-4">
-            <div className="flex flex-row sm:space-x-5 max-sm:mt-4">
+            <div className="flex flex-row sm:space-x-7 max-sm:mt-4">
               <FormField
                 control={form.control}
                 name="birth_date"
@@ -197,9 +198,9 @@ export const ScoutRegistrationForm: FC = () => {
                         label="Date of Birth"
                         {...field}
                         required
-                        className="px-2 "
+                        className="px-2 text-sm"
                         type="date"
-                        placeholder="aa"
+                        max={miDate}
                       />
                     </FormControl>
                     <FormMessage />
@@ -283,7 +284,7 @@ export const ScoutRegistrationForm: FC = () => {
           )}
         />
 
-        <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
+        <div className="flex sm:space-x-7 max-sm:flex-col max-sm:space-y-4">
           <FormField
             control={form.control}
             name="office"
@@ -352,7 +353,7 @@ export const ScoutRegistrationForm: FC = () => {
           <span className="font-lexenda_exa font-extrabold text-primary uppercase">
             personal contact information
           </span>
-          <div className="flex sm:space-x-10 max-sm:flex-col max-sm:space-y-4">
+          <div className="flex sm:space-x-7 max-sm:flex-col max-sm:space-y-4">
             <FormField
               control={form.control}
               name="address"

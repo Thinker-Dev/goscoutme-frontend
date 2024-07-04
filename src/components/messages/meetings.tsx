@@ -1,5 +1,5 @@
 import { meetingsData } from "@/data/meetingsData";
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import { MessagesMeetingIcon } from "../../../public/icons/messages";
 import { privateInstance } from "@/lib/axios";
 import useTextUtils from "@/hooks/useTextUtils";
@@ -57,19 +57,15 @@ export const Meetings: FC<Props> = ({ data, profile }: Props) => {
                   </td>
                 </tr>
               ))}
-            {/* {data ? (
-              data.map((item, index) => (
-                <div key={index} className="mb-2 space-x-2">
-                  <span>{item.title}</span>
-                  <span>{item.description}</span>
-                  <span>{item.scheduled}</span>
-                </div>
-              ))
-            ) : (
-              <div>Loading...</div>
-            )} */}
           </tbody>
         </table>
+        {!data && (
+          <div className="flex items-center justify-center h-full">
+            <span className="font-lexenda_exa text-sm">
+              There are no meetings to show.
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

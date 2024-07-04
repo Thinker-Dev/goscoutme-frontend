@@ -51,7 +51,10 @@ const useMetricConversion = ({
     }
   }, [weight, height, weightMetric, heightMetric]);
 
-  return { convertedHValue, convertedWValue };
+  return {
+    convertedHValue,
+    convertedWValue,
+  };
 };
 
 export default useMetricConversion;

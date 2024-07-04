@@ -74,7 +74,7 @@ export const AthleteHeader: FC = () => {
         </ul>
       </nav>
       <div className="space-x-3 flex items-center">
-        <Link href={"/messages"}>
+        <Link href={"/athlete/messages"}>
           <Messages />
         </Link>
         <NotificationDropdown profile={profile} />

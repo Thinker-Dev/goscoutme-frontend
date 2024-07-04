@@ -144,7 +144,10 @@ export const ChooseSport: FC = () => {
             <span>Volleyball</span>
           </label>
         </div>
-        <SubmitButton label="Continue" loading={loading} />
+        <SubmitButton
+          label={pathname.includes("scout") ? "view dashboard" : "Continue"}
+          loading={loading}
+        />
       </form>
       <AlertDialog open={open}>
         <AlertDialogContent>

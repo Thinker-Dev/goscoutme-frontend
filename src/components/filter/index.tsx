@@ -9,7 +9,7 @@ import Checkbox from "react-custom-checkbox";
 import { BsCheckLg } from "react-icons/bs";
 import { Position } from "@/types/auth";
 import { useRecoilState } from "recoil";
-import { filterState } from "@/lib/recoil";
+import { filterState, filterTagState } from "@/lib/recoil";
 import { AgeCategory } from "./ageCategory";
 
 interface Props {
@@ -46,12 +46,8 @@ export const Filter: FC<Props> = ({ positions }: Props) => {
     });
   };
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (selectedTag) {
-      router.push(`/tags/${selectedTag}`);
-    }
-  };
+  const [colorTag, setColorTag] = useRecoilState(filterTagState);
+  setColorTag(selectedTag);
 
   return (
     <aside className="sticky bottom-0 ml-10 mt-[50px] w-[200px]">
@@ -133,32 +129,31 @@ export const Filter: FC<Props> = ({ positions }: Props) => {
           </div>
         ))}
         <div>
-          <form onSubmit={handleFormSubmit}>
-            <h1 className="uppercase font-bold font-lexenda_exa text-sm">
-              by color tag
-            </h1>
-            <div className="flex space-x-1">
-              {tagsData.map((item, index) => (
-                <label
-                  key={index}
-                  className={`cursor-pointer border-2 ${
-                    selectedTag === item.name
-                      ? " border-primary"
-                      : "border-transparent"
-                  } rounded-full `}
-                >
-                  <input
-                    type="radio"
-                    value={item.name}
-                    checked={selectedTag === item.name}
-                    onChange={() => setSelectedTag(item.name)}
-                    hidden
-                  />
-                  {item.tag[0]}
-                </label>
-              ))}
-            </div>
-          </form>
+          <h1 className="uppercase font-bold font-lexenda_exa text-sm">
+            by color tag
+          </h1>
+          <div className="flex space-x-1">
+            {tagsData.map((item, index) => (
+              <label
+                key={index}
+                className={`cursor-pointer border-2 ${
+                  selectedTag === item.name
+                    ? " border-primary"
+                    : "border-transparent"
+                } rounded-full `}
+              >
+                <input
+                  type="radio"
+                  value={item.name}
+                  checked={selectedTag === item.name}
+                  onChange={() => setSelectedTag(item.name)}
+                  onClick={() => setSelectedTag("")}
+                  hidden
+                />
+                {item.tag[0]}
+              </label>
+            ))}
+          </div>
         </div>
       </div>
     </aside>

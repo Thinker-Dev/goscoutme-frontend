@@ -134,7 +134,7 @@ export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
     setLoading(true);
 
     await privateInstance
-      .put<IUserResponse>("/profile/update_profile", {
+      .patch<IUserResponse>("/profile/update_profile", {
         // sport_id: signUp.sport_id,
         // email: user.email,
         // userType: "ATHLETE",

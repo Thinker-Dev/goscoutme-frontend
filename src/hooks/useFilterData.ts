@@ -4,6 +4,7 @@ import { genderData } from "../data/genderData";
 import { athleteStatusData } from "../data/athleteStatusData";
 import { COUNTRIES } from "../data/countriesData";
 import { Position } from "@/types/auth";
+import { REGIONS } from "@/data/regionsData";
 
 interface Props {
   positions: Position[] | undefined;
@@ -60,7 +61,7 @@ const useFilterData = ({ positions }: Props) => {
             singular: "region",
             plural: "regions",
           },
-          filters: COUNTRIES.map((item) => ({
+          filters: REGIONS.map((item) => ({
             value: [
               {
                 id: item.id,

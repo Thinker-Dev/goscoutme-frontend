@@ -63,10 +63,12 @@ export const ProfileDropdow = ({
             <SettingsIcon className="w-[18px]" />
             <span>Settings</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className="space-x-3 cursor-pointer">
-            <CreditCard className="w-[18px]" />
-            <span>Billing</span>
-          </DropdownMenuItem>
+          <Link href={athlete ? `/athlete/billing` : "/dashboard/billing"}>
+            <DropdownMenuItem className="space-x-3 cursor-pointer">
+              <CreditCard className="w-[18px]" />
+              <span>Billing</span>
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={handleSignOut}

@@ -11,6 +11,11 @@ export const completeRegState = atom({
   default: false,
 });
 
+export const filterTagState = atom({
+  key: "filterTagState",
+  default: "",
+});
+
 export const notesDialogClose = atom({
   key: "notesDialogClose",
   default: false,

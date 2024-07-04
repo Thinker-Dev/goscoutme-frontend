@@ -7,6 +7,9 @@ import { Pagination } from "./pagination";
 import { tagsData } from "@/data/tags";
 import { usePathname } from "next/navigation";
 import { ColorTag } from "@/components/athletes/profile/colorTag";
+import useMetricConversion from "@/hooks/useMetricConversion";
+import { useRecoilState } from "recoil";
+import { filterTagState } from "@/lib/recoil";
 
 interface Props {
   refetch: any;
@@ -22,7 +25,12 @@ export const AthleteCard: FC<Props> = ({
   personalNotesRefetch,
 }) => {
   const pathname = usePathname();
-  const { getFirstSixWords, capitalizeFirstLetter } = useTextUtils();
+  const {
+    getFirstSixWords,
+    capitalizeFirstLetter,
+    convertHeightToCm,
+    convertWeightToKg,
+  } = useTextUtils();
 
   const getTagForAthlete = (athleteId: number): string | null => {
     const scoutNote = scoutsNotes?.find(
@@ -43,6 +51,16 @@ export const AthleteCard: FC<Props> = ({
   useEffect(() => {
     personalNotesRefetch();
   }, [pathname, personalNotesRefetch]);
+
+  const filterByColorTag = (tag: string): Athlete[] => {
+    if (!data) return [];
+    const filteredData = data.filter(
+      (athlete) => getTagForAthlete(athlete.id) === tag
+    );
+
+    return filteredData.length > 0 ? filteredData : data;
+  };
+  const [colorTag] = useRecoilState(filterTagState);
 
   return (
     <div className="space-y-10 mt-10">
@@ -75,15 +93,27 @@ export const AthleteCard: FC<Props> = ({
                   <div className="space-x-5">
                     <span>{capitalizeFirstLetter(athlete.profile?.sex)}</span>
                     <span>{athlete?.age}yo</span>
-                    <span>{athlete?.height}cm</span>
-                    <span>{athlete?.weight}kg</span>
                     <span>
-                      <span className="text-paragraph">Country:</span>{" "}
-                      {athlete.profile.nationality}
+                      {convertHeightToCm(
+                        athlete?.height,
+                        athlete?.height_metric
+                      )}
+                      cm
                     </span>
                     <span>
-                      <span className="text-paragraph">Region:</span>
-                      {athlete.profile?.nationality}
+                      {convertWeightToKg(
+                        athlete?.weight,
+                        athlete?.weight_metric
+                      )}
+                      kg
+                    </span>
+                    <span>
+                      <span className="text-paragraph">Country:</span>{" "}
+                      {capitalizeFirstLetter(athlete.profile.nationality)}
+                    </span>
+                    <span>
+                      <span className="text-paragraph">Region:</span>{" "}
+                      {capitalizeFirstLetter(athlete.profile?.nationality)}
                     </span>
                   </div>
                   <div className="space-x-5">
