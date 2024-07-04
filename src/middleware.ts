@@ -29,7 +29,11 @@ export function middleware(request: NextRequest) {
         new URL(`/athlete/${profileData.public_id}`, request.url)
       );
     }
-  } else if (pathname === "/" || pathname.includes("/auth")) {
+  } else if (
+    pathname === "/" ||
+    pathname === "/auth/create-account" ||
+    pathname === "/auth/login"
+  ) {
     if (session) {
       if (profileData?.athlete) {
         return NextResponse.redirect(

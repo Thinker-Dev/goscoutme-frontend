@@ -54,7 +54,6 @@ export const ScoutRegistrationForm: FC = () => {
         sex: values.sex,
         birth_date: values.birth_date,
         nationality: values.nationality,
-        citzenship: values.citzenship,
         organization: values.organization,
         org_email: values.org_email,
         office: values.office,
@@ -225,18 +224,6 @@ export const ScoutRegistrationForm: FC = () => {
                 )}
               />
             </div>
-            <FormField
-              control={form.control}
-              name="citzenship"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <TextInput label="Citizenship" required {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
         </div>
         <FormField

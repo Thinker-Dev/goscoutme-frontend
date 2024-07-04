@@ -16,9 +16,6 @@ export const ScoutRegistrationSchema = z.object({
   nationality: z.string({
     required_error: "This field is required",
   }),
-  citzenship: z.string({
-    required_error: "This field is required",
-  }),
   organization: z.string().optional(),
   org_email: z.string().optional(),
   office: z.string().optional(),
