@@ -55,7 +55,7 @@ export const AthleteHeader: FC = () => {
           {filteredMenuData.map((item, index) => (
             <li key={index} className="flex flex-col items-center ">
               <Link
-                href={`${item.path}`}
+                href={`/athlete${item.path}`}
                 className="font-semibold  font-lexenda_exa text-lg transition-all"
               >
                 {item.title}
@@ -94,7 +94,7 @@ export const AthleteHeader: FC = () => {
               {menuData.map((item, index) => (
                 <li key={index}>
                   <Link
-                    href={`/${item.path}`}
+                    href={`/athlete${item.path}`}
                     className="font-medium font-lexenda_exa text-sm transition-all"
                   >
                     <DropdownMenuItem className="cursor-pointer flex justify-between">
