@@ -31,8 +31,7 @@ export function middleware(request: NextRequest) {
   } else if (
     pathname === "/" ||
     pathname === "/auth/create-account" ||
-    pathname === "/auth/login" ||
-    pathname === "/auth/create-account/scout/sport"
+    pathname === "/auth/login"
   ) {
     if (session) {
       if (profileData?.athlete) {
