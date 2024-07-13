@@ -25,12 +25,6 @@ export const ScoutRegistrationSchema = z.object({
   address: z.string({
     required_error: "This field is required",
   }),
-  phone: z.string({
-    required_error: "This field is required",
-  }),
-  mobile: z.string({
-    required_error: "This field is required",
-  }),
   resposability: z.boolean({
     required_error: "Required",
   }),

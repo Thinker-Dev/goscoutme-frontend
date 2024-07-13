@@ -61,8 +61,6 @@ export const ScoutRegistrationForm: FC = () => {
         org_mobile: values.org_mobile,
         affiliations: values.affiliations,
         address: values.address,
-        phone: values.phone,
-        mobile: values.mobile,
         resposability: values.resposability,
       })
       .then((res) => {
@@ -304,7 +302,11 @@ export const ScoutRegistrationForm: FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput type="number" label="Phone" {...field} />
+                    <TextInput
+                      type="number"
+                      label="Contact Number"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -312,11 +314,11 @@ export const ScoutRegistrationForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="org_mobile"
+              name="org_email"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput type="number" label="Mobile" {...field} />
+                    <TextInput label="Organization Email Address" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -324,18 +326,6 @@ export const ScoutRegistrationForm: FC = () => {
             />
           </div>
         </div>
-        <FormField
-          control={form.control}
-          name="org_email"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <TextInput label="Organization Email Address" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="affiliations"
@@ -348,7 +338,6 @@ export const ScoutRegistrationForm: FC = () => {
             </FormItem>
           )}
         />
-
         <div className="pt-3">
           <span className="font-lexenda_exa font-extrabold text-primary uppercase">
             personal contact information
@@ -366,45 +355,8 @@ export const ScoutRegistrationForm: FC = () => {
                 </FormItem>
               )}
             />
-            <div className="flex flex-col sm:justify-between max-sm:space-y-4">
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <TextInput
-                        type="number"
-                        label="Home Phone"
-                        required
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="mobile"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <TextInput
-                        type="number"
-                        label="Personal Mobile"
-                        {...field}
-                        required
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
           </div>
         </div>
-
         <FormField
           control={form.control}
           name="resposability"

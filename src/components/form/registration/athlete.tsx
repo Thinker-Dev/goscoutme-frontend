@@ -445,7 +445,7 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
           <div className="flex flex-col sm:justify-between max-sm:space-y-4">
-            <FormField
+            {/* <FormField
               control={form.control}
               name="phone"
               render={({ field }) => (
@@ -453,7 +453,7 @@ export const AthleteRegistrationForm: FC = () => {
                   <FormControl>
                     <TextInput
                       type="number"
-                      label="Home Phone"
+                      label="Home Number"
                       required
                       {...field}
                     />
@@ -461,7 +461,7 @@ export const AthleteRegistrationForm: FC = () => {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="mobile"
@@ -470,7 +470,7 @@ export const AthleteRegistrationForm: FC = () => {
                   <FormControl>
                     <TextInput
                       type="number"
-                      label="Personal Mobile"
+                      label="Cellphone Number"
                       required
                       {...field}
                     />

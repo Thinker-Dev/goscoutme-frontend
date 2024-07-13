@@ -82,16 +82,16 @@ export const ChooseSport: FC = () => {
         className="flex flex-col items-center space-y-10"
       >
         <div className="flex w-[400px] justify-between">
-          <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
+          <label className="flex items-center cursor-pointer flex-col space-y-1 text-xl  font-lexenda_exa font-bold">
             <input
               type="radio"
-              value={3}
-              checked={selectedSport === 3}
-              onChange={() => setSelectedSport(3)}
+              value={1}
+              checked={selectedSport === 1}
+              onChange={() => setSelectedSport(1)}
               hidden
             />
-            <Soccer fill={`${selectedSport === 3 ? "#1A83FF" : "#0C469A"}`} />
-            <span>Soccer</span>
+            <Football fill={`${selectedSport === 1 ? "#1A83FF" : "#0C469A"}`} />
+            <span>Football</span>
           </label>
           <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
             <input
@@ -108,6 +108,17 @@ export const ChooseSport: FC = () => {
           </label>
         </div>
         <div className="flex w-[700px] justify-between">
+          <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
+            <input
+              type="radio"
+              value={3}
+              checked={selectedSport === 3}
+              onChange={() => setSelectedSport(3)}
+              hidden
+            />
+            <Soccer fill={`${selectedSport === 3 ? "#1A83FF" : "#0C469A"}`} />
+            <span>Soccer</span>
+          </label>
           <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
             <input
               type="radio"

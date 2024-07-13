@@ -4,8 +4,8 @@ import React from "react";
 export const Hockey = ({ ...props }: React.SVGProps<SVGPathElement>) => {
   return (
     <svg
-      width="98"
-      height="55  "
+      width="110"
+      height="110"
       viewBox="0 0 118 81"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
