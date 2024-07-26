@@ -32,7 +32,6 @@ const useMetricConversion = ({
         const remainingInches = Math.round(inches % 12);
         setConvertedHValue(`${height}cm/${feet}ft ${remainingInches}in`);
       } else {
-        // Convert height from ft to cm
         const parts = height.toString().split(".");
         const feet = parseInt(parts[0].replace("ft", ""), 10);
         const inches = parts[1] ? parseInt(parts[1].replace("in", ""), 10) : 0;
