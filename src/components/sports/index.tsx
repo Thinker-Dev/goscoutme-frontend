@@ -1,17 +1,14 @@
 "use client";
 
 import React, { FC, useRef, useState } from "react";
-import { Football } from "../../../public/icons/football";
 import { Volleyball } from "../../../public/icons/volleyball";
 import { Soccer } from "../../../public/icons/soccer";
 import { Bascketball } from "../../../public/icons/bascketball";
-import { Hockey } from "../../../public/icons/hockey";
 import { SubmitButton } from "../buttons/submit";
 import { usePathname, useRouter } from "next/navigation";
 import {
   AlertDialog,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
 } from "@/components/ui/alert-dialog";
@@ -25,8 +22,8 @@ import { toast } from "../ui/use-toast";
 
 export const ChooseSport: FC = () => {
   const router = useRouter();
-  const [selectedSport, setSelectedSport] = useState<number>();
-  const [open, setOpen] = useState<boolean>();
+  const [selectedSport, setSelectedSport] = useState<number | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
   const ref = useRef<LoadingBarRef>(null);
   const [signUp, setSignUp] = useRecoilState(signUpState);
   const [completeReg, setCompleteReg] = useRecoilState(completeRegState);
@@ -38,7 +35,7 @@ export const ChooseSport: FC = () => {
   async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     setLoading(true);
     event.preventDefault();
-    if (selectedSport) {
+    if (selectedSport !== null) {
       if (pathname.includes("scout")) {
         await privateInstance
           .patch<IUserResponse>("/profile/update_profile", {
@@ -74,23 +71,34 @@ export const ChooseSport: FC = () => {
   }
 
   return (
-    <div className=" flex flex-col items-center">
-      <LoadingBar color="#1A83FF" ref={ref} />
-
+    <div className="flex flex-col items-center">
       <form
         onSubmit={handleFormSubmit}
-        className="flex flex-col items-center space-y-10"
+        className="flex flex-col items-center space-y-20 mt-20"
       >
-        <div className="flex w-[400px] justify-between">
+        <div className="flex w-[600px] justify-between">
           <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
             <input
               type="radio"
-              value={3}
-              checked={selectedSport === 3}
-              onChange={() => setSelectedSport(3)}
+              value={0}
+              checked={selectedSport === 0}
+              onChange={() => setSelectedSport(0)}
               hidden
             />
-            <Soccer fill={`${selectedSport === 3 ? "#1A83FF" : "#0C469A"}`} />
+            <Volleyball
+              fill={`${selectedSport === 0 ? "#1A83FF" : "#0C469A"}`}
+            />
+            <span>Cricket</span>
+          </label>
+          <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
+            <input
+              type="radio"
+              value={1}
+              checked={selectedSport === 1}
+              onChange={() => setSelectedSport(1)}
+              hidden
+            />
+            <Soccer fill={`${selectedSport === 1 ? "#1A83FF" : "#0C469A"}`} />
             <span>Soccer</span>
           </label>
           <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
@@ -105,32 +113,6 @@ export const ChooseSport: FC = () => {
               fill={`${selectedSport === 2 ? "#1A83FF" : "#0C469A"}`}
             />
             <span>Basketball</span>
-          </label>
-        </div>
-        <div className="flex w-[700px] justify-between">
-          <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
-            <input
-              type="radio"
-              value={4}
-              checked={selectedSport === 4}
-              onChange={() => setSelectedSport(4)}
-              hidden
-            />
-            <Hockey fill={`${selectedSport === 4 ? "#1A83FF" : "#0C469A"}`} />
-            <span>Hockey</span>
-          </label>
-          <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
-            <input
-              type="radio"
-              value={5}
-              checked={selectedSport === 5}
-              onChange={() => setSelectedSport(5)}
-              hidden
-            />
-            <Volleyball
-              fill={`${selectedSport === 5 ? "#1A83FF" : "#0C469A"}`}
-            />
-            <span>Volleyball</span>
           </label>
         </div>
         <SubmitButton

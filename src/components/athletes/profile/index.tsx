@@ -18,6 +18,7 @@ import { useGetScoutsNotes } from "@/hooks/notes/useGetScoutNotes";
 import { tagsData } from "@/data/tags";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/buttons";
+import useGetMedia from "@/hooks/useGetMedia";
 
 export const Profile: FC = () => {
   const pathname = usePathname();
@@ -30,6 +31,7 @@ export const Profile: FC = () => {
     isLoading: personalNotesLoading,
     refetch: personalNotesRefetch,
   } = useGetScoutsNotes(lastSegment);
+
   const { data: appointmentsData, refetch: appointmentsRefetch } =
     useGetUserAppointments(profile.public_id);
 

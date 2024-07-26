@@ -88,6 +88,13 @@ export interface Sport {
   id: number;
   public_id: number;
   name: string;
+  attibutes: Attributes[];
+}
+
+export interface Attributes {
+  id: string;
+  name: string;
+  sport_id: number;
 }
 
 export interface Organization {

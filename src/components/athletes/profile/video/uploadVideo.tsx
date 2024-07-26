@@ -6,22 +6,31 @@ import { SubmitButton } from "@/components/buttons/submit";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { privateInstance } from "@/lib/axios";
 import axios from "axios";
-import { Athlete } from "@/types/auth";
 import { useUserStorage } from "@/hooks/useUserStorage";
 import { toast } from "@/components/ui/use-toast";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { videoCategoriesData } from "@/data/videoCategoriesData";
 import useGetAthleteById from "@/hooks/athletes/useGetAthleteById";
 
-// interface Props {
-//   athlete: Athlete | undefined;
-// }
-
-export const UploadVideo: FC = () => {
+export const UploadVideo = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploadComplete, setUploadComplete] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = searchParams.get("p");
   const { profile } = useUserStorage();
+  const pathname = usePathname();
+  const pathSegments = pathname.split("/");
+  const lastSegment = pathSegments[pathSegments.length - 2];
+  const { data: athlete, isLoading } = useGetAthleteById(lastSegment);
+  const attributes = athlete?.profile.sport.attibutes || [];
   const [uploadingFiles, setUploadingFiles] = useState<
     { file: File; progress: number; title: string }[]
   >([]);
@@ -45,6 +54,8 @@ export const UploadVideo: FC = () => {
       setUploadComplete(false);
     }
   }, [uploadingFiles, params, router]);
+
+  console.log(attributes);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -95,6 +106,7 @@ export const UploadVideo: FC = () => {
       .then(async (res) => {
         await privateInstance
           .post("/media/storeMedia", {
+            sport_attribute_id: selectedCategory,
             type: "VIDEO",
             name: selectedFiles[0].name,
           })
@@ -135,16 +147,52 @@ export const UploadVideo: FC = () => {
     return words.slice(0, 5).join(" ") + "...";
   };
 
+  const [selectedCategory, setSelectedCategory] = useState({
+    id: "",
+    name: "Choose Category",
+  });
+
+  const handleSelect = (id: string, name: string) => {
+    setSelectedCategory({ id, name });
+  };
+
+  if (isLoading)
+    return (
+      <div className="w-full min-h-[calc(100vh-116px)] items-center justify-center flex space-x-1">
+        <div className="h-5 w-5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+        <div className="h-5 w-5 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+        <div className="h-5 w-5 bg-primary rounded-full animate-bounce"></div>
+      </div>
+    );
+
   return (
     <div className="bg-light-blue rounded-b-md w-1/2 pt-12 pb-12 px-16">
       <div className="w-full flex my-10 flex-col items-center">
         <span className="font-extralight text-6xl text-center text-secondary font-lexenda_deca">
           Video Upload
         </span>
-        <div className="flex items-center space-x-3 mt-4">
-          <PlayIconPrimary />
-          <span className="font-bold uppercase text-lg">passing</span>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="outline-none">
+            <div className="flex items-center space-x-3 mt-4">
+              <PlayIconPrimary />
+              <span className="font-bold uppercase text-lg">
+                {selectedCategory.name}
+              </span>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {attributes.map((item, index) => (
+              <DropdownMenuItem
+                className="text-xs"
+                key={index}
+                onClick={() => handleSelect(item.id, item.name)}
+              >
+                {item.name}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         {uploadingFiles.map((file, index) => (
           <div
             key={index}

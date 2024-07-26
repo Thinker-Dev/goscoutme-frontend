@@ -7,6 +7,7 @@ import {
   Appmetadata,
   Organization,
   Scout,
+  Attributes,
 } from "@/types/auth";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -16,10 +17,17 @@ const defaultAppMetadata: Appmetadata = {
   providers: [],
 };
 
+const defaultAtrri: Attributes = {
+  id: "",
+  name: "",
+  sport_id: 0,
+};
+
 const defaultSport: Sport = {
   id: 0,
   name: "",
   public_id: 0,
+  attibutes: [defaultAtrri],
 };
 
 const defaultOrganization: Organization = {
