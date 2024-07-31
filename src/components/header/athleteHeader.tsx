@@ -32,9 +32,13 @@ export const AthleteHeader: FC = () => {
 
   const filteredMenuData = menuData.filter(
     (item) =>
-      !["home", "create account", "login", "dashboard"].includes(
-        item.title.toLowerCase()
-      )
+      ![
+        "home",
+        "create account",
+        "login",
+        "subscription plan",
+        "dashboard",
+      ].includes(item.title.toLowerCase())
   );
 
   return (
