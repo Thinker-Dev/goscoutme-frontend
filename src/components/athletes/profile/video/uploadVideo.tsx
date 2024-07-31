@@ -30,7 +30,7 @@ export const UploadVideo = () => {
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 2];
   const { data: athlete, isLoading } = useGetAthleteById(lastSegment);
-  const attributes = athlete?.profile.sport.attibutes || [];
+  const attributes = athlete?.profile?.sport?.attibutes || [];
   const [uploadingFiles, setUploadingFiles] = useState<
     { file: File; progress: number; title: string }[]
   >([]);
