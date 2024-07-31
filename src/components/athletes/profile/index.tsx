@@ -51,8 +51,6 @@ export const Profile: FC = () => {
     personalNotesRefetch();
   }, [pathname, personalNotesRefetch]);
 
-  console.log(athlete);
-
   if (isLoading && personalNotesLoading)
     return (
       <div className="w-full min-h-[calc(100vh-116px)] items-center justify-center flex space-x-1">

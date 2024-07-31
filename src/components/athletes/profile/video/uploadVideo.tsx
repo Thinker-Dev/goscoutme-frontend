@@ -55,8 +55,6 @@ export const UploadVideo = () => {
     }
   }, [uploadingFiles, params, router]);
 
-  console.log(attributes);
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const filesArray = Array.from(event.target.files);
@@ -106,11 +104,11 @@ export const UploadVideo = () => {
       .then(async (res) => {
         await privateInstance
           .post("/media/storeMedia", {
-            sport_attribute_id: selectedCategory,
+            sport_attribute_id: selectedCategory.id,
             type: "VIDEO",
             name: selectedFiles[0].name,
           })
-          .then((res) => console.log(res.data))
+          .then((res) => {})
           .catch((err) => console.log(err));
       })
       .catch((err) => {

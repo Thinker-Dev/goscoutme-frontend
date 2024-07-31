@@ -18,8 +18,6 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
 
   const TAB_NAME = athlete?.profile?.sport?.attibutes || [];
 
-  console.log(athlete?.profile);
-
   useEffect(() => {
     const params = searchParams.get("p");
     if (params === "registration-complete") {
@@ -50,7 +48,7 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
                 className="relative border-b-2 border-transparent pb-[15px]"
               >
                 <span
-                  className={`text-sm capitalize font-semibold px-2 cursor-pointer ${
+                  className={`text-sm capitalize font-semibold px-2 cursor-pointer truncate ${
                     index + 1 === count && " !text-primary transition-all"
                   } `}
                   onClick={() => setCount(index + 1)}
