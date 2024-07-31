@@ -9,7 +9,7 @@ import { Videos } from "./video";
 import { AppointmentScheduler } from "./appointmentScheduler";
 import { useUserStorage } from "../../../hooks/useUserStorage";
 import useGetAthleteById from "../../../hooks/athletes/useGetAthleteById";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { ScheduleAppointment } from "./scheduleAppointment";
 import { UploadVideoCard } from "./video/uploadVideoCard";
 import { useGetUserAppointments } from "@/hooks/useGetUserAppointments";
@@ -17,8 +17,6 @@ import EditPhoto from "./editPhoto";
 import { useGetScoutsNotes } from "@/hooks/notes/useGetScoutNotes";
 import { tagsData } from "@/data/tags";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/buttons";
-import useGetMedia from "@/hooks/useGetMedia";
 
 export const Profile: FC = () => {
   const pathname = usePathname();
@@ -52,6 +50,8 @@ export const Profile: FC = () => {
   useEffect(() => {
     personalNotesRefetch();
   }, [pathname, personalNotesRefetch]);
+
+  console.log(athlete);
 
   if (isLoading && personalNotesLoading)
     return (

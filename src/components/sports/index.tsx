@@ -80,26 +80,15 @@ export const ChooseSport: FC = () => {
           <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
             <input
               type="radio"
-              value={0}
-              checked={selectedSport === 0}
-              onChange={() => setSelectedSport(0)}
-              hidden
-            />
-            <Volleyball
-              fill={`${selectedSport === 0 ? "#1A83FF" : "#0C469A"}`}
-            />
-            <span>Cricket</span>
-          </label>
-          <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
-            <input
-              type="radio"
               value={1}
               checked={selectedSport === 1}
               onChange={() => setSelectedSport(1)}
               hidden
             />
-            <Soccer fill={`${selectedSport === 1 ? "#1A83FF" : "#0C469A"}`} />
-            <span>Soccer</span>
+            <Volleyball
+              fill={`${selectedSport === 1 ? "#1A83FF" : "#0C469A"}`}
+            />
+            <span>Cricket</span>
           </label>
           <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
             <input
@@ -109,8 +98,19 @@ export const ChooseSport: FC = () => {
               onChange={() => setSelectedSport(2)}
               hidden
             />
+            <Soccer fill={`${selectedSport === 2 ? "#1A83FF" : "#0C469A"}`} />
+            <span>Soccer</span>
+          </label>
+          <label className="flex items-center cursor-pointer flex-col text-xl space-y-1 font-lexenda_exa font-bold">
+            <input
+              type="radio"
+              value={3}
+              checked={selectedSport === 3}
+              onChange={() => setSelectedSport(3)}
+              hidden
+            />
             <Bascketball
-              fill={`${selectedSport === 2 ? "#1A83FF" : "#0C469A"}`}
+              fill={`${selectedSport === 3 ? "#1A83FF" : "#0C469A"}`}
             />
             <span>Basketball</span>
           </label>

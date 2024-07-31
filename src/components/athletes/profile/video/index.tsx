@@ -16,7 +16,9 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
   const params = searchParams.get("p");
   const router = useRouter();
 
-  const TAB_NAME = athlete?.profile.sport.attibutes || [];
+  const TAB_NAME = athlete?.profile?.sport?.attibutes || [];
+
+  console.log(athlete?.profile);
 
   useEffect(() => {
     const params = searchParams.get("p");
