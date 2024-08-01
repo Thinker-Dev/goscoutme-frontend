@@ -27,19 +27,12 @@ export const Header: FC = () => {
             <li key={index} className="flex flex-col items-center ">
               <Link
                 href={item.path}
-                className="font-semibold  font-lexenda_exa text-lg transition-all"
+                className={`font-semibold font-lexenda_exa text-lg transition-all ${
+                  pathname === item.path ? "text-blue-500" : "text-black"
+                }`}
               >
                 {item.title}
               </Link>
-              {/* <div
-                className={` transition-all w-1 h-1 bg-black rounded-full mt-1 
-                ${
-                  pathname === `${item.path}` ||
-                  pathname.includes(`${item.path}`)
-                    ? "opacity-1 "
-                    : "opacity-0"
-                }`}
-              /> */}
             </li>
           ))}
         </ul>
@@ -56,19 +49,12 @@ export const Header: FC = () => {
                 <li key={index}>
                   <Link
                     href={item.path}
-                    className="font-medium font-lexenda_exa text-sm transition-all"
+                    className={`font-medium font-lexenda_exa text-sm transition-all ${
+                      pathname === item.path ? "text-blue-500" : "text-black"
+                    }`}
                   >
                     <DropdownMenuItem className="cursor-pointer flex justify-between">
                       <span>{item.title}</span>
-                      {/* <div
-                        className={` transition-all w-1 h-1 bg-black rounded-full mt-1 
-                    ${
-                      pathname === `${item.path}` ||
-                      pathname.includes(`${item.path}`)
-                        ? "opacity-1 "
-                        : "opacity-0"
-                    }`}
-                      /> */}
                     </DropdownMenuItem>
                   </Link>
                 </li>

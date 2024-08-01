@@ -117,7 +117,7 @@ export const SignInForm: FC = () => {
                     </FormControl>
                     <FormMessage />
                     <Link
-                      href={"#"}
+                      href={"/auth/forgot-password"}
                       className="flex justify-end text-xs max-xs:text-xs"
                     >
                       Forgot Password?
