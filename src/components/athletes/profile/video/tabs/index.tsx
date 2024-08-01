@@ -1,4 +1,3 @@
-import { VideoTypes } from "@/types/video";
 import React from "react";
 import { PlayIcon } from "../../../../../../public/icons/play";
 import { Button } from "@/components/buttons";
@@ -7,13 +6,22 @@ import { Athlete } from "@/types/auth";
 interface Props {
   athlete: Athlete | undefined;
   currentUser: boolean;
+  selectedSportAttribute: string | null;
 }
 
-export const Tabs = ({ athlete, currentUser }: Props) => {
+export const Tabs = ({ athlete, currentUser, selectedSportAttribute }: Props) => {
+  const selectedAttributeId = athlete?.profile?.sport?.attibutes.find(
+    (attr) => attr.name === selectedSportAttribute
+  )?.id;
+
+  const filteredMedia = athlete?.media.filter((item) => {
+    return selectedAttributeId ? item.sport_attribute_id === selectedAttributeId : true;
+  });
+
   return (
     <div className="grid grid-cols-3 gap-5 pt-2">
-      {athlete
-        ? athlete.media.map((item, index) => (
+      {filteredMedia && filteredMedia.length > 0
+        ? filteredMedia.map((item, index) => (
             <div
               key={index}
               className="flex flex-col font-lexenda_deca text-sm"
@@ -28,7 +36,7 @@ export const Tabs = ({ athlete, currentUser }: Props) => {
               <span className="font-extralight">{item.id}</span>
             </div>
           ))
-        : null}
+        : <div className="col-span-3 text-center text-sm">No videos found for the selected attribute.</div>}
       {currentUser && (
         <Button
           label="upload video"
