@@ -34,7 +34,7 @@ export const ProfileDropdow = ({
     <div>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger
-          className="focus:border-none"
+          className="focus:outline-none"
           onClick={() => handleRefetch}
         >
           <ProfileMini />

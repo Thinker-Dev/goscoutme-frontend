@@ -77,7 +77,9 @@ export interface Media {
   name: string;
   type: string;
   media_url: string;
+  sport_attribute_id: string
 }
+
 export interface Position {
   id: number;
   sportId: number;

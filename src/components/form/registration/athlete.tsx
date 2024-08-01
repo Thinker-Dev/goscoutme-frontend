@@ -22,8 +22,6 @@ import { CheckboxInput } from "../../inputs/checkBoxInput";
 import { weightData } from "@/data/weightData";
 import { heightData } from "@/data/heightData";
 import { athleteStatusData } from "@/data/athleteStatusData";
-import { useRecoilState } from "recoil";
-import { signUpState } from "@/lib/recoil";
 import { privateInstance } from "@/lib/axios";
 import { IUserResponse } from "@/types/auth";
 import { toast } from "@/components/ui/use-toast";
@@ -41,6 +39,8 @@ export const AthleteRegistrationForm: FC = () => {
   const [fileChosen, setFileChosen] = useState<boolean>(false);
   const searchparams = useSearchParams();
   const sportPosition = searchparams.get("sport");
+
+  console.log(sportPosition);
 
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useUserStorage();

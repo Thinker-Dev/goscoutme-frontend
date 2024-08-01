@@ -27,6 +27,7 @@ export const Title = ({
 export const CreateAccount: FC = () => {
   const searchParams = useSearchParams();
   const param = searchParams.get("p");
+
   return (
     <section className="flex  max-md:justify-between md-xs:space-x-10 max-md:w-full transition-all max-xs-sm:flex-col max-xs-sm:items-center max-xs-sm:space-y-10 max-xs-sm:space-x-0 md:space-x-14">
       <div className="flex-col flex items-center  max-xs-sm:w-[90%]">

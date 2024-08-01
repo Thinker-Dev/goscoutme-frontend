@@ -1,15 +1,15 @@
 export const sportsData = [
   {
     id: "1",
-    value: "Football",
+    value: "Cricket",
   },
   {
     id: "2",
-    value: "Basketball",
+    value: "Soccer",
   },
   {
     id: "3",
-    value: "Soccer",
+    value: "Basketball",
   },
   {
     id: "4",

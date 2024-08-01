@@ -12,11 +12,12 @@ interface Props {
 export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
   const [count, setCount] = useState(1);
   const [close, setClose] = useState(false);
+  const [selectedSportAttribute, setSelectedSportAttribute] = useState<string>("Shooting");
   const searchParams = useSearchParams();
   const params = searchParams.get("p");
   const router = useRouter();
 
-  const TAB_NAME = athlete?.profile.sport.attibutes || [];
+  const TAB_NAME = athlete?.profile?.sport?.attibutes || [];
 
   useEffect(() => {
     const params = searchParams.get("p");
@@ -34,6 +35,11 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
     );
   };
 
+  const handleTabClick = (attributeName: string, index: number) => {
+    setCount(index + 1);
+    setSelectedSportAttribute(attributeName);
+  };
+
   return (
     <div className="space-y-3">
       <h1 className="font-extrabold text-secondary text-xl font-lexenda_exa uppercase">
@@ -48,10 +54,10 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
                 className="relative border-b-2 border-transparent pb-[15px]"
               >
                 <span
-                  className={`text-sm capitalize font-semibold px-2 cursor-pointer ${
+                  className={`text-sm capitalize font-semibold px-2 cursor-pointer truncate ${
                     index + 1 === count && " !text-primary transition-all"
                   } `}
-                  onClick={() => setCount(index + 1)}
+                  onClick={() => handleTabClick(item.name, index)}
                 >
                   {item.name}
                 </span>
@@ -87,7 +93,11 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
               </div>
             </div>
           ) : (
-            <Tabs athlete={athlete} currentUser={currentUser} />
+            <Tabs
+              athlete={athlete}
+              currentUser={currentUser}
+              selectedSportAttribute={selectedSportAttribute}
+            />
           )}
         </div>
       ) : null}

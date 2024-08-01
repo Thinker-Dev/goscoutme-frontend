@@ -30,7 +30,7 @@ export const UploadVideo = () => {
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 2];
   const { data: athlete, isLoading } = useGetAthleteById(lastSegment);
-  const attributes = athlete?.profile.sport.attibutes || [];
+  const attributes = athlete?.profile?.sport?.attibutes || [];
   const [uploadingFiles, setUploadingFiles] = useState<
     { file: File; progress: number; title: string }[]
   >([]);
@@ -54,8 +54,6 @@ export const UploadVideo = () => {
       setUploadComplete(false);
     }
   }, [uploadingFiles, params, router]);
-
-  console.log(attributes);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -106,11 +104,11 @@ export const UploadVideo = () => {
       .then(async (res) => {
         await privateInstance
           .post("/media/storeMedia", {
-            sport_attribute_id: selectedCategory,
+            sport_attribute_id: selectedCategory.id,
             type: "VIDEO",
             name: selectedFiles[0].name,
           })
-          .then((res) => console.log(res.data))
+          .then((res) => {})
           .catch((err) => console.log(err));
       })
       .catch((err) => {
