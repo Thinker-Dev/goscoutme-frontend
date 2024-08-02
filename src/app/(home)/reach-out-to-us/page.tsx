@@ -26,30 +26,9 @@ export default function ReachOutToUs() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const onSubmit = async (data: any) => {
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) throw new Error("Network response was not ok");
-
-      setSubmitted(true);
-    } catch (error) {
-      console.error(
-        "There has been a problem with your fetch operation:",
-        error
-      );
-      toast({
-        title: "Error",
-        description: "Failed to send your message. Please try again.",
-        variant: "destructive",
-      });
-    }
+  const onSubmit = (data: any) => {
+    const mailtoLink = `mailto:nordinogm10@gmail.com?subject=New Contact Message from ${data.name}&body=Name: ${data.name}%0DEmail: ${data.email}%0DQuestion: ${data.question}`;
+    window.location.href = mailtoLink;
   };
 
   return (
