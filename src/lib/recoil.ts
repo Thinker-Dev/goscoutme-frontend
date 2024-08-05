@@ -11,6 +11,14 @@ export const completeRegState = atom({
   default: false,
 });
 
+export const dialogState = atom({
+  key: "dialogState",
+  default: {
+    open: false,
+    user_id: "",
+  },
+});
+
 export const filterTagState = atom({
   key: "filterTagState",
   default: "",

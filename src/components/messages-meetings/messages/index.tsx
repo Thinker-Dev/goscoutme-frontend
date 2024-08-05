@@ -2,7 +2,12 @@
 
 import { messageData } from "@/data/messagesData";
 import { MessageTypes } from "@/types/message";
+import Link from "next/link";
 import React, { FC, useState } from "react";
+import { Chat } from "./chat/chat";
+import { userData } from "@/data/userData";
+import { useRecoilState } from "recoil";
+import { dialogState } from "@/lib/recoil";
 
 const formatMessageDate = (date: Date) => {
   const today = new Date();
@@ -29,6 +34,8 @@ const formatMessageDate = (date: Date) => {
 
 export const Messages: FC = () => {
   const [messages, setMessages] = useState<MessageTypes[]>(messageData);
+  const [selectedUser, setSelectedUser] = useState(userData[0]);
+  const [dialog, setDialog] = useRecoilState(dialogState);
 
   const handleCheckboxChange = (id: string) => {
     setMessages((prevMessages) =>
@@ -38,16 +45,25 @@ export const Messages: FC = () => {
     );
   };
 
+  const handleRowClick = (user_id: string) => {
+    const user = userData.find((user) => user.id === user_id);
+    if (user) {
+      setSelectedUser(user);
+      setDialog({ open: true, user_id });
+    }
+  };
+
   return (
     <div>
       <span className="font-extralight text-4xl text-primary font-lexenda_deca">
         Messages
       </span>
+      <Chat selectedUser={selectedUser} open={dialog.open} />
       <div className="bg-separator rounded-b-[10px] border-gray-200 mt-4 p-4 h-80 overflow-auto styled-messages-scroll-bar">
         <table className="min-w-full ">
           <tbody className="text-sm font-semibold">
             {messages.map((message, index) => (
-              <tr key={index}>
+              <tr key={index} onClick={() => handleRowClick(message.id)}>
                 <td className="py-1 border-b border-[#A6A6A6]">
                   <input
                     type="checkbox"
