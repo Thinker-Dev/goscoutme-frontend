@@ -1,4 +1,4 @@
-import { MessagesAndMeetings } from "@/components/messages";
+import { MessagesAndMeetings } from "@/components/messages-meetings";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

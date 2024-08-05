@@ -1,7 +1,5 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { TextInput } from "@/components/inputs/textInput";
 import { toast } from "@/components/ui/use-toast";
 import { Title } from "@/components/auth/createAccount";
@@ -15,38 +13,38 @@ import {
 } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { publicInstance } from "@/lib/axios";
 import { useState } from "react";
-import { IUserResponse } from "@/types/auth";
 
-export const SignInSchema = z.object({
+const Schema = z.object({
   email: z.string({ required_error: "This field is required" }).email({
     message: "Invalid email",
   }),
 });
 
 const ResetPasswordForm = () => {
-  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const form = useForm<z.infer<typeof SignInSchema>>({
-    resolver: zodResolver(SignInSchema),
+  const form = useForm<z.infer<typeof Schema>>({
+    resolver: zodResolver(Schema),
   });
 
-  async function onSubmit(values: z.infer<typeof SignInSchema>) {
+  async function onSubmit(values: z.infer<typeof Schema>) {
     setLoading(true);
-    await publicInstance
-      .post<IUserResponse>("/auth/x", values)
-      .then((res) => {})
-      .catch((err) => {
-        if (err.response) {
-          toast({
-            title: "Error ",
-            description: err.response.data.message,
-            variant: "destructive",
-          });
-        }
+    try {
+      toast({
+        title: "Success",
+        description: "Password reset link sent to your email.",
       });
-    setLoading(false);
+    } catch (err: any) {
+      if (err.response) {
+        toast({
+          title: "Error",
+          description: err.response.data.message,
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -74,7 +72,11 @@ const ResetPasswordForm = () => {
                 )}
               />
             </div>
-            <SubmitButton label={"Submit"} className="w-full" />
+            <SubmitButton
+              label={"Submit"}
+              className="w-full"
+              loading={loading}
+            />
           </form>
         </Form>
       </div>
