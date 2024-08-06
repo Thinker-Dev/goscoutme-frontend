@@ -513,7 +513,11 @@ export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput type="number" label="Home Phone" {...field} />
+                    <TextInput
+                      type="number"
+                      label="Contact Number"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -527,7 +531,7 @@ export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
                   <FormControl>
                     <TextInput
                       type="number"
-                      label="Personal Mobile"
+                      label="Alternative Number"
                       {...field}
                     />
                   </FormControl>

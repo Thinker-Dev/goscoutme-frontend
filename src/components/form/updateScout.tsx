@@ -501,7 +501,11 @@ export const UpdateScoutForm: FC<Props> = ({ profile, refetch }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput type="number" label="Home Phone" {...field} />
+                    <TextInput
+                      type="number"
+                      label="Contact Number"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

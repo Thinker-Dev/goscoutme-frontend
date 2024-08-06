@@ -470,7 +470,7 @@ export const AthleteRegistrationForm: FC = () => {
                   <FormControl>
                     <TextInput
                       type="number"
-                      label="Cellphone Number"
+                      label="Contact Number"
                       required
                       {...field}
                     />

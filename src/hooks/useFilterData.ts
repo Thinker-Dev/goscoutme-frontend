@@ -56,20 +56,20 @@ const useFilterData = ({ positions }: Props) => {
             ],
           })),
         },
-        {
-          title: {
-            singular: "region",
-            plural: "regions",
-          },
-          filters: REGIONS.map((item) => ({
-            value: [
-              {
-                id: item.id,
-                value: item.name,
-              },
-            ],
-          })),
-        },
+        // {
+        //   title: {
+        //     singular: "region",
+        //     plural: "regions",
+        //   },
+        //   filters: REGIONS.map((item) => ({
+        //     value: [
+        //       {
+        //         id: item.id,
+        //         value: item.name,
+        //       },
+        //     ],
+        //   })),
+        // },
         {
           title: {
             singular: "country",

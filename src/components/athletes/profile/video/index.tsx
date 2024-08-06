@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { Tabs } from "./tabs";
 import { Athlete } from "@/types/auth";
 import { SubmitButton } from "@/components/buttons/submit";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 interface Props {
   currentUser: boolean;
@@ -12,10 +12,10 @@ interface Props {
 export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
   const [count, setCount] = useState(1);
   const [close, setClose] = useState(false);
-  const [selectedSportAttribute, setSelectedSportAttribute] = useState<string>("Shooting");
+  const [selectedSportAttribute, setSelectedSportAttribute] =
+    useState<string>("Shooting");
   const searchParams = useSearchParams();
   const params = searchParams.get("p");
-  const router = useRouter();
 
   const TAB_NAME = athlete?.profile?.sport?.attibutes || [];
 
@@ -51,16 +51,18 @@ export const Videos: FC<Props> = ({ currentUser, athlete }: Props) => {
             TAB_NAME.map((item, index) => (
               <div
                 key={index}
-                className="relative border-b-2 border-transparent pb-[15px]"
+                className="relative border-b-2 border-transparent pb-[15px]  "
               >
-                <span
-                  className={`text-sm capitalize font-semibold px-2 cursor-pointer truncate ${
-                    index + 1 === count && " !text-primary transition-all"
-                  } `}
-                  onClick={() => handleTabClick(item.name, index)}
-                >
-                  {item.name}
-                </span>
+                <div className="truncate w-[70px] text-center ">
+                  <span
+                    className={`text-sm capitalize font-semibold cursor-pointer  ${
+                      index + 1 === count && " !text-primary transition-all"
+                    } `}
+                    onClick={() => handleTabClick(item.name, index)}
+                  >
+                    {item.name}
+                  </span>
+                </div>
                 <div
                   className={`${
                     index + 1 === count &&

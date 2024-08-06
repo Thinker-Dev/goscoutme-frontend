@@ -63,7 +63,7 @@ export const Messages: FC = () => {
         <table className="min-w-full ">
           <tbody className="text-sm font-semibold">
             {messages.map((message, index) => (
-              <tr key={index} onClick={() => handleRowClick(message.id)}>
+              <tr key={index}>
                 <td className="py-1 border-b border-[#A6A6A6]">
                   <input
                     type="checkbox"
@@ -71,12 +71,18 @@ export const Messages: FC = () => {
                     onChange={() => handleCheckboxChange(message.id)}
                   />
                 </td>
-                <td className="border-b border-[#A6A6A6] cursor-pointer">
+                <td
+                  className="border-b border-[#A6A6A6] cursor-pointer"
+                  onClick={() => handleRowClick(message.id)}
+                >
                   <div className="py-1 px-4  w-40  truncate">
                     {message.recipient}
                   </div>
                 </td>
-                <td className="py-1 border-b border-[#A6A6A6] cursor-pointer">
+                <td
+                  className="py-1 border-b border-[#A6A6A6] cursor-pointer"
+                  onClick={() => handleRowClick(message.id)}
+                >
                   <div className="flex  items-center truncate w-[450px]">
                     {message.subject}
                     <div className="py-1 pl-1  font-light text-paragraph  truncate">
