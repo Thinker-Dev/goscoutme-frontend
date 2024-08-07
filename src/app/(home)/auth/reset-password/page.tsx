@@ -14,6 +14,7 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { privateInstance } from "@/lib/axios";
 
 const Schema = z.object({
   email: z.string({ required_error: "This field is required" }).email({
@@ -29,22 +30,21 @@ const ResetPasswordForm = () => {
 
   async function onSubmit(values: z.infer<typeof Schema>) {
     setLoading(true);
-    try {
-      toast({
-        title: "Success",
-        description: "Password reset link sent to your email.",
+    await privateInstance
+      .post("/auth/reset_password", values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast({
+            title: "Error",
+            description: err.response.data.message,
+            variant: "destructive",
+          });
+        }
       });
-    } catch (err: any) {
-      if (err.response) {
-        toast({
-          title: "Error",
-          description: err.response.data.message,
-          variant: "destructive",
-        });
-      }
-    } finally {
-      setLoading(false);
-    }
+    setLoading(false);
   }
 
   return (
@@ -61,7 +61,7 @@ const ResetPasswordForm = () => {
                   <FormItem>
                     <FormControl>
                       <TextInput
-                        label="Email"
+                        label="Email*"
                         {...field}
                         className="bg-white"
                         autoComplete="email"
