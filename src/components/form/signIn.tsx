@@ -62,7 +62,6 @@ export const SignInForm: FC = () => {
             router.push("/dashboard");
           }
         } else {
-          // router.push("/auth/create-account/sport");
           setEmail(res.data.user.email);
           setCompleteReg(true);
         }
