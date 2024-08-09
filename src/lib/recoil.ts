@@ -13,7 +13,10 @@ export const completeRegState = atom({
 
 export const videoPlayerState = atom({
   key: "videoPlayerState",
-  default: false,
+  default: {
+    open: false,
+    video_url: "",
+  },
 });
 
 export const dialogState = atom({

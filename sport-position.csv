@@ -1,0 +1,16 @@
+id,sport_id,name
+1,1,Batsman
+2,1,Bowler
+3,1,Wicketkeeper
+4,1,All-Rounder
+5,1,Spinner
+6,2,Goalkeeper
+7,2,Defender
+8,2,Midfielder
+9,2,Forward
+10,2,Winger
+11,3,Point Guard
+12,3,Shooting Guard
+13,3,Small Forward
+14,3,Power Forward
+15,3,Center

@@ -83,7 +83,7 @@ export const UploadVideo = () => {
     await axios
       .put(presignedUrl.data.url, formData, {
         headers: {
-          "Content-Type": selectedFiles[0].type,
+          "Content-Type": "video/mp4",
         },
         onUploadProgress: (progressEvent) => {
           if (progressEvent.lengthComputable) {
@@ -108,7 +108,9 @@ export const UploadVideo = () => {
             type: "VIDEO",
             name: selectedFiles[0].name,
           })
-          .then((res) => {})
+          .then((res) => {
+            console.log(res);
+          })
           .catch((err) => console.log(err));
       })
       .catch((err) => {

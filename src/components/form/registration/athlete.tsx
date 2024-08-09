@@ -40,8 +40,6 @@ export const AthleteRegistrationForm: FC = () => {
   const searchparams = useSearchParams();
   const sportPosition = searchparams.get("sport");
 
-  console.log(sportPosition);
-
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useUserStorage();
   const [newAge, setNewAge] = useState<number | null>(null);

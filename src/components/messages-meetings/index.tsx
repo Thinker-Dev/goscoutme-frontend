@@ -1,18 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { MessagesHeader } from "./header";
 import { Messages } from "./messages";
 import { Meetings } from "./meetings";
 import { useGetUserAppointments } from "@/hooks/useGetUserAppointments";
 import { usePathname } from "next/navigation";
 import { useUserStorage } from "@/hooks/useUserStorage";
+import useRedirectIfNoSubscription from "@/hooks/useRedirectIfNoSubscription";
 
 export const MessagesAndMeetings = () => {
   const { profile } = useUserStorage();
   const { data, isLoading: meetingLoading } = useGetUserAppointments(
     profile.public_id
   );
+
   return (
     <>
       {meetingLoading ? (

@@ -13,8 +13,10 @@ import {
 } from "@/lib/recoil";
 import { useRecoilState } from "recoil";
 import { useGetAllScoutsNotes } from "@/hooks/notes/useGetAllScoutNotes";
+import useRedirectIfNoSubscription from "@/hooks/useRedirectIfNoSubscription";
 
 export default function Page() {
+  useRedirectIfNoSubscription();
   const { profile } = useUserStorage();
   const [checkedItems] = useRecoilState(filterState);
   const [selectedAge] = useRecoilState(ageCategoryState);
@@ -25,7 +27,6 @@ export default function Page() {
     isLoading: scoutsNotesLoading,
     refetch: scoutsNotesRefetch,
   } = useGetAllScoutsNotes();
-
   const { data: positions, isLoading: positionsLoading } =
     useGetSportsPositions(profile.sport.id);
 

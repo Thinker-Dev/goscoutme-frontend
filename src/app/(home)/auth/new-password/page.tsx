@@ -17,27 +17,22 @@ import { useState } from "react";
 import { privateInstance } from "@/lib/axios";
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 
 const Schema = z.object({
-  email: z.string({ required_error: "This field is required" }).email({
-    message: "Invalid email",
-  }),
+  password: z.string({ required_error: "This field is required" }),
 });
 
 const ResetPasswordForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const [email, setEmail] = useState<string>();
   const [pwSent, setPwSent] = useState<boolean>(false);
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
@@ -48,8 +43,7 @@ const ResetPasswordForm = () => {
     await privateInstance
       .post("/auth/reset_password", values)
       .then((res) => {
-        setEmail(values.email);
-        setPwSent(true);
+        console.log(res.config.data);
       })
       .catch((err) => {
         if (err.response) {
@@ -65,42 +59,18 @@ const ResetPasswordForm = () => {
 
   return (
     <div className="flex items-center justify-center flex-col space-y-3 min-h-[calc(100vh-116px)] xs:pb-10">
-      <AlertDialog open={pwSent}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Email sent successfully!</AlertDialogTitle>
-          </AlertDialogHeader>
-          <AlertDialogDescription>
-            An email was sent to {email}.
-          </AlertDialogDescription>
-          <AlertDialogFooter>
-            <SubmitButton
-              onClick={() => {
-                setPwSent(false);
-              }}
-              label="continue"
-              className="w-32 xs:text-sm"
-            />
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-      <Title className="text-center">Reset Password</Title>
+      <Title className="text-center">New Password</Title>
       <div className="bg-input xs:px-20 max-xs:w-[80%] py-24 max-xs:py-16 rounded-md mt-3 mb-10">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
             <div>
               <FormField
                 control={form.control}
-                name="email"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <TextInput
-                        label="Email*"
-                        {...field}
-                        className="bg-white"
-                        autoComplete="email"
-                      />
+                      <PasswordInput {...field} className="bg-white" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
