@@ -44,8 +44,7 @@ export function middleware(request: NextRequest) {
     if (isAuthenticated()) {
       if (isAthlete()) {
         return redirectTo(`/athlete/${profileData.public_id}`);
-      }
-      if (profileData) {
+      } else {
         return redirectTo("/dashboard");
       }
     }

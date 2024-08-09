@@ -42,6 +42,7 @@ export default function Page() {
     id: searchQuery.toLowerCase(),
     ageMax: selectedAge.ageMax,
     ageMin: selectedAge.ageMin,
+    sport: profile.sport.id,
     page: page,
     items: 9,
   });
