@@ -59,7 +59,9 @@ export const SignInForm: FC = () => {
           if (res.data.profile.athlete) {
             router.push(`/athlete/${res.data.profile.public_id}`);
           } else {
-            router.push("/dashboard");
+            setTimeout(() => {
+              router.push("/dashboard");
+            }, 500);
           }
         } else {
           setEmail(res.data.user.email);
