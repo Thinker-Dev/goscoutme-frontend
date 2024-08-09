@@ -6,7 +6,7 @@ import { Profile } from "../../../../public/icons/profile";
 import { Athlete } from "@/types/auth";
 import useTextUtils from "@/hooks/useTextUtils";
 import { ColorTag } from "@/components/athletes/profile/colorTag";
-import { usePathname } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Props {
   refetch: any;
@@ -21,8 +21,6 @@ export const AthleteSearchCard: FC<Props> = ({
   personalNotesRefetch,
   scoutsNotes,
 }: Props) => {
-  const pathname = usePathname();
-
   const { getFirstSixWords, capitalizeFirstLetter } = useTextUtils();
 
   const getTagForAthlete = (athleteId: number): string | null => {
@@ -37,10 +35,6 @@ export const AthleteSearchCard: FC<Props> = ({
     return tagData && tagData.tag[1] ? (tagData.tag[1] as JSX.Element) : null;
   };
 
-  // useEffect(() => {
-  //   personalNotesRefetch();
-  // }, [pathname, personalNotesRefetch]);
-
   return (
     <div className="space-y-10">
       {data ? (
@@ -51,7 +45,17 @@ export const AthleteSearchCard: FC<Props> = ({
                 <div className="" key={index}>
                   <div className="flex space-x-4 ">
                     <div className="relative">
-                      <Profile />
+                      {athlete?.profile.photo_url ? (
+                        <Avatar className="h-[140px] w-[140px]">
+                          <AvatarImage src={athlete?.profile.photo_url} />
+                          <AvatarFallback className="text-4xl font-light">
+                            {athlete?.profile.first_name[0]}
+                            {athlete?.profile.last_name[0]}
+                          </AvatarFallback>
+                        </Avatar>
+                      ) : (
+                        <Profile />
+                      )}
                       <span className="absolute top-[11px] right-[11px]">
                         {getTagSVG(getTagForAthlete(athlete.id) || "none")}
                       </span>

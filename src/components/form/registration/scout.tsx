@@ -305,6 +305,7 @@ export const ScoutRegistrationForm: FC = () => {
                     <TextInput
                       type="number"
                       label="Contact Number"
+                      required
                       {...field}
                     />
                   </FormControl>

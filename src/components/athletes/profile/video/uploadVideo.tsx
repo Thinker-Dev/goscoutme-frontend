@@ -48,6 +48,8 @@ export const UploadVideo = () => {
       setTimeout(() => {
         if (params === "complete-registration") {
           router.push(`/athlete/${profile.public_id}?p=registration-complete`);
+        } else {
+          router.push(`/athlete/${profile.public_id}`);
         }
       }, 3000);
     } else {

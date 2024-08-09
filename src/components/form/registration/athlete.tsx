@@ -29,7 +29,6 @@ import { SelectPositionsInput } from "@/components/inputs/select/positions";
 import { SelectCoutriesInput } from "@/components/inputs/select/countries";
 import { useUserStorage } from "../../../hooks/useUserStorage";
 import { createProfileCookie } from "@/cookies/profile";
-import { sportsData } from "@/data/sportsData";
 
 export const AthleteRegistrationForm: FC = () => {
   const router = useRouter();

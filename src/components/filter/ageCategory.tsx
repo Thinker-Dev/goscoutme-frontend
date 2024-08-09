@@ -21,7 +21,7 @@ export const AgeCategory = () => {
 
   return (
     <div className="grid grid-cols-2 gap-y-2">
-      {["5-7", "8-11", "12-14", "15-17"].map((value, index) => (
+      {["5-7", "8-11", "12-14", "15-17", "18-35"].map((value, index) => (
         <div key={index} className="flex items-center">
           <Checkbox
             type="checkbox"

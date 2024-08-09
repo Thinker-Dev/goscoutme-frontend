@@ -175,6 +175,7 @@ export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
       })
       .then((res) => {
         refetch();
+        router.push(`/`);
         toast({
           title: "Profile updated successfully!",
         });

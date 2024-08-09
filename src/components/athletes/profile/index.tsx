@@ -17,7 +17,6 @@ import EditPhoto from "./editPhoto";
 import { useGetScoutsNotes } from "@/hooks/notes/useGetScoutNotes";
 import { tagsData } from "@/data/tags";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import ReactPlayer from "react-player/youtube";
 import VideoPlayer from "./video/videoPlayer";
 
 export const Profile: FC = () => {
