@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SubmitButton } from "../buttons/submit";
 import { TextInput } from "../inputs/textInput";
@@ -23,6 +23,14 @@ import { privateInstance } from "@/lib/axios";
 import { toast } from "../ui/use-toast";
 import { IUserResponse } from "@/types/auth";
 import { createSessionCookie } from "../../cookies/session";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export const SignUpForm: FC = () => {
   const pathname = usePathname();
@@ -30,6 +38,7 @@ export const SignUpForm: FC = () => {
   const lastSegment = pathSegments[pathSegments.length - 1];
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
+  const [dialog, setDialog] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof SignUpSchema>>({
     resolver: zodResolver(SignUpSchema),
@@ -44,6 +53,8 @@ export const SignUpForm: FC = () => {
         localStorage.setItem("session", JSON.stringify(res.data.session));
         createSessionCookie(JSON.stringify(res.data.session));
 
+        setDialog(true);
+
         router.push(
           `${lastSegment}/${
             pathname.includes("scout") ? "registration" : "sport"
@@ -52,6 +63,7 @@ export const SignUpForm: FC = () => {
       })
       .catch((err) => {
         if (err.response) {
+          setDialog(true);
           toast({
             title: "Error",
             description: err.response.data.message,
@@ -63,63 +75,86 @@ export const SignUpForm: FC = () => {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 md:w-[544px] max-xs-xs:w-full max-xs:px-10"
-      >
-        <div>
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <TextInput label="Email" {...field} autoComplete="email" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div>
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <PasswordInput {...field} autoComplete="current-password" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="flex justify-between">
+    <Fragment>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4 md:w-[544px] max-xs-xs:w-full max-xs:px-10"
+        >
           <div>
-            <span className="text-xs font-normal font-lexenda_deca">
-              or create an account using
-            </span>
-            <div className="flex items-center">
-              <Link href={"#"}>
-                <Facebook />
-              </Link>
-              <Link href={"#"}>
-                <Google />
-              </Link>
-            </div>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <TextInput label="Email" {...field} autoComplete="email" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-          <SubmitButton
-            label={"Continue"}
-            loading={loading}
-            className={`${
-              pathname.includes("sign-up-athlete") &&
-              "bg-secondary hover:bg-secondary/90"
-            }`}
-          />
-        </div>
-      </form>
-    </Form>
+          <div>
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <PasswordInput {...field} autoComplete="current-password" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex justify-between">
+            <div>
+              <span className="text-xs font-normal font-lexenda_deca">
+                or create an account using
+              </span>
+              <div className="flex items-center">
+                <Link href={"#"}>
+                  <Facebook />
+                </Link>
+                <Link href={"#"}>
+                  <Google />
+                </Link>
+              </div>
+            </div>
+            <SubmitButton
+              label={"Continue"}
+              loading={loading}
+              className={`${
+                pathname.includes("sign-up-athlete") &&
+                "bg-secondary hover:bg-secondary/90"
+              }`}
+            />
+          </div>
+        </form>
+      </Form>
+      <AlertDialog open={dialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Verify your email address</AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogDescription>
+            We have sent a verification to your email account. Click on the link
+            to complete the verification. You might need to to check your spam
+            folder.
+          </AlertDialogDescription>
+          <AlertDialogFooter>
+            <SubmitButton
+              onClick={() => {
+                setDialog(false);
+              }}
+              label="continue"
+              className="w-32 xs:text-sm"
+            />
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </Fragment>
   );
 };

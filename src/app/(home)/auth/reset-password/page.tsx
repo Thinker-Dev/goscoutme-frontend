@@ -17,16 +17,12 @@ import { useState } from "react";
 import { privateInstance } from "@/lib/axios";
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { useRouter } from "next/navigation";
 
 const Schema = z.object({
   email: z.string({ required_error: "This field is required" }).email({
@@ -36,7 +32,6 @@ const Schema = z.object({
 
 const ResetPasswordForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const router = useRouter();
   const [email, setEmail] = useState<string>();
   const [pwSent, setPwSent] = useState<boolean>(false);
   const form = useForm<z.infer<typeof Schema>>({
@@ -46,7 +41,10 @@ const ResetPasswordForm = () => {
   async function onSubmit(values: z.infer<typeof Schema>) {
     setLoading(true);
     await privateInstance
-      .post("/auth/reset_password", values)
+      .post("/auth/reset_password", {
+        email: values.email,
+        redirectTo: "/new-password",
+      })
       .then((res) => {
         setEmail(values.email);
         setPwSent(true);

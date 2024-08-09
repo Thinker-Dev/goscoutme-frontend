@@ -11,6 +11,7 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 import { useRecoilState } from "recoil";
@@ -123,7 +124,9 @@ export const ChooseSport: FC = () => {
       <AlertDialog open={open}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <span>You need to select a sport to continue!</span>
+            <AlertDialogTitle>
+              You need to select a sport to continue!
+            </AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <SubmitButton
