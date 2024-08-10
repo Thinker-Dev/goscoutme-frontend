@@ -43,7 +43,7 @@ const ResetPasswordForm = () => {
     await privateInstance
       .post("/auth/reset_password", {
         email: values.email,
-        redirectTo: "/new-password",
+        redirectTo: "https://goscoutme.vercel.app/auth/new-password",
       })
       .then((res) => {
         setEmail(values.email);
