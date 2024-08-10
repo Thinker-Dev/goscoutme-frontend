@@ -54,14 +54,7 @@ export const SignUpForm: FC = () => {
         // createSessionCookie(JSON.stringify(res.data.session));
 
         console.log(res);
-
         setDialog(true);
-
-        // router.push(
-        //   `${lastSegment}/${
-        //     pathname.includes("scout") ? "registration" : "sport"
-        //   }`
-        // );
       })
       .catch((err) => {
         if (err.response) {
