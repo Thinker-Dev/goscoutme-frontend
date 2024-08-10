@@ -27,6 +27,7 @@ import { toast } from "@/components/ui/use-toast";
 import { IUserResponse } from "@/types/auth";
 import { useUserStorage } from "../../../hooks/useUserStorage";
 import { createProfileCookie } from "@/cookies/profile";
+import { PhoneNumberInput } from "@/components/inputs/phoneNumberInput";
 
 export const ScoutRegistrationForm: FC = () => {
   const router = useRouter();
@@ -302,8 +303,7 @@ export const ScoutRegistrationForm: FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput
-                      type="number"
+                    <PhoneNumberInput
                       label="Contact Number"
                       required
                       {...field}

@@ -49,21 +49,22 @@ export const SignUpForm: FC = () => {
     await privateInstance
       .post<IUserResponse>("/auth/sign_up", values)
       .then((res) => {
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        localStorage.setItem("session", JSON.stringify(res.data.session));
-        createSessionCookie(JSON.stringify(res.data.session));
+        // localStorage.setItem("user", JSON.stringify(res.data.user));
+        // localStorage.setItem("session", JSON.stringify(res.data.session));
+        // createSessionCookie(JSON.stringify(res.data.session));
+
+        console.log(res);
 
         setDialog(true);
 
-        router.push(
-          `${lastSegment}/${
-            pathname.includes("scout") ? "registration" : "sport"
-          }`
-        );
+        // router.push(
+        //   `${lastSegment}/${
+        //     pathname.includes("scout") ? "registration" : "sport"
+        //   }`
+        // );
       })
       .catch((err) => {
         if (err.response) {
-          setDialog(true);
           toast({
             title: "Error",
             description: err.response.data.message,
