@@ -82,7 +82,7 @@ const EditPhoto: FC<Props> = ({ athlete, refetch }: Props) => {
     const photo = await handleUpload(selectedFile);
 
     await privateInstance
-      .put("/profile/update_profile", {
+      .patch("/profile/update_profile", {
         photo_url: photo,
       })
       .then(() => {

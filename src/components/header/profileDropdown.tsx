@@ -59,10 +59,10 @@ export const ProfileDropdow = ({
               </DropdownMenuItem>
             </Link>
           )}
-          <DropdownMenuItem className="space-x-3 cursor-pointer">
+          {/* <DropdownMenuItem className="space-x-3 cursor-pointer">
             <SettingsIcon className="w-[18px]" />
             <span>Settings</span>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <Link href={athlete ? `/athlete/billing` : "/dashboard/billing"}>
             <DropdownMenuItem className="space-x-3 cursor-pointer">
               <CreditCard className="w-[18px]" />

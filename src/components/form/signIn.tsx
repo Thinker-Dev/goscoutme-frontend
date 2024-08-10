@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SubmitButton } from "../buttons/submit";
 import { TextInput } from "../inputs/textInput";
@@ -29,12 +29,11 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useUserStorage } from "@/hooks/useUserStorage";
 
 export const SignInForm: FC = () => {
   const router = useRouter();
-  const { session } = useUserStorage();
   const [loading, setLoading] = useState<boolean>(false);
   const [completeReg, setCompleteReg] = useRecoilState(completeRegState);
   const [email, setEmail] = useState("");
@@ -59,10 +58,11 @@ export const SignInForm: FC = () => {
           if (res.data.profile.athlete) {
             router.push(`/athlete/${res.data.profile.public_id}`);
           } else {
-            router.push("/dashboard");
+            setTimeout(() => {
+              router.push("/dashboard");
+            }, 500);
           }
         } else {
-          // router.push("/auth/create-account/sport");
           setEmail(res.data.user.email);
           setCompleteReg(true);
         }
@@ -80,7 +80,7 @@ export const SignInForm: FC = () => {
   }
 
   return (
-    <>
+    <Fragment>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -134,7 +134,7 @@ export const SignInForm: FC = () => {
       <AlertDialog open={completeReg}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <span>Complete registration</span>
+            <AlertDialogTitle>Complete registration</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogDescription>
             You already have created an account with {email} but you didn&apos;t
@@ -153,6 +153,6 @@ export const SignInForm: FC = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </>
+    </Fragment>
   );
 };

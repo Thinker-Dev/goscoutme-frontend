@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect } from "react";
+import React, { FC, Fragment, useEffect } from "react";
 import { Profile as ProfileIcon } from "../../../../public/icons/profile";
 import { Description } from "./description";
 import { PersonalNotes } from "./personalNotes";
@@ -17,6 +17,7 @@ import EditPhoto from "./editPhoto";
 import { useGetScoutsNotes } from "@/hooks/notes/useGetScoutNotes";
 import { tagsData } from "@/data/tags";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import VideoPlayer from "./video/videoPlayer";
 
 export const Profile: FC = () => {
   const pathname = usePathname();
@@ -106,11 +107,11 @@ export const Profile: FC = () => {
           profile={profile}
         />
         {currentUser && (
-          <>
+          <Fragment>
             {athlete && athlete?.media.length <= 0 && (
               <UploadVideoCard athlete={athlete} />
             )}
-          </>
+          </Fragment>
         )}
         {!currentUser && (
           <PersonalNotes
@@ -119,10 +120,11 @@ export const Profile: FC = () => {
             personalNotesRefetch={personalNotesRefetch}
           />
         )}
-        <>
+        <Fragment>
           <QuickStats />
           <Videos currentUser={currentUser} athlete={athlete} />
-        </>
+          <VideoPlayer />
+        </Fragment>
       </div>
     </div>
   );

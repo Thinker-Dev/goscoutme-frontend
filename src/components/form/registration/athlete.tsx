@@ -29,7 +29,6 @@ import { SelectPositionsInput } from "@/components/inputs/select/positions";
 import { SelectCoutriesInput } from "@/components/inputs/select/countries";
 import { useUserStorage } from "../../../hooks/useUserStorage";
 import { createProfileCookie } from "@/cookies/profile";
-import { sportsData } from "@/data/sportsData";
 
 export const AthleteRegistrationForm: FC = () => {
   const router = useRouter();
@@ -39,8 +38,6 @@ export const AthleteRegistrationForm: FC = () => {
   const [fileChosen, setFileChosen] = useState<boolean>(false);
   const searchparams = useSearchParams();
   const sportPosition = searchparams.get("sport");
-
-  console.log(sportPosition);
 
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useUserStorage();

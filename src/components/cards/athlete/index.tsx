@@ -7,9 +7,7 @@ import { Pagination } from "./pagination";
 import { tagsData } from "@/data/tags";
 import { usePathname } from "next/navigation";
 import { ColorTag } from "@/components/athletes/profile/colorTag";
-import useMetricConversion from "@/hooks/useMetricConversion";
-import { useRecoilState } from "recoil";
-import { filterTagState } from "@/lib/recoil";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Props {
   refetch: any;
@@ -52,16 +50,6 @@ export const AthleteCard: FC<Props> = ({
     personalNotesRefetch();
   }, [pathname, personalNotesRefetch]);
 
-  const filterByColorTag = (tag: string): Athlete[] => {
-    if (!data) return [];
-    const filteredData = data.filter(
-      (athlete) => getTagForAthlete(athlete.id) === tag
-    );
-
-    return filteredData.length > 0 ? filteredData : data;
-  };
-  const [colorTag] = useRecoilState(filterTagState);
-
   return (
     <div className="space-y-10 mt-10">
       {data ? (
@@ -70,7 +58,17 @@ export const AthleteCard: FC<Props> = ({
             <div className="flex justify-between" key={index}>
               <div className="flex space-x-4 ">
                 <div className="relative">
-                  <ProfileIcon />
+                  {athlete?.profile.photo_url ? (
+                    <Avatar className="h-[140px] w-[140px]">
+                      <AvatarImage src={athlete?.profile.photo_url} />
+                      <AvatarFallback className="text-4xl font-light">
+                        {athlete?.profile.first_name[0]}
+                        {athlete?.profile.last_name[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                  ) : (
+                    <ProfileIcon />
+                  )}
                   <span className="absolute top-[11px] right-[11px]">
                     {getTagSVG(getTagForAthlete(athlete.id) || "none")}
                   </span>
@@ -82,10 +80,12 @@ export const AthleteCard: FC<Props> = ({
                         ? getFirstSixWords(athlete.profile.public_id)
                         : "No public ID available"}
                     </span>{" "}
-                    {athlete?.sport_position?.name}
                   </span>
-                  <span className="font-extralight text-[40px] leading-[40px] text-secondary font-lexenda_deca">
+                  {/* <span className="font-extralight text-[40px] leading-[40px] text-secondary font-lexenda_deca">
                     {athlete.profile?.first_name} {athlete.profile?.last_name}
+                  </span> */}
+                  <span className="font-extralight text-[40px] leading-[40px] text-secondary font-lexenda_deca">
+                    {athlete?.sport_position?.name}
                   </span>
                   <span className="font-bold text-base font-lexenda">
                     {capitalizeFirstLetter(athlete.status)}
@@ -110,10 +110,6 @@ export const AthleteCard: FC<Props> = ({
                     <span>
                       <span className="text-paragraph">Country:</span>{" "}
                       {capitalizeFirstLetter(athlete.profile.nationality)}
-                    </span>
-                    <span>
-                      <span className="text-paragraph">Region:</span>{" "}
-                      {capitalizeFirstLetter(athlete.profile?.nationality)}
                     </span>
                   </div>
                   <div className="space-x-5">

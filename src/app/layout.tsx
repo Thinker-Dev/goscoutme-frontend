@@ -8,10 +8,12 @@ import { Toaster } from "@/components/ui/toaster";
 import QueryProvider from "./queryProvider";
 
 const lexenda = Lexend({ subsets: ["latin"], variable: "--font-lexenda" });
+
 const lexenda_exa = Lexend_Exa({
   subsets: ["latin"],
   variable: "--font-lexenda-exa",
 });
+
 const lexenda_deca = Lexend_Deca({
   subsets: ["latin"],
   variable: "--font-lexenda-deca",

@@ -25,7 +25,6 @@ export const PhoneNumberInput: FC<Props> = ({
           "bg-input rounded-b-md h-[39px] outline-none px-4 text-sm font-normal",
           className
         )}
-        country="US"
         onChange={onChange}
         {...rest}
       />

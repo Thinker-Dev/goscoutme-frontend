@@ -5,12 +5,13 @@ import React from "react";
 import { Profile as ProfileIcon } from "../../../../public/icons/profile";
 import { Description } from "./description";
 import EditPhoto from "./editPhoto";
-import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/buttons";
+import useRedirectIfNoSubscription from "@/hooks/useRedirectIfNoSubscription";
 
 export const ScoutProfile = () => {
   const { profile, isLoading } = useUserStorage();
+  useRedirectIfNoSubscription();
 
   if (isLoading)
     return (

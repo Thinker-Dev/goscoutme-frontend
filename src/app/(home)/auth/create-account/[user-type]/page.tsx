@@ -1,4 +1,3 @@
-import { Title } from "@/components/auth/createAccount";
 import { SignUpHeader } from "@/components/auth/signUp";
 import { SignUpForm } from "@/components/form/signUp";
 import { TitleTypes } from "@/types/title";

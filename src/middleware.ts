@@ -19,37 +19,34 @@ export function middleware(request: NextRequest) {
 
   const profileData = getProfileData(profile);
 
-  if (pathname.startsWith("/dashboard")) {
-    if (!session) {
-      return NextResponse.redirect(new URL("/auth/login", request.url));
+  const redirectTo = (url: string) => {
+    return NextResponse.redirect(new URL(url, request.url));
+  };
+
+  const isAuthenticated = () => !!session;
+  const isAthlete = () => profileData?.athlete;
+
+  if (pathname.startsWith("/dashboard") || pathname.startsWith("/athlete")) {
+    if (!isAuthenticated()) {
+      return redirectTo("/auth/login");
     }
-    if (profileData?.athlete) {
-      return NextResponse.redirect(
-        new URL(`/athlete/${profileData.public_id}`, request.url)
-      );
+
+    if (isAthlete()) {
+      return redirectTo(`/athlete/${profileData.public_id}`);
     }
-  } else if (
+  }
+
+  if (
     pathname === "/" ||
     pathname === "/auth/create-account" ||
     pathname === "/auth/login"
   ) {
-    if (session) {
-      if (profileData?.athlete) {
-        return NextResponse.redirect(
-          new URL(`/athlete/${profileData.public_id}`, request.url)
-        );
+    if (isAuthenticated()) {
+      if (isAthlete()) {
+        return redirectTo(`/athlete/${profileData.public_id}`);
       } else if (profileData) {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
+        return redirectTo("/dashboard");
       }
-    }
-  } else if (pathname.startsWith("/athlete")) {
-    if (!session) {
-      return NextResponse.redirect(new URL("/auth/login", request.url));
-    }
-    if (profileData?.athlete) {
-      return NextResponse.redirect(
-        new URL(`/athlete/${profileData.public_id}`, request.url)
-      );
     }
   }
 

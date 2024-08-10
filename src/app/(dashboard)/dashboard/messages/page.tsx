@@ -1,4 +1,6 @@
 import { MessagesAndMeetings } from "@/components/messages-meetings";
+import Messages from "@/components/scout/messages";
+import useRedirectIfNoSubscription from "@/hooks/useRedirectIfNoSubscription";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="flex flex-col space-y-7 min-h-[calc(100vh-116px)]">
-      <MessagesAndMeetings />
+      <Messages />
     </main>
   );
 }
