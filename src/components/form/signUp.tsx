@@ -35,8 +35,6 @@ import {
 export const SignUpForm: FC = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/");
-  const lastSegment = pathSegments[pathSegments.length - 1];
-  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [dialog, setDialog] = useState<boolean>(false);
 
