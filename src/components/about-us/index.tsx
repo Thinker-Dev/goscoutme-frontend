@@ -3,6 +3,7 @@ import { Title } from "@/components/auth/createAccount";
 const AboutUs = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 pb-8">
+
       <Title className="text-center">About Goscout.me</Title>
 
       <section className="mb-12">

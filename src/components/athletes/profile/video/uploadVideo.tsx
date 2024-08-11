@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import { PlayIconPrimary } from "../../../../../public/icons/play";
 import { SubmitButton } from "@/components/buttons/submit";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -19,6 +19,10 @@ import {
 import { videoCategoriesData } from "@/data/videoCategoriesData";
 import useGetAthleteById from "@/hooks/athletes/useGetAthleteById";
 
+import { FileUploaderRegular } from '@uploadcare/react-uploader';
+import '@uploadcare/react-uploader/core.css';
+
+
 export const UploadVideo = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploadComplete, setUploadComplete] = useState(false);
@@ -34,6 +38,35 @@ export const UploadVideo = () => {
   const [uploadingFiles, setUploadingFiles] = useState<
     { file: File; progress: number; title: string }[]
   >([]);
+  const [selectedCategory, setSelectedCategory] = useState({
+    id: "",
+    name: "Choose Category",
+  });
+
+  const onUpload = async (url: string, name: string) => {
+    console.log(selectedCategory)
+    return await privateInstance
+      .post("/media/store_media", {
+        sport_attribute_id: +selectedCategory.id,
+        type: "VIDEO",
+        name: name,
+        media_url: url
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  }
+
+
+  const handleChangeEvent = async (items: any) => {
+    if (items.status === 'success') {
+      for (const item of items.allEntries) {
+        await onUpload(item.cdnUrl, item.name);
+      }
+      router.refresh();
+    }
+  };
 
   useEffect(() => {
     if (
@@ -149,10 +182,7 @@ export const UploadVideo = () => {
     return words.slice(0, 5).join(" ") + "...";
   };
 
-  const [selectedCategory, setSelectedCategory] = useState({
-    id: "",
-    name: "Choose Category",
-  });
+
 
   const handleSelect = (id: string, name: string) => {
     setSelectedCategory({ id, name });
@@ -168,6 +198,7 @@ export const UploadVideo = () => {
     );
 
   return (
+
     <div className="bg-light-blue rounded-b-md w-1/2 pt-12 pb-12 px-16">
       <div className="w-full flex my-10 flex-col items-center">
         <span className="font-extralight text-6xl text-center text-secondary font-lexenda_deca">
@@ -224,20 +255,22 @@ export const UploadVideo = () => {
           className="hidden"
           accept="video/mp4"
         />
+
         <label htmlFor="upload-video" className="mt-7 mb-4 cursor-pointer">
           Choose files
         </label>
-        <SubmitButton
+        <FileUploaderRegular onChange={handleChangeEvent} pubkey="28150d18d49c79791141" />
+        {/* <SubmitButton
+
           label={uploadComplete ? "Upload Complete" : "Upload Video"}
-          className={`bg-redish ${
-            selectedFiles.length === 0
-              ? "hover:bg-redish cursor-not-allowed"
-              : "hover:bg-redish/90"
-          }`}
+          className={`bg-redish ${selectedFiles.length === 0
+            ? "hover:bg-redish cursor-not-allowed"
+            : "hover:bg-redish/90"
+            }`}
           onClick={handleUpload}
           disabled={selectedFiles.length === 0}
           upload={uploadComplete ? false : true}
-        />
+        /> */}
       </div>
     </div>
   );
