@@ -18,7 +18,9 @@ import { useRecoilState } from "recoil";
 import { photoDialogClose } from "@/lib/recoil";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-
+import '@uploadcare/react-uploader/core.css';
+import { FileUploaderRegular } from '@uploadcare/react-uploader';
+import { useRouter } from "next/navigation";
 interface Props {
   athlete: Athlete | undefined;
   refetch: any;
@@ -29,7 +31,7 @@ const EditPhoto: FC<Props> = ({ athlete, refetch }: Props) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [sucess, setSucess] = useRecoilState(photoDialogClose);
-
+  const router = useRouter();
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -61,9 +63,42 @@ const EditPhoto: FC<Props> = ({ athlete, refetch }: Props) => {
         console.log(err);
       });
 
-    return `https://goscoutmee.s3.af-south-1.amazonaws.com/${
-      athlete?.profile.public_id
-    }/${file.name.replace(/ /g, "+")}`;
+    return `https://goscoutmee.s3.af-south-1.amazonaws.com/${athlete?.profile.public_id
+      }/${file.name.replace(/ /g, "+")}`;
+  };
+
+  const onUpload = async (url: string) => {
+    await privateInstance
+      .patch("/profile/update_profile", {
+        photo_url: url,
+      })
+      .then(() => {
+        refetch();
+        setSucess(false);
+        toast({
+          title: "Profile picture updated successfully!",
+        });
+        router.refresh()
+      })
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: err.response.data.message,
+          variant: "destructive",
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+  const handleChangeEvent = async (items: any) => {
+    if (items.status === 'success') {
+      for (const item of items.allEntries) {
+        setPreviewUrl(item.cdnUrl)
+        await onUpload(item.cdnUrl);
+      }
+      router.refresh();
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -148,11 +183,12 @@ const EditPhoto: FC<Props> = ({ athlete, refetch }: Props) => {
             </div>
 
             <div className="w-full flex justify-end">
-              <SubmitButton
+              <FileUploaderRegular onChange={handleChangeEvent} pubkey="28150d18d49c79791141" />
+              {/* <SubmitButton
                 label={"continue"}
                 loading={loading}
                 className="w-32 xs:text-sm"
-              />
+              /> */}
             </div>
           </form>
         </DialogContent>

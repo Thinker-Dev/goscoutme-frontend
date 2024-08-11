@@ -4,6 +4,7 @@ const nextConfig = {
     domains: [
       "localhost",
       "cdn.jsdelivr.net",
+      "ucarecdn.com",
       "goscoutmee.s3.af-south-1.amazonaws.com",
     ],
   },
