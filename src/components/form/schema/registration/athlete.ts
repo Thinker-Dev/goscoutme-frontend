@@ -56,7 +56,12 @@ export const AthleteRegistrationSchema = z.object({
   org_name: z.string().optional(),
   org_email: z.string().optional(),
   office: z.string().optional(),
-  org_phone: z.string().optional(),
+  org_phone: z.string({
+    required_error: "This field is required",
+  }),
+  country_code: z.string({
+    required_error: "This field is required",
+  }),
   org_mobile: z.string({
     required_error: "This field is required",
   }),

@@ -29,6 +29,8 @@ import { SelectPositionsInput } from "@/components/inputs/select/positions";
 import { SelectCoutriesInput } from "@/components/inputs/select/countries";
 import { useUserStorage } from "../../../hooks/useUserStorage";
 import { createProfileCookie } from "@/cookies/profile";
+import { PhoneNumberInput } from "@/components/inputs/phoneNumberInput";
+import { CountryCode } from "@/components/inputs/select/countryCode";
 
 export const AthleteRegistrationForm: FC = () => {
   const router = useRouter();
@@ -442,40 +444,43 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
           <div className="flex flex-col sm:justify-between max-sm:space-y-4">
-            {/* <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <TextInput
-                      type="number"
-                      label="Home Number"
-                      required
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
-            <FormField
-              control={form.control}
-              name="mobile"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <TextInput
-                      type="number"
-                      label="Contact Number"
-                      required
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex space-x-2 w-[206px]">
+              <FormField
+                control={form.control}
+                name="country_code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <CountryCode
+                        label="Code"
+                        required
+                        className="w-16"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="mobile"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <TextInput
+                        label="Contact Number"
+                        required
+                        type="number"
+                        className="w-full"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
         </div>
 
@@ -656,19 +661,29 @@ export const AthleteRegistrationForm: FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput type="number" label="Phone" {...field} />
+                    <TextInput
+                      type="number"
+                      label="Mobile"
+                      required
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="org_mobile"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput type="number" label="Mobile" {...field} />
+                    <PhoneNumberInput
+                      label="Alternative Number"
+                      required
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

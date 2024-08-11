@@ -7,9 +7,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CreditCard, LogOut, SettingsIcon, User } from "lucide-react";
+import { CreditCard, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { Profile } from "@/types/auth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import useGetAthleteById from "@/hooks/athletes/useGetAthleteById";
+import { usePathname } from "next/navigation";
 
 interface Props {
   handleSignOut: () => void;
@@ -30,6 +33,12 @@ export const ProfileDropdow = ({
     }
   };
 
+  const pathname = usePathname();
+  const pathSegments = pathname.split("/");
+  const lastSegment = pathSegments[pathSegments.length - 1];
+
+  const { data } = useGetAthleteById(lastSegment);
+
   return (
     <div>
       <DropdownMenu modal={false}>
@@ -37,7 +46,17 @@ export const ProfileDropdow = ({
           className="focus:outline-none"
           onClick={() => handleRefetch}
         >
-          <ProfileMini />
+          {data?.profile?.photo_url ? (
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={data.profile.photo_url} />
+              <AvatarFallback className="font-light">
+                {data.profile.first_name[0]}
+                {data.profile.last_name[0]}
+              </AvatarFallback>
+            </Avatar>
+          ) : (
+            <ProfileMini />
+          )}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-10">
           {athlete ? (
@@ -63,12 +82,14 @@ export const ProfileDropdow = ({
             <SettingsIcon className="w-[18px]" />
             <span>Settings</span>
           </DropdownMenuItem> */}
-          <Link href={athlete ? `/athlete/billing` : "/dashboard/billing"}>
-            <DropdownMenuItem className="space-x-3 cursor-pointer">
-              <CreditCard className="w-[18px]" />
-              <span>Billing</span>
-            </DropdownMenuItem>
-          </Link>
+          {!athlete && (
+            <Link href={athlete ? `/athlete/billing` : "/dashboard/billing"}>
+              <DropdownMenuItem className="space-x-3 cursor-pointer">
+                <CreditCard className="w-[18px]" />
+                <span>Billing</span>
+              </DropdownMenuItem>
+            </Link>
+          )}
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={handleSignOut}

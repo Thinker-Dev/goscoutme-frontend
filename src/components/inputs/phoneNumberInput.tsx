@@ -7,18 +7,20 @@ interface Props extends DefaultInputComponentProps {
   label: string;
   className?: string;
   onChange: any;
+  required: boolean;
 }
 
 export const PhoneNumberInput: FC<Props> = ({
   label,
   className,
   onChange,
+  required,
   ...rest
 }: Props) => {
   return (
     <div className="flex flex-col space-y-2">
       <span className="capitalize font-normal font-lexenda_deca text-[12px] ">
-        {label}
+        {label} {required && <span className="text-redish">*</span>}
       </span>
       <PhoneInput
         className={cn(

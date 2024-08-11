@@ -19,7 +19,6 @@ import { NotificationDropdown } from "./notification";
 
 export const AthleteHeader: FC = () => {
   const router = useRouter();
-  const pathname = usePathname();
   const { profile } = useUserStorage();
 
   const handleSignOut = () => {
