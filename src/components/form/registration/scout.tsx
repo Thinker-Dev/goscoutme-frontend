@@ -29,6 +29,7 @@ import { useUserStorage } from "../../../hooks/useUserStorage";
 import { createProfileCookie } from "@/cookies/profile";
 import { PhoneNumberInput } from "@/components/inputs/phoneNumberInput";
 import { CountryCode } from "@/components/inputs/select/countryCode";
+import { PhoneNumberInputV2 } from "@/components/inputs/phoneNumberInputV2";
 
 export const ScoutRegistrationForm: FC = () => {
   const router = useRouter();
@@ -298,43 +299,23 @@ export const ScoutRegistrationForm: FC = () => {
             )}
           />
           <div className="flex flex-col sm:justify-between max-sm:space-y-4">
-            <div className="flex space-x-2">
-              <FormField
-                control={form.control}
-                name="country_code"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <CountryCode
-                        label="Code"
-                        required
-                        className="w-16"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="org_phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <TextInput
-                        label="Contact Number"
-                        required
-                        type="number"
-                        className="w-full"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FormField
+              control={form.control}
+              name="org_phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <PhoneNumberInputV2
+                      label="Contact Number"
+                      required
+                      className="w-full"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="org_email"

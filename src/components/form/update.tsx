@@ -26,6 +26,7 @@ import { SelectCoutriesInput } from "@/components/inputs/select/countries";
 import { useUserStorage } from "../../hooks/useUserStorage";
 import { UpdateSchema } from "./schema/update";
 import axios from "axios";
+import { PhoneNumberInputV2 } from "../inputs/phoneNumberInputV2";
 
 interface Props {
   athlete: Athlete | undefined;
@@ -514,9 +515,10 @@ export const UpdateForm: FC<Props> = ({ athlete, refetch }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <TextInput
-                      type="number"
+                    <PhoneNumberInputV2
                       label="Contact Number"
+                      required
+                      className="w-full"
                       {...field}
                     />
                   </FormControl>

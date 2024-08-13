@@ -121,7 +121,7 @@ export const Profile: FC = () => {
           />
         )}
         <Fragment>
-          <QuickStats />
+          {/* <QuickStats /> */}
           <Videos currentUser={currentUser} athlete={athlete} />
           <VideoPlayer />
         </Fragment>

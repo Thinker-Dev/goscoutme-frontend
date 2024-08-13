@@ -31,6 +31,7 @@ import { useUserStorage } from "../../../hooks/useUserStorage";
 import { createProfileCookie } from "@/cookies/profile";
 import { PhoneNumberInput } from "@/components/inputs/phoneNumberInput";
 import { CountryCode } from "@/components/inputs/select/countryCode";
+import { PhoneNumberInputV2 } from "@/components/inputs/phoneNumberInputV2";
 
 export const AthleteRegistrationForm: FC = () => {
   const router = useRouter();
@@ -444,34 +445,16 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
           <div className="flex flex-col sm:justify-between max-sm:space-y-4">
-            <div className="flex space-x-2 w-[206px]">
-              <FormField
-                control={form.control}
-                name="country_code"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <CountryCode
-                        label="Code"
-                        required
-                        className="w-16"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <div className="w-[206px]">
               <FormField
                 control={form.control}
                 name="mobile"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <TextInput
+                      <PhoneNumberInputV2
                         label="Contact Number"
                         required
-                        type="number"
                         className="w-full"
                         {...field}
                       />
@@ -655,40 +638,42 @@ export const AthleteRegistrationForm: FC = () => {
             )}
           />
           <div className="flex flex-col justify-between">
-            <FormField
-              control={form.control}
-              name="org_phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <TextInput
-                      type="number"
-                      label="Mobile"
-                      required
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="org_mobile"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <PhoneNumberInput
-                      label="Alternative Number"
-                      required
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="w-[206px] flex flex-col justify-between h-full">
+              <FormField
+                control={form.control}
+                name="org_phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <PhoneNumberInputV2
+                        label="Mobile"
+                        required
+                        className="w-full"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="org_mobile"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <PhoneNumberInputV2
+                        label="Alternative Number"
+                        required
+                        className="w-full"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
         </div>
         <FormField
@@ -752,7 +737,7 @@ export const AthleteRegistrationForm: FC = () => {
             </FormItem>
           )}
         />
-        <div className="pt-3 space-y-2">
+        {/* <div className="pt-3 space-y-2">
           <span className="font-lexenda_exa font-extrabold text-primary uppercase">
             career statistics
           </span>
@@ -854,7 +839,7 @@ export const AthleteRegistrationForm: FC = () => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="pt-4 flex justify-center">
           <SubmitButton
             loading={loading}
